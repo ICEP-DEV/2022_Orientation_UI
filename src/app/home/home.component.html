@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky" id="mainNav">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="./">
+      <img src="https://dh2dlbjd2qx17.cloudfront.net/img/tut-logo.png" alt="" width="260" height="80" style="padding: auto;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
+      <ul class="navbar-nav me-auto" style="margin-left: 20px;">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="./" >Home |</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="./blog">Blog </a>
+        </li>
+      </ul>
+      
+      <div class>
+          <ul class="navbar-nav ms-auot">
+         <!-- <li><img class="user-img" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="user icon" style="position:relative; top: 5px;"></li> -->
+          <li><a class="nav-link" id="sign-in" routerLink="./student-login">Sign in</a></li>  
+          <li><a class="nav-link" id="sign-up" routerLink="./student-reg">Sign up</a></li>
+        </ul>
+        </div>
+
+    </div>
+  </div>
+</nav>
+
+
+<!-- Header -->
+<header class="text-center" name="home" style="padding-top: 100px;">
+  <div class="intro-text">
+
+   <div class="heading">TUT Online Orientation</div>
+        <p style="font-weight:normal; color: white; font-size: 3vw; padding-top: 5px;"> for first time entering students.</p> 
+    
+      <a routerLink="student-login" class="btn btn-default btn-lg page-scroll">START ORIENTATION
+        <em class="ml-2" data-feather="arrow-right"></em>
+      </a> 
+      
+  </div>
+  
+
+
+</header>
+<mat-card style="padding-bottom: 60px ;">
+  <p style="color: #0d4794 ; text-align: center; font-size: small;"> Tshwane University of Technology in patnership with </p>
+  <!--
+  <img src="https://dh2dlbjd2qx17.cloudfront.net/img/Picture2.png" width="100px" class="center">
+  <img src="https://dh2dlbjd2qx17.cloudfront.net/img/1200px-DHEAT_logo.png" width="100px" class="center">-->
+  <div class="row">
+    <div class="logo center">
+      <img src="https://dh2dlbjd2qx17.cloudfront.net/img/Picture2.png" alt="Snow" style="width:100px;float: right;">
+    </div>
+    <div class="logo center">
+      <img src="https://dh2dlbjd2qx17.cloudfront.net/img/1200px-DHEAT_logo.png" alt="Forest" style="width:100px; float: left; position:relative;top: 11px;">
+    </div>
+   
+  </div>
+</mat-card>
+
+<!-- Page Content 
+<section class="py-5">
+  <div class="container">
+    <a routerLink="./campus" class="btn blue circular" >Start Orientation</a>
+  </div>
+</section> -->

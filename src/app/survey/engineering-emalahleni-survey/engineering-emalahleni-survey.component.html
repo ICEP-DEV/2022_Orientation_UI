@@ -1,0 +1,80 @@
+<mat-step [stepControl]="profileForm" >
+    <mat-card>    
+      <form #values="ngForm">
+        <div *ngIf="!submitted">
+          <ng-template matStepLabel> Complete the Survey </ng-template>
+        
+          <mat-form-field> 
+              <mat-label>Name</mat-label>
+              <!-- <input matInput placeholder="First name" name="name" [(ngModel)]="surveyData.name" required> -->
+              <input matInput placeholder="First name" id="name" name="name"  type="text"  [(ngModel)]="survey.name" required>   
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Cell Number</mat-label>
+              <input matInput placeholder="Cell number" name="cellNum" id="cell" type="number"  [(ngModel)]="survey.cell" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+              <mat-label>Faculty</mat-label>
+              <input matInput placeholder="Faculty" name="faculty" id="faculty" type="text"  [(ngModel)]="survey.faculty" required>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+            <mat-label>Architecture and industrial Design department offers one and only one qualification. True/False</mat-label>
+            <mat-select [(ngModel)]="selectedOption" name="food" (ngModelChange)="onValueChanged($event)">
+              <mat-option *ngFor="let option of options" [value]="option.answer">
+                {{option.answer}}
+              </mat-option>
+          </mat-select>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+            <mat-label>Classes are NOT scheduled daily according to the timetable, you come as you please. True/False</mat-label>
+            <mat-select [(ngModel)]="selectedOption1" name="food" (ngModelChange)="onValueChanged($event)">
+              <mat-option *ngFor="let option of options1" [value]="option.answer">
+                {{option.answer}}
+              </mat-option>
+            </mat-select>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+            <mat-label>Is 80% attendance Mandatory in class? True/False</mat-label>
+            <mat-select [(ngModel)]="selectedOption2" name="food" (ngModelChange)="onValueChanged($event)">
+              <mat-option *ngFor="let option of options2" [value]="option.answer">
+                {{option.answer}}
+              </mat-option>
+            </mat-select>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+          <mat-label>Is Campus clinic is available at Pretoria Campus? Yes/No</mat-label>
+          <mat-select [(ngModel)]="selectedOption3" name="food" (ngModelChange)="onValueChanged($event)">
+            <mat-option *ngFor="let option of options3" [value]="option.answer">
+              {{option.answer}}
+            </mat-option>
+          </mat-select>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+          <mat-label>Which video from the campus & support Request you to submit confidential information?</mat-label>
+          <mat-select [(ngModel)]="selectedOption4" name="food" (ngModelChange)="onValueChanged($event)">
+            <mat-option *ngFor="let option of options4" [value]="option.answer">
+              {{option.answer}}
+            </mat-option>
+          </mat-select>   
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext (click)="submitSurvey()">Next</button>
+          </div>
+        </div>
+  
+        <div *ngIf="submitted">
+          <h4>You submitted successfully!</h4>
+          <button class="btn btn-success" (click)="newSurvey()">Add</button>
+        </div>
+  
+      </form>
+    </mat-card>
+  </mat-step>

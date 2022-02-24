@@ -1,0 +1,93 @@
+<form #values="ngForm">
+    <div *ngIf="!submitted">
+      <ng-template matStepLabel> Complete the Survey </ng-template>
+    
+      <mat-form-field> 
+          <!-- <input matInput placeholder="First name" name="name" [(ngModel)]="surveyData.name" required> -->
+          <input matInput placeholder="First name" id="name" name="name"  type="text"  [(ngModel)]="survey.name" required>   
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+          <input matInput placeholder="Cell number" name="cellNum" id="cell" type="number"  [(ngModel)]="survey.cell" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field> 
+          <input matInput placeholder="Faculty" name="faculty" id="faculty" type="text"  [(ngModel)]="survey.faculty" required>   
+      </mat-form-field>
+      <br>
+      <mat-form-field> 
+          <mat-label>What advice did Prof stanely mention about Covid rules, choose the correct set of rules below?</mat-label>
+          <mat-select [(ngModel)]="selectedOption" name="food" (ngModelChange)="onValueChanged($event)">
+            <mat-option *ngFor="let option of options" [value]="option.answer">
+              {{option.answer}}
+            </mat-option>
+          </mat-select>   
+      </mat-form-field>
+      <br>
+      <mat-form-field> 
+        <mat-label>What does MyTutor offer?</mat-label>
+        <mat-select [(ngModel)]="selectedOption1" name="food" (ngModelChange)="onValueChanged($event)">
+          <mat-option *ngFor="let option of options1" [value]="option.answer">
+            {{option.answer}}
+          </mat-option>
+        </mat-select>   
+      </mat-form-field>
+      <br>
+      <mat-form-field> 
+        <mat-label>Why do libraries exist?</mat-label>
+        <mat-select [(ngModel)]="selectedOption2" name="food" (ngModelChange)="onValueChanged($event)">
+          <mat-option *ngFor="let option of options2" [value]="option.answer">
+            {{option.answer}}
+          </mat-option>
+        </mat-select>   
+      </mat-form-field>
+      <br>
+      <mat-form-field> 
+      <mat-label>What is the correct name of the Executive dean of faculty of arts...</mat-label>
+      <mat-select [(ngModel)]="selectedOption3" name="food" (ngModelChange)="onValueChanged($event)">
+        <mat-option *ngFor="let option of options3" [value]="option.answer">
+          {{option.answer}}
+        </mat-option>
+      </mat-select>   
+      </mat-form-field>
+      <br>
+      <mat-form-field> 
+      <mat-label>Which department & unit focuses on fashion design & technology, jewelry design, manufacturing program...</mat-label>
+      <mat-select [(ngModel)]="selectedOption4" name="food" (ngModelChange)="onValueChanged($event)">
+        <mat-option *ngFor="let option of options4" [value]="option.answer">
+          {{option.answer}}
+        </mat-option>
+      </mat-select>   
+      </mat-form-field>
+      <br>
+      <mat-form-field> 
+        <mat-label>Which department and unit focuses on these following modules computer aided design, graphic technique, system integration and color coordination.</mat-label>
+        <mat-select [(ngModel)]="selectedOption5" name="food" (ngModelChange)="onValueChanged($event)">
+          <mat-option *ngFor="let option of options5" [value]="option.answer">
+            {{option.answer}}
+          </mat-option>
+        </mat-select>  
+      </mat-form-field>
+      <br>
+      <br>
+      <mat-form-field> 
+        <mat-label>True or False a study guide gives an overview of information Expected from your Module?</mat-label>
+        <mat-select [(ngModel)]="selectedOption6" name="food" (ngModelChange)="onValueChanged($event)">
+          <mat-option *ngFor="let option of options6" [value]="option.answer">
+            {{option.answer}}
+          </mat-option>
+        </mat-select>  
+      </mat-form-field>
+      <br>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext (click)="submitSurvey()">Next</button>
+      </div>
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>You submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newSurvey()">Add</button>
+    </div>
+
+</form>
