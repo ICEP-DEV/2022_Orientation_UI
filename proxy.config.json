@@ -1,7 +1,0 @@
-{
-    "/api/*": {
-        "target": "https://x0ses6l8i4.execute-api.us-east-1.amazonaws.com/prod/survey",
-        "secure": false,
-        "logLevel": "debug"
-    }
-}

@@ -1,0 +1,40 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: base.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+export const proxyPolyfillCompat = {
+    app: null,
+    applyActionCode: null,
+    checkActionCode: null,
+    confirmPasswordReset: null,
+    createUserWithEmailAndPassword: null,
+    currentUser: null,
+    fetchSignInMethodsForEmail: null,
+    isSignInWithEmailLink: null,
+    getRedirectResult: null,
+    languageCode: null,
+    settings: null,
+    onAuthStateChanged: null,
+    onIdTokenChanged: null,
+    sendSignInLinkToEmail: null,
+    sendPasswordResetEmail: null,
+    setPersistence: null,
+    signInAndRetrieveDataWithCredential: null,
+    signInAnonymously: null,
+    signInWithCredential: null,
+    signInWithCustomToken: null,
+    signInWithEmailAndPassword: null,
+    signInWithPhoneNumber: null,
+    signInWithEmailLink: null,
+    signInWithPopup: null,
+    signInWithRedirect: null,
+    signOut: null,
+    tenantId: null,
+    updateCurrentUser: null,
+    useDeviceLanguage: null,
+    useEmulator: null,
+    verifyPasswordResetCode: null,
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFzZS5qcyIsInNvdXJjZVJvb3QiOiIvd29ya3NwYWNlL3NyYy9hdXRoLyIsInNvdXJjZXMiOlsiYmFzZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxNQUFNLE9BQU8sbUJBQW1CLEdBQUc7SUFDakMsR0FBRyxFQUFFLElBQUk7SUFDVCxlQUFlLEVBQUUsSUFBSTtJQUNyQixlQUFlLEVBQUUsSUFBSTtJQUNyQixvQkFBb0IsRUFBRSxJQUFJO0lBQzFCLDhCQUE4QixFQUFFLElBQUk7SUFDcEMsV0FBVyxFQUFFLElBQUk7SUFDakIsMEJBQTBCLEVBQUUsSUFBSTtJQUNoQyxxQkFBcUIsRUFBRSxJQUFJO0lBQzNCLGlCQUFpQixFQUFFLElBQUk7SUFDdkIsWUFBWSxFQUFFLElBQUk7SUFDbEIsUUFBUSxFQUFFLElBQUk7SUFDZCxrQkFBa0IsRUFBRSxJQUFJO0lBQ3hCLGdCQUFnQixFQUFFLElBQUk7SUFDdEIscUJBQXFCLEVBQUUsSUFBSTtJQUMzQixzQkFBc0IsRUFBRSxJQUFJO0lBQzVCLGNBQWMsRUFBRSxJQUFJO0lBQ3BCLG1DQUFtQyxFQUFFLElBQUk7SUFDekMsaUJBQWlCLEVBQUUsSUFBSTtJQUN2QixvQkFBb0IsRUFBRSxJQUFJO0lBQzFCLHFCQUFxQixFQUFFLElBQUk7SUFDM0IsMEJBQTBCLEVBQUUsSUFBSTtJQUNoQyxxQkFBcUIsRUFBRSxJQUFJO0lBQzNCLG1CQUFtQixFQUFFLElBQUk7SUFDekIsZUFBZSxFQUFFLElBQUk7SUFDckIsa0JBQWtCLEVBQUUsSUFBSTtJQUN4QixPQUFPLEVBQUUsSUFBSTtJQUNiLFFBQVEsRUFBRSxJQUFJO0lBQ2QsaUJBQWlCLEVBQUUsSUFBSTtJQUN2QixpQkFBaUIsRUFBRSxJQUFJO0lBQ3ZCLFdBQVcsRUFBRSxJQUFJO0lBQ2pCLHVCQUF1QixFQUFFLElBQUk7Q0FDOUIiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY29uc3QgcHJveHlQb2x5ZmlsbENvbXBhdCA9IHtcbiAgYXBwOiBudWxsLFxuICBhcHBseUFjdGlvbkNvZGU6IG51bGwsXG4gIGNoZWNrQWN0aW9uQ29kZTogbnVsbCxcbiAgY29uZmlybVBhc3N3b3JkUmVzZXQ6IG51bGwsXG4gIGNyZWF0ZVVzZXJXaXRoRW1haWxBbmRQYXNzd29yZDogbnVsbCxcbiAgY3VycmVudFVzZXI6IG51bGwsXG4gIGZldGNoU2lnbkluTWV0aG9kc0ZvckVtYWlsOiBudWxsLFxuICBpc1NpZ25JbldpdGhFbWFpbExpbms6IG51bGwsXG4gIGdldFJlZGlyZWN0UmVzdWx0OiBudWxsLFxuICBsYW5ndWFnZUNvZGU6IG51bGwsXG4gIHNldHRpbmdzOiBudWxsLFxuICBvbkF1dGhTdGF0ZUNoYW5nZWQ6IG51bGwsXG4gIG9uSWRUb2tlbkNoYW5nZWQ6IG51bGwsXG4gIHNlbmRTaWduSW5MaW5rVG9FbWFpbDogbnVsbCxcbiAgc2VuZFBhc3N3b3JkUmVzZXRFbWFpbDogbnVsbCxcbiAgc2V0UGVyc2lzdGVuY2U6IG51bGwsXG4gIHNpZ25JbkFuZFJldHJpZXZlRGF0YVdpdGhDcmVkZW50aWFsOiBudWxsLFxuICBzaWduSW5Bbm9ueW1vdXNseTogbnVsbCxcbiAgc2lnbkluV2l0aENyZWRlbnRpYWw6IG51bGwsXG4gIHNpZ25JbldpdGhDdXN0b21Ub2tlbjogbnVsbCxcbiAgc2lnbkluV2l0aEVtYWlsQW5kUGFzc3dvcmQ6IG51bGwsXG4gIHNpZ25JbldpdGhQaG9uZU51bWJlcjogbnVsbCxcbiAgc2lnbkluV2l0aEVtYWlsTGluazogbnVsbCxcbiAgc2lnbkluV2l0aFBvcHVwOiBudWxsLFxuICBzaWduSW5XaXRoUmVkaXJlY3Q6IG51bGwsXG4gIHNpZ25PdXQ6IG51bGwsXG4gIHRlbmFudElkOiBudWxsLFxuICB1cGRhdGVDdXJyZW50VXNlcjogbnVsbCxcbiAgdXNlRGV2aWNlTGFuZ3VhZ2U6IG51bGwsXG4gIHVzZUVtdWxhdG9yOiBudWxsLFxuICB2ZXJpZnlQYXNzd29yZFJlc2V0Q29kZTogbnVsbCxcbn07XG4iXX0=
