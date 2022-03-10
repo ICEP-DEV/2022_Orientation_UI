@@ -1,0 +1,21 @@
+.btn {
+  margin: 5px;
+  font-size: small;
+}
+
+mat-card{
+ margin-top: 20px; 
+}
+
+.button-grp{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-primary {
+  background-color:#0d4794;
+}
+
+.btn-warning {
+  color: #0d4794;
+}

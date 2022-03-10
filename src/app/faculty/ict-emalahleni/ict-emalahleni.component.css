@@ -1,0 +1,91 @@
+.page-container {
+    padding-top: 30px;
+   display: block;
+   padding-bottom: 100px;
+  
+  }
+  
+  /* Column Cards */
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  /* Float four columns side by side */
+  .column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+  }
+  
+  /* Remove extra left and right margins, due to padding in columns */
+  .row {margin: 0 -5px;}
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Style the counter cards */
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    padding: 5px;
+    text-align: center;
+    background-color: #f1f1f1;
+  }
+  
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
+  
+  
+  
+  /*    video   */
+  #instructions{
+    margin:0;
+    width:100%;
+    height:auto;
+  }
+  
+  #instructions video{
+    background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
+    background-size: cover;
+    transition: 1s opacity;
+    z-index:-1;
+  }
+  
+  .card-body {
+    min-height: 300px;
+    min-width: 300px;
+    margin-right: 5px;
+  }
+  
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media  screen and (max-width: 600px)  {
+    .sec-title {
+      font-size: 10px;
+    }
+  }
+  
+  /* Header/Logo Title */
+  .header {
+    padding: 60px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+    font-size: 30px;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAxEkTt5cFcmIAB4_yKQKgjAWyLTi8TQgQuA&usqp=CAU');
+    background-repeat: no-repeat;
+    background-size: 100;
+  }

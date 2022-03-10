@@ -1,0 +1,13 @@
+.page-container {
+    padding-top: 30px;
+    display: block;
+    padding-bottom: 100px;
+}
+
+.sec-title {
+    padding-top: 10px;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 25px;
+    color:#0d4794;
+}

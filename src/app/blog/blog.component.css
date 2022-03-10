@@ -1,0 +1,32 @@
+.page-container {
+    padding-top: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+   display: block;
+ 
+}
+
+.card {
+    max-width: 600px;
+    margin: 10px;
+  }
+
+  .redirect-link{
+    font-weight: bold; 
+    color:#0d4794;
+  }
+
+  .redirect-link:hover{
+    font-size: 19px;
+  }
+
+  #mytutor{
+      max-height: 500px;
+      max-width: 200px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+  }
+ 
+
+ 

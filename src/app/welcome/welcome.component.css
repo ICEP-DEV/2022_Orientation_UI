@@ -1,0 +1,12 @@
+.page-container {
+    padding-top: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+   display: block;
+ 
+}
+
+.example-card {
+	max-width: 400px;
+  }
+  

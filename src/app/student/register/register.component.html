@@ -1,0 +1,60 @@
+<div *ngIf="!stepTwo" class="container page-container" style="width: 30rem;border-radius: 25px;margin-top: 2%;box-shadow: 10px 24px 70px -18px rgba(0, 0, 0, 0.32);">
+    <div style="width:70%;margin-left: 15%;">
+
+        <p style="padding-top: 15px; font-weight: bold; font-size: 17px;  text-align: center;"> Complete the form to register. </p>
+        <p style="padding-top: 5px; font-size: 13px;  text-align: center;"> Step 1/2 </p>
+        <span *ngIf="error" (click)="removeError()">{{ error }}</span>
+        <form>
+            <!-- <div class="form-group">
+                <label for="exampleInputEmail1">First name</label>
+                <input type="email" class="form-control" id="exampleInputFirstname" placeholder="Enter your first name" name="firstname" [(ngModel)]="firstname" required>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Last name</label>
+                <input type="email" class="form-control" id="exampleInputLastname" placeholder="Enter your last name" name="lastName" [(ngModel)]="lastName" required>
+            </div> -->
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" [(ngModel)]="email" required>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control"  id="exampleInputPassword1" placeholder="Password" name="password" [(ngModel)]="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Confirm Password</label>
+                <input type="password" class="form-control"  id="exampleInputPassword2" placeholder="Confirm Password" name="password" [(ngModel)]="password2" required>
+            </div>
+
+            <button type="submit" style="margin-left: 35%; margin-top: 7%;margin-bottom: -9%;" class="btn btn-primary" (click)="sendOTP()">Next</button>
+        </form>
+
+    </div>
+</div>
+
+
+<div *ngIf="stepTwo" class="container page-container" style="width: 30rem;border-radius: 25px;margin-top: 2%;box-shadow: 10px 24px 70px -18px rgba(0, 0, 0, 0.32);">
+    <div style="width:70%;margin-left: 15%;">
+
+        <p style="padding-top: 15px; font-weight: bold; font-size: 17px;  text-align: center;"> Complete the form to register. </p>
+        <p style="padding-top: 5px; font-size: 13px;  text-align: center;"> Step 2/2 </p>
+        <span *ngIf="error" (click)="removeError()">{{ error }}</span>
+        <form>
+            
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">One Time Pin</label>
+                <input type="text" class="form-control" id="otp" aria-describedby="emailHelp" placeholder="Enter OTP" name="otp" [(ngModel)]="otpField" required>
+                <small id="emailHelp" class="form-text text-muted">Do not share the OTP with anyone else.</small>
+            </div>
+
+            <button type="submit" style="margin-left: 35%; margin-top: 7%;margin-bottom: -9%;" class="btn btn-primary" (click)="register()">Register</button>
+        </form>
+
+    </div>
+</div>

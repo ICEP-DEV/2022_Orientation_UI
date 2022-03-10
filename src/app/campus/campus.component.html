@@ -1,0 +1,214 @@
+<div class="hero-image">
+  <div class="hero-text">
+    <h1 id="hero-heading"style="font-size:40px; font-weight: 600;">  First Year Orientation </h1>
+    <p> Get to know your campus, library, student support and department staff.</p>
+  </div>
+</div>
+
+<div class="page-container" style="padding-bottom: 100px;">
+  <!-- Progress Stepper Bar -->
+  <mat-card style="align-content: center;">
+    <mat-card-title style="align-content: center; font-size:medium;">Online Orientation Progress.</mat-card-title>
+    <mat-vertical-stepper fxLayout="column" [linear]="isLinear" #stepper>
+      <mat-step label='Start'>
+        
+          <ng-template matStepLabel style="background-color: #0d4794;">Start Orientation</ng-template>
+          <p>Click next to start the orientation.</p>
+          <div>
+            <button mat-button matStepperNext style="background-color: #de0428; color: white;">Next</button>
+          </div>
+        
+      </mat-step>
+      <mat-step label='Select Campus'>
+        
+        <ng-template matStepLabel>Select Campus</ng-template>
+        <p>Please choose your campus below to continue.</p>
+
+        <div class="button-grp">
+          <button type="button" class="btn btn-primary" (click)="assignComponent('arcadia')"> Arcadia </button>
+          <button type="button" class="btn btn-primary" (click)="assignComponent('arts')"> Arts </button>
+          <button type="button" class="btn btn-primary" (click)="assignComponent('emalahleni')"> eMalahleni </button>
+          <button type="button" class="btn btn-primary" (click)="assignComponent('garankuwa')"> Ga-Rankuwa </button>
+          <button type="button" class="btn btn btn-primary" (click)="assignComponent('mbombela')"> Mbombela </button>
+          <button type="button" class="btn btn-primary" (click)="assignComponent('polokwane')"> Polokwane </button>
+          <button type="button" class="btn btn-primary" (click)="assignComponent('pretoria')" >Pretoria</button>
+          <button type="button" class="btn btn btn-primary" (click)="assignComponent('sosh-south')"> Soshanguve South </button>
+          <button type="button" class="btn btn-primary" (click)="assignComponent('sosh-north')"> Soshanguve North </button>
+        </div>
+        <!--
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193608.30501934033!2d27.991585828177655!3d-25.6213319067973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95621c9c7f5eb5%3A0x18ee995aaa96adda!2sTUT%20Arcadia!5e0!3m2!1sen!2sza!4v1643188613771!5m2!1sen!2sza" width="80%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        -->
+        <div class="stepper-next">
+          <button mat-button matStepperNext style="background-color: #de0428; color: white;">Next</button>
+        </div>
+        
+      </mat-step>
+      <mat-step label='Select Faculty'>
+        
+        <ng-template matStepLabel>Select Faculty</ng-template>
+        <p>Please choose your faculty below to continue.</p>
+        
+        <div>
+          <h1><ng-container *ngComponentOutlet="campusComponent"> No Campus yet selected.</ng-container></h1>
+        </div>
+
+        <br>
+        <div>
+          <button mat-button matStepperNext class="btn-2" style="background-color: #de0428; color: white;">Next</button>
+        </div>
+
+      </mat-step>
+      <mat-step label='Watch Orientation Videos'>
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+        </div>
+
+        <div>
+          <ng-template matStepLabel>Watch Orientation Videos</ng-template>
+          <p>Please Watch the Orientation Videos</p>
+
+          <mat-card style="margin-bottom: 20px;">
+      
+            <p style="padding-top: 15px; font-size: 14px; color:#0d4794;"> Please watch the following videos and select a campus to continue</p>
+              
+            <div class="row">
+        
+              <div class="column">
+                <div class="card">
+        
+                  <div id="vc">
+                      
+                      <mat-card-content>
+                        <img mat-card-image  src="https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg" height="130px" alt="Photo of a Shiba Inu">
+                        
+                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Prof Tinyiko Maluleke</p>
+                        Vice Chancellor and Principal
+                      </mat-card-content>
+                  </div>
+        
+                </div>
+              </div>
+        
+              <div class="column">
+                <div class="card">
+        
+                  <div id="*dvc">
+                      <video id="dvc-vid" class="video-js vjs-default-skin"  controls preload="none"
+                        poster='https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg'
+                        #videoplayer controls  width="100%">
+                        <source src="https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Prof+Ben+van+Wyk.mp4" type='video/mp4' />
+        
+                      </video>
+                      
+                      <mat-card-content>
+                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Prof Ben van Wyk</p>
+                          Deputy Vice Chancellor
+                      </mat-card-content>
+                  </div>
+        
+                </div>
+              </div>
+        
+              <div class="column">
+                <div class="card">
+        
+                  <div id="brightspace-div">
+                      
+                      <video id="brightspace-vid" class="video-js vjs-default-skin"  controls preload="none"
+                        poster='https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg'
+                        #videoplayer controls  width="100%">
+                        <source src="https://dh2dlbjd2qx17.cloudfront.net/videos/general/Introduction+To+Brightspace.mp4" type='video/mp4' />
+        
+                      </video>
+                      
+                      <mat-card-content>
+                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Brightspace </p>
+                        Learning Management System
+                      </mat-card-content>
+                  </div>
+        
+                </div>
+              </div>
+        
+              <div class="column">
+                <div class="card">
+        
+                  <div id="library">
+                      
+                      <video id="library-vid" class="video-js vjs-default-skin"  controls preload="none"
+                        poster='https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg'
+                        #videoplayer controls  width="100%">
+                        <source src="https://dh2dlbjd2qx17.cloudfront.net/videos/general/Library+%26+Information+Services%2C+an+introduction.mp4" type='video/mp4' />
+        
+                      </video>
+                      
+                      <mat-card-content>
+                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Library  </p>
+                        Library and Information Services
+                      </mat-card-content>
+                  </div>
+        
+                </div>
+              </div>
+
+              <div class="column">
+                <div class="card">
+        
+                  <div id="vaccination">
+                      
+                      <video id="my_video_1" class="video-js vjs-default-skin"  controls preload="none"
+                        poster='https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg'
+                        #videoplayer controls  width="100%">
+                        <source src="https://dh2dlbjd2qx17.cloudfront.net/videos/iNew+Videos/Vaccination+_Vid.mp4" type='video/mp4' />
+        
+                      </video>
+                      
+                      <mat-card-content>
+                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Vaccination  </p>
+                        Health and Wellness
+                      </mat-card-content>
+                  </div>
+        
+                </div>
+              </div>
+
+            </div>
+          
+          </mat-card>
+          
+            <h1 style="padding-top: 5px; text-align: center; font-weight: bold; font-size: 20px; color:#0d4794;"> Selected Faculty </h1>
+        
+            <div>
+              <h1><ng-container *ngComponentOutlet="facultyComponent"> NO FACULTY YET SELECTED </ng-container></h1>
+            </div>
+        
+          <div class="stepper-next">
+            <button mat-button matStepperNext style="background-color: #de0428; color: white;">Next</button>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step label="Survey">
+        <mat-card >    
+          
+            <div>
+              <h1><ng-container *ngComponentOutlet="surveyComponent"> NO FACULTY YET SELECTED </ng-container></h1>
+            </div>
+              
+            <div>
+              <button mat-button matStepperNext style="background-color: #de0428; color: white;" type="button" >Next </button>
+            </div>
+    
+        </mat-card>
+      </mat-step>
+      <mat-step label="Finish">
+        <ng-template matStepLabel>Finish Online Orientation</ng-template>
+        <p> You have successfully completed the 2022 online orientation. Thank you.</p>
+        <p style="font-weight: bold;"> What's Next?</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Start Again</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>  
+  </mat-card>
+</div>
