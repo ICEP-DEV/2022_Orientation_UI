@@ -66,7 +66,7 @@ export class FirebaseService {
   logout() {
     this.firebaseAuth.signOut().then( () => {
       localStorage.removeItem('token');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/student-login']);
     }, err => {
       alert(err.message);
     })

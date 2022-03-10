@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, ViewChild,Input } from '@angular/core';
+import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { UserService } from "../../user.service";
- 
+//import { ToastComponent } from "../../system/toast/toast.component"
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -16,13 +17,22 @@ export class SignInComponent implements OnInit {
 
   email : string = '';
   password : string = '';
-
+  message : string = 'Cebolenkosi'
+  isOpen : boolean = false;
+ 
+ 
   
-  constructor(private _userService: UserService, private router: Router) { }
+  constructor(private _userService: UserService, private router: Router,private cookieService: CookieService) { }
 
 
   ngOnInit(): void {
    
+  }
+  fogotClicked()
+  {
+    this.router.navigate(['forgotten'])
+    // this.message = "incorrect password"
+    // this.isOpen = !this.isOpen
   }
 
   login() {
@@ -36,9 +46,9 @@ export class SignInComponent implements OnInit {
       return;
     }
     this._userService.getStudents({"email":this.email, "password":this.password}).subscribe((result)=>{
-        console.log(result)
           if(result.error == false)
           {
+            this.cookieService.put("userEmail",result.data[0].email,{secure:true,sameSite:"strict"})
             this.router.navigate(['campus'])
           }
           else

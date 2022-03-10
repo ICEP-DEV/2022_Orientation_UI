@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 
-
+  userEmail = ''
   usersURL = "https://jsonplaceholder.typicode.com/users";
   studentsURL = "https://x0ses6l8i4.execute-api.us-east-1.amazonaws.com/prod/students";
   /* registerStudent = "http://localhost:4242/api/users/regStud"; */
@@ -39,9 +39,19 @@ export class UserService {
     return this.http.post<any>("http://localhost:6900/login",student,{});
   }
 
+  public forgottenReq(studentCreds : any)
+  {
+    return this.http.post<any>("http://localhost:6900/Forgotten",studentCreds,{})
+  }
   public regStudent(student: any)
   {
     return this.http.post<any>('http://localhost:6900/registration', student, {});
+  }
+
+
+  public checkStudent(student: any)
+  {
+    return this.http.post<any>('http://localhost:6900/Forgotten', student, {});
   }
 
   public submitSurvey(response: any)
@@ -52,6 +62,16 @@ export class UserService {
   public sendOTP(requestBody: any)
   {
     return this.http.post<any>("http://localhost/mailman/sendEmail.php",requestBody, {});
+  }
+
+  public setUserEmail(email : string)
+  {
+    this.userEmail = email
+  }
+
+  public getUserEmail()
+  {
+    return this.userEmail;
   }
 
 

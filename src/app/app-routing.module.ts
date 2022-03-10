@@ -58,7 +58,7 @@ import { MbombelaHumanitiesSurveyComponent } from './survey/mbombela-humanities-
 import { MbombelaManScienceSurveyComponent } from './survey/mbombela-man-science-survey/mbombela-man-science-survey.component';
 import { SciencePtaSurveyComponent } from './survey/science-pta-survey/science-pta-survey.component';
 import { ScienceSurveyComponent } from './survey/science-survey/science-survey.component';
-
+import { ForgottenComponent } from './student/forgotten/forgotten/forgotten.component';
 
 
 
@@ -101,7 +101,8 @@ const routes: Routes = [
       { path: 'economics-plk', component: EconomicsPlkComponent},
       //student
       { path: 'student-reg', component: RegisterComponent},
-      { path: 'student-login', component: SignInComponent},
+      
+      {path: 'forgotten', component: ForgottenComponent},
       { path: 'verify', component: VarifyEmailComponent},
       // Surveys
       { path: 'arts_surv', component: ArtsSurveyComponent},
@@ -124,13 +125,15 @@ const routes: Routes = [
       { path: 'mbo_msn_sci_surv', component: MbombelaManScienceSurveyComponent},
       { path: 'sci_pta_surv', component: SciencePtaSurveyComponent},
       { path: 'sci_surv', component: ScienceSurveyComponent},
+      { path: 'student-login', component: SignInComponent},
     ]
   },
 
   { path: 'dashboard', component: DashboardComponent},
   { path: 'update', component: UpdateComponent},
   { path: 'survey-data', component: SurveyResponsesComponent},
-  { path: 'admin-login', component: AdminLoginComponent}
+  { path: 'admin-login', component: AdminLoginComponent},
+ 
 
 ];
 

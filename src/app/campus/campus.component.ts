@@ -11,7 +11,8 @@ import { SoshNorthComponent } from './sosh-north/sosh-north.component';
 import { SoshSouthComponent } from './sosh-south/sosh-south.component';
 import { DefaultCampusComponent } from './default-campus/default-campus.component';
 import {FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { CookieService } from 'ngx-cookie';
+import { Router } from '@angular/router';
 /*---------------------------------*/
 import { FacultyComponent } from '../faculty/faculty.component';
 import { EconomicsComponent } from '../faculty/economics/economics.component';
@@ -91,8 +92,17 @@ export class CampusComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private surveyService: SurveysService,
-    private eventEmitterService: EventEmitterService
-    ) { }
+    private eventEmitterService: EventEmitterService,
+    private _cookiesService : CookieService,
+    private router: Router
+    ) { 
+      
+      if(!this._cookiesService.get("userEmail"))
+      {
+        this.router.navigate(['student-login'])
+      }
+      
+    }
 
   ngOnInit(): void {
     this.campusComponent = DefaultCampusComponent;

@@ -2,6 +2,7 @@ import { Component, OnInit,Input, Output, EventEmitter, ViewChild } from '@angul
 import { UserService } from './../../user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 
 @Component({
@@ -27,12 +28,11 @@ export class RegisterComponent implements OnInit {
 
   isSignedIn = false
 
-  constructor(private _userService: UserService, private router: Router) { }
+  constructor(private _userService: UserService, private router: Router,private cookieService: CookieService) { }
 
   ngOnInit(): void {
 
   }
-
 
   sendOTP()
   {
@@ -40,6 +40,14 @@ export class RegisterComponent implements OnInit {
       alert('Please enter email');
       return;
     }
+
+    this._userService.checkStudent({"email":this.email}).subscribe((result)=>{
+      if(!result.error)
+      {
+        alert("Email already exist");
+        return;
+      }
+    
 
     if(this.password == '') {
       alert('Please enter password');
@@ -79,11 +87,11 @@ export class RegisterComponent implements OnInit {
     })
 
     this.stepTwo = true;
-    
+    })
   }
 
   register() {
-
+    
     if(this.otp != this.otpField)
     {
       alert('OTP is incorrect');
@@ -93,11 +101,12 @@ export class RegisterComponent implements OnInit {
     this._userService.regStudent({"password":this.password,"studNum":"NULL","email":this.email}).subscribe((result)=>{
       if(result.error == false)
       {
+        this.cookieService.put("userEmail",this.email,{secure:true,sameSite:"strict"})
         this.router.navigate(['campus'])
       }
       else
       {
-
+        console.log(result.message)
       }
     })
 

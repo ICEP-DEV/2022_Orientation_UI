@@ -11,12 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-//import { SlideshowModule } from 'ng-slideshow';
-import {FormsModule, ReactiveFormsModule ,FormControl, FormGroup} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule ,FormControl, FormGroup } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
+import { CookieModule } from 'ngx-cookie';
 
 /* Angular Material */
 import {MatCardModule} from '@angular/material/card';
@@ -132,6 +132,9 @@ import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
 import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
+import { ForgottenComponent } from './student/forgotten/forgotten/forgotten.component';
+import { ToastComponent } from './system/toast/toast.component';
+
 
 
 @NgModule({
@@ -219,7 +222,9 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
     MbombelaManScienceSurveyComponent,
     ScienceSurveyComponent,
     SciencePtaSurveyComponent,
-    IctSurveyComponent
+    IctSurveyComponent,
+    ForgottenComponent,
+    ToastComponent
 
   ],
   imports: [
@@ -262,7 +267,9 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
      MdbScrollspyModule,
      MdbTabsModule,
      MdbTooltipModule,
-     MdbValidationModule
+     MdbValidationModule,
+     CookieModule.forRoot(),
+ 
     
   ],
 
@@ -270,7 +277,7 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
     CUSTOM_ELEMENTS_SCHEMA
   ],
 
-  providers: [FirebaseService, EventEmitterService],
+  providers: [FirebaseService, EventEmitterService,ToastComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

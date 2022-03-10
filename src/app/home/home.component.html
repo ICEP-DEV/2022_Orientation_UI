@@ -1,3 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="./">
+        <img src="https://dh2dlbjd2qx17.cloudfront.net/img/tut-logo.png" alt="" width="260" height="80" style="padding: auto;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        
+        <ul class="navbar-nav me-auto" style="margin-left: 20px;">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="./" >Home |</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="./blog">Blog </a>
+          </li>
+        </ul>
+        
+        <div class>
+            <ul class="navbar-nav ms-auot">
+           <!-- <li><img class="user-img" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="user icon" style="position:relative; top: 5px;"></li> -->
+            <li><a class="nav-link" id="sign-in" routerLink="./student-login">Sign in</a></li>  
+            <li><a class="nav-link" id="sign-up" routerLink="./student-reg">Sign up</a></li>
+          </ul>
+          </div>
+  
+      </div>
+    </div>
+  </nav>
 <!-- Header -->
 <header name="home">
     <div class="intro-text" style="
@@ -10,97 +40,49 @@
 
         <!--Slide Showing-->
 
-        <mdb-carousel style="position:absolute;z-index: -2;height:100%;width:100%;margin-top: -10%;color: rgb(255, 255, 255);" [animation]="'fade'">
+        <mdb-carousel style="position:absolute;z-index: -2;height:120%;width:100%;margin-top: -10%;color: rgb(255, 255, 255);" [animation]="'fade'">
             <!-- Slide 1 -->
-            <mdb-carousel-item style="height:1100px;width:100%;">
+            <mdb-carousel-item style="height:1300px;width:100%;">
                 <img style="object-fit: cover; height:100%;width:100%;" src="https://dh2dlbjd2qx17.cloudfront.net/img/Orientation-blurred.jpg" alt="First slide">
             </mdb-carousel-item>
             <!-- Slide 2 -->
-            <mdb-carousel-item style="height:1100px;width:100%">
+            <mdb-carousel-item style="height:1300px;width:100%">
                 <img style="object-fit: cover;height:100%" class="d-block w-100" src="https://live.staticflickr.com/65535/51854555649_66ceff7d88_k.jpg" alt="Second slide">
             </mdb-carousel-item>
             <!-- Slide 3 -->
-            <mdb-carousel-item style="height:1100px;width:100%">
+            <mdb-carousel-item style="height:1300px;width:100%">
                 <img style="object-fit: cover;height:100%" class="d-block w-100" src="https://live.staticflickr.com/65535/51854555694_e69c59e5f9_k.jpg" alt="Second slide">
             </mdb-carousel-item>
             <!-- Slide 4 -->
-            <mdb-carousel-item style="height:1100px;width:100%">
+            <mdb-carousel-item style="height:1300px;width:100%">
                 <img style="object-fit: cover;height:100%" class="d-block w-100" src="https://live.staticflickr.com/65535/51854887640_9c9f098dbe_k.jpg" alt="Second slide">
             </mdb-carousel-item>
             <!-- Slide 5 -->
-            <mdb-carousel-item style="height:1100px;width:100%">
+            <mdb-carousel-item style="height:1300px;width:100%">
                 <img style="object-fit: cover;height:100%" class="d-block w-100" src="https://live.staticflickr.com/65535/51854305488_3006164982_k.jpg" alt="Second slide">
             </mdb-carousel-item>
 
         </mdb-carousel>
 
-
-        <div style="background: linear-gradient(to right, rgba(0, 0, 0, 0.877),rgba(212, 212, 212, 0));
-                    color:aqua;
-                    width: 100%;
-                    position: absolute;
-                    z-index: -1;
-                    height:100%;
-                    margin-top: -10%;">
+        <!---->
+        <div>
+            
+            <div class="heading" style="display: flex; justify-content: center; ">TUT Online Orientation</div>
+            <p style="text-align: center; display: flex; justify-content: center;font-weight:normal; color: white; font-size: 2vw;text-align: center;"> for first time entering students.</p>
+            
 
         </div>
-
-        <!---->
-
-        <a class="navbar-brand" routerLink="./">
-            <img src="https://dh2dlbjd2qx17.cloudfront.net/img/tut-logo.png" alt="" width="260" height="80" style="padding: auto;margin-bottom: 30%;z-index: 2;">
-        </a>
-
-        <div class="heading">TUT Online Orientation</div>
-        <p style="font-weight:normal; color: white; font-size: 2vw; padding-top: 5px;margin-left: -20%;text-align: center;"> for first time entering students.</p>
-
-        <a routerLink="student-login" style=" margin-left: 20%;border-radius: 25px; border-width: 0px;" class="btn btn-default btn-lg page-scroll">Start Orientation
-          <em class="ml-2" data-feather="arrow-right"></em>
-        </a>
-
+        <div style="display: flex; justify-content: center;">
+              <a routerLink="student-login" style=" justify-content: center;border-radius: 25px; border-width: 0px;" class="btn btn-default btn-lg page-scroll">Start Orientation
+            
+                <em class="ml-2" data-feather="arrow-right"></em>
+            </a> 
+        </div>
+         
     </div>
 </header>
 
-<div class="introductionCards" style="margin-top: -3% ;position: relative; width:100%; ">
 
-    <div style="display: flex;flex-flow:row  wrap;justify-content: space-between; margin-left: 5%;; margin-right: 5%;">
-        <div class="inforCard">
-            <h1 style="color:#0d4794">Summary</h1>
-            <h4>Tshwane University of Technology is a 8 campuses university with over 6000 students studying in 10 different faculties where they have enrolled for their course under these faculties the total number of courses offered in this university issues
-                120 courses. Tshwane University of Technology is rated number #1 in global rating of () we excel in producing people with rich mind
-            </h4>
-        </div>
-        <div class="inforCard">
-            <h1>Contact Info</h1>
-            <h4 style="color:#0d4794;margin-top: 8%;">Emalahleni Campus • Mandela Dr Secunda 1034
-            </h4>
-            <h4 style="margin-top: -3%;">Phone number : 013 653 3100
-            </h4>
-            <h4 style="color:#0d4794">Soshanguve(South) • Aubre
-            </h4>
-            <h4 style="margin-top: -3%;">Phone number : 013 653 3100
-            </h4>
-            <h4 style="color:#0d4794">Soshanguve(North) • Mandela Dr Secunda 1034
-            </h4>
-            <h4 style="margin-top: -3%;">Phone number : 013 653 3100
-            </h4>
-            <h4 style="color:#0d4794">Pretoria Arcadia • Mandela Dr Secunda 1034
-            </h4>
-            <h4 style="margin-top: -3%;">Phone number : 013 653 3100
-            </h4>
-            <h4 style="color:#0d4794">Main Campus • Mandela Dr Secunda 1034
-            </h4>
-            <h4 style="margin-top: -3%;">Phone number : 013 653 3100
-            </h4>
-        </div>
-        <div class="inforCard">
-            <h1>About Us</h1>
-            <h4>Tshwane University of Technology is a 8 campuses university with over 6000 students studying in 10 different faculties where they have enrolled for their course under these faculties the total number of courses offered in this university issues
-                120 courses. Tshwane University of Technology is rated number #1 in global rating of () we excel in producing people with rich mind
-            </h4>
-        </div>
-    </div>
-</div>
 
 <mat-card style="padding-bottom: 60px ">
     <p style="color: #0d4794 ; text-align: center; font-size: small;"> Tshwane University of Technology in patnership with </p>
