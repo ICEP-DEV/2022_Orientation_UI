@@ -76,6 +76,7 @@ export class CampusComponent implements OnInit {
   @Input() surveyData = {
   name : '', cellNum: '', faculty: '', question1: '', question2: '', question3: '', question4: '', question5: '', question6: '', question7: '', question8: '', question9: '',
 };
+  completed = false;
 
   campusComponent: any;
   facultyComponent: any;
@@ -102,6 +103,10 @@ export class CampusComponent implements OnInit {
         this.router.navigate(['student-login'])
       }
       
+    }
+
+    Next(){
+      this.completed = true;
     }
 
   ngOnInit(): void {
