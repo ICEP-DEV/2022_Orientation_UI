@@ -36,22 +36,22 @@ export class UserService {
 
   public getStudents(student : any)
   {
-    return this.http.post<any>("http://localhost:6900/login",student,{});
+    return this.http.post<any>("http://localhost:6900/auth/login",student,{});
   }
 
   public forgottenReq(studentCreds : any)
   {
-    return this.http.post<any>("http://localhost:6900/Forgotten",studentCreds,{})
+    return this.http.post<any>("http://localhost:6900/auth/Forgotten",studentCreds,{})
   }
   public regStudent(student: any)
   {
-    return this.http.post<any>('http://localhost:6900/registration', student, {});
+    return this.http.post<any>('http://localhost:6900/auth/registration', student, {});
   }
 
 
   public checkStudent(student: any)
   {
-    return this.http.post<any>('http://localhost:6900/Forgotten', student, {});
+    return this.http.post<any>('http://localhost:6900/auth/Forgotten', student, {});
   }
 
   public submitSurvey(response: any)

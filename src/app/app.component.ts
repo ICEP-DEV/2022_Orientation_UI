@@ -20,5 +20,5 @@ export class AppComponent implements OnInit {
   getUsers(){
     this.usersService.getUsers().subscribe((data: any) => this.users = data);
   }
-  
+ 
 }
