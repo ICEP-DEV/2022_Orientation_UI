@@ -17,6 +17,9 @@ export class RegisterComponent implements OnInit {
   form!: NgForm;
   error: any;
 
+  studNum : string ='';
+  firstName : string = '';
+  lastName : string = '';
   email : string = '';
   password : string = '';
   password2 : string = '';
@@ -36,19 +39,39 @@ export class RegisterComponent implements OnInit {
 
   sendOTP()
   {
+    if(this.studNum == '') {
+      alert('Please enter your student number ');
+      return;
+    }
+   
+    if(this.firstName == '') {
+      alert('Please enter your first name ');
+      return;
+    }
+    if(this.lastName == '') {
+      alert('Please enter your last name ');
+      return;
+    }
     if(this.email == '') {
       alert('Please enter email');
       return;
     }
 
     this._userService.checkStudent({"email":this.email}).subscribe((result)=>{
+      if(this.studNum.length < 9) {
+        alert('Student number is too short');
+        return;
+      }
+      else if(this.studNum.length > 9)
+      {
+        alert('Student number too long');
+      }
       if(!result.error)
       {
         alert("Email already exist");
         return;
       }
     
-
     if(this.password == '') {
       alert('Please enter password');
       return;
@@ -98,7 +121,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this._userService.regStudent({"password":this.password,"studNum":"NULL","email":this.email}).subscribe((result)=>{
+    this._userService.regStudent({"password":this.password,"studNum":this.studNum,"fname": this.firstName, "lname" : this.lastName,"email":this.email}).subscribe((result)=>{
       if(result.error == false)
       {
         this.cookieService.put("userEmail",this.email,{secure:true,sameSite:"strict"})
@@ -106,7 +129,7 @@ export class RegisterComponent implements OnInit {
       }
       else
       {
-        console.log(result.message)
+        console.log("Err"+result.message)
       }
     })
 
