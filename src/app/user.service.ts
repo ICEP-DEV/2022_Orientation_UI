@@ -63,6 +63,10 @@ export class UserService {
   {
     return this.http.post<any>("http://localhost/mailman/sendEmail.php",requestBody, {});
   }
+  public certificate()
+  {
+    return this.http.get<any>("http://localhost/pdfrender/temmp.php");
+  }
 
   public setUserEmail(email : string)
   {

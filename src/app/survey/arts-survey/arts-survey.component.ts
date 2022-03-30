@@ -3,6 +3,7 @@ import { UserService } from './../../user.service';
 import {Survey} from 'src/app/models/survey.model';
 import { SurveysService } from 'src/app/_services/surveys.service';
 import { FormBuilder } from '@angular/forms';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-arts-survey',
@@ -10,6 +11,9 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./arts-survey.component.css']
 })
 export class ArtsSurveyComponent implements OnInit {
+  public url : string = '';
+  public fname : string ='';
+  public lname: string='';
 
   @Input() surveyData ={
     name :'', cellNum:'', faculty:'', question1:'', question2:'', question3:'', question4:'', question5:'', question6:'',question7:'',question8:'',question9:'',
@@ -19,7 +23,13 @@ export class ArtsSurveyComponent implements OnInit {
   submitted = false;
 
 
-  constructor(private _formBuilder: FormBuilder, private _userService: UserService, private surveyService: SurveysService) { }
+  constructor(private _formBuilder: FormBuilder, private _userService: UserService, private surveyService: SurveysService, private cookieService: CookieService) { 
+    
+    this.fname = this.cookieService.get("fname")
+    this.lname = this.cookieService.get("lname")
+
+    this.url = "http://localhost/pdfrender/temmp.php?firstname="+this.fname+"&lastname="+this.lname+""
+  }
 
   ngOnInit(): void {
   }
@@ -38,7 +48,15 @@ export class ArtsSurveyComponent implements OnInit {
       this.submitted = true;
     });
   }
-
+  certificate(){
+    this._userService.certificate().subscribe((result)=>{
+      if (result == null)
+      {
+        console.log("download success")
+      }
+      console.log(result)
+    })
+  }
   newSurvey(): void {
     this.submitted = false;
     this.survey = new Survey();
