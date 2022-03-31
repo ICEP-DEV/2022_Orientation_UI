@@ -165,3 +165,8 @@ mat-card{
     background-color: #555;
     color: white;
   }
+
+  mat-form-field{
+    width: 80%;
+    font-size: medium;
+}

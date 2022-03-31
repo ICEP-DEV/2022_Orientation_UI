@@ -63,6 +63,10 @@ import { MbombelaHumanitiesSurveyComponent } from '../survey/mbombela-humanities
 import { MbombelaManScienceSurveyComponent } from '../survey/mbombela-man-science-survey/mbombela-man-science-survey.component';
 import { SciencePtaSurveyComponent } from '../survey/science-pta-survey/science-pta-survey.component';
 import { ScienceSurveyComponent } from '../survey/science-survey/science-survey.component';
+import { MatStep, MatStepperNext } from '@angular/material/stepper';
+
+import { MatStepper } from '@angular/material/stepper';
+
 
 @Component({
   selector: 'app-campus',
@@ -74,9 +78,11 @@ import { ScienceSurveyComponent } from '../survey/science-survey/science-survey.
 export class CampusComponent implements OnInit {
 
   @Input() surveyData = {
-  name : '', cellNum: '', faculty: '', question1: '', question2: '', question3: '', question4: '', question5: '', question6: '', question7: '', question8: '', question9: '',
-};
-  completed = false;
+    name : '', cellNum: '', faculty: '', question1: '', question2: '', question3: '', question4: '', question5: '', question6: '', question7: '', question8: '', question9: '',
+  };
+ 
+  stepNumber : number = 0;
+  firstVal : string =""
 
   campusComponent: any;
   facultyComponent: any;
@@ -86,8 +92,16 @@ export class CampusComponent implements OnInit {
 
   submitted = false;
 
-  isLinear = false;
+  isLinear = true;
   surveyForm!: FormGroup;
+  // firstFormGroup!: FormGroup;
+  // secondFormGroup!: FormGroup;
+
+  stepOneDone: boolean = false;
+  stepTwoDone: boolean = false;
+  stepThreeDone: boolean = false;
+  stepFourDone: boolean = false;
+  stepFiveDone: boolean = false;
 
   // tslint:disable-next-line: variable-name
   constructor(
@@ -95,21 +109,60 @@ export class CampusComponent implements OnInit {
     private surveyService: SurveysService,
     private eventEmitterService: EventEmitterService,
     private _cookiesService : CookieService,
-    private router: Router
+    private router: Router,
+    
     ) { 
       
       if(!this._cookiesService.get("userEmail"))
       {
         this.router.navigate(['student-login'])
       }
+
+      
       
     }
 
-    Next(){
-      this.completed = true;
+    // firstStep()
+    // {
+    //     this.firstVal = 'true'
+    // }
+
+
+    stepOne(stepper: MatStepper)
+    {
+      this.stepOneDone = true
+      next(stepper)
     }
 
+    stepTwo(stepper: MatStepper)
+    {
+      this.stepTwoDone = true
+      next(stepper)
+    }
+
+    stepThree(stepper: MatStepper)
+    {
+      this.stepThreeDone = true
+      next(stepper)
+    }
+
+    stepFour(stepper: MatStepper)
+    {
+      this.stepFourDone = true
+      next(stepper)
+    }
+
+    stepFive(stepper: MatStepper)
+    {
+      this.stepFiveDone = true
+      next(stepper)
+    }
+
+
   ngOnInit(): void {
+    
+    
+  
     this.campusComponent = DefaultCampusComponent;
 
     this.surveyForm = this._formBuilder.group({
@@ -233,4 +286,13 @@ export class CampusComponent implements OnInit {
     this.survey = new Survey();
   }
 
+  
+
+}
+
+function next(stepper: MatStepper) {
+    
+    setTimeout(() => {
+      stepper.next()
+    }, 20);
 }

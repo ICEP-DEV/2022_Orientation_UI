@@ -9,20 +9,20 @@
   <!-- Progress Stepper Bar -->
   <mat-card style="align-content: center;">
     <mat-card-title style="align-content: center; font-size:medium;">Online Orientation Progress.</mat-card-title>
-    <mat-vertical-stepper fxLayout="column" #stepper linear>
+    <mat-vertical-stepper linear [selectedIndex]="stepNumber" fxLayout="column" #stepper>
       
-      <mat-step label='Start' [completed]="completed">
-        
+      <mat-step [completed]="stepOneDone">
+        <form>
           <ng-template matStepLabel style="background-color: #0d4794;">Start Orientation</ng-template>
-          <p>Click next to start the orientation.</p>
-          <div>
-            <button (click)="Next()" mat-button matStepperNext style="background-color: #de0428; color: white;">Next</button>
+          
+          <div>  
+            <button (click)="stepOne(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
           </div>
-        
+        </form>
       </mat-step>
 
 
-      <mat-step label='Select Campus' [completed]="completed">
+      <mat-step label='Select Campus' [completed]="stepTwoDone" >
         
         <ng-template matStepLabel>Select Campus</ng-template>
         <p>Please choose your campus below to continue.</p>
@@ -42,14 +42,15 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193608.30501934033!2d27.991585828177655!3d-25.6213319067973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95621c9c7f5eb5%3A0x18ee995aaa96adda!2sTUT%20Arcadia!5e0!3m2!1sen!2sza!4v1643188613771!5m2!1sen!2sza" width="80%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         -->
         <div class="stepper-next">
-          <button (click)="Next()" mat-button matStepperNext style="background-color: #de0428; color: white;">Next</button>
+          
+          <button (click)="stepTwo(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
         </div>
 
         
         
       </mat-step>
 
-      <mat-step label='Select Faculty' [completed]="false">
+      <mat-step label='Select Faculty' [completed]="stepThreeDone">
         
         <ng-template matStepLabel>Select Faculty</ng-template>
         <p>Please choose your faculty below to continue.</p>
@@ -60,16 +61,19 @@
 
         <br>
         <div>
-          <button (click)="Next()" mat-button matStepperNext class="btn-2" style="background-color: #de0428; color: white;">Next</button>
+          
+          <button (click)="stepThree(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
         </div>
 
       </mat-step>
-      <mat-step label='Watch Orientation Videos'>
+      <mat-step label='Watch Orientation Videos' [completed]="stepFourDone">
         <div>
             <button mat-button matStepperPrevious>Back</button>
         </div>
 
         <div>
+
+
           <ng-template matStepLabel>Watch Orientation Videos</ng-template>
           <p>Please Watch the Orientation Videos</p>
 
@@ -189,11 +193,14 @@
             </div>
         
           <div class="stepper-next">
-            <button mat-button matStepperNext style="background-color: #de0428; color: white;">Next</button>
+            
+            <button (click)="stepFour(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
           </div>
         </div>
       </mat-step>
-      <mat-step label="Survey">
+
+
+      <mat-step label="Survey" [completed]="stepFiveDone">
         <mat-card >    
           
             <div>
@@ -201,7 +208,8 @@
             </div>
               
             <div>
-              <button mat-button matStepperNext style="background-color: #de0428; color: white;" type="button" >Next </button>
+              
+              <button (click)="stepFive(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
             </div>
     
         </mat-card>

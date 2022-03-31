@@ -36,7 +36,7 @@ export class UserService {
 
   public getStudents(student : any)
   {
-    return this.http.post<any>("http://localhost:6900/login",student,{});
+    return this.http.post<any>("http://localhost:6900/auth/login",student,{});
   }
 
   public forgottenReq(studentCreds : any)
