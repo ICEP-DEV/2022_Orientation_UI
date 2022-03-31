@@ -34,6 +34,7 @@ import { MbombelaHumanitiesComponent } from '../faculty/mbombela-humanities/mbom
 import { MbombelaManScienceComponent } from '../faculty/mbombela-man-science/mbombela-man-science.component';
 import { ScienceComponent } from '../faculty/science/science.component';
 import { SciencePtaComponent } from '../faculty/science-pta/science-pta.component';
+import {MatStepper} from '@angular/material/stepper';
 
 import { UserService } from './../user.service';
 
@@ -87,6 +88,11 @@ export class CampusComponent implements OnInit {
 
   isLinear = false;
   surveyForm!: FormGroup;
+  stepOneDone: boolean = false;
+  stepTwoDone: boolean = false;
+  stepThreeDone: boolean = false;
+  stepFourDone: boolean = false;
+  stepFiveDone: boolean = false;
 
   // tslint:disable-next-line: variable-name
   constructor(
@@ -104,12 +110,44 @@ export class CampusComponent implements OnInit {
       
     }
 
+    stepOne(stepper: MatStepper)
+    {
+      this.stepOneDone = true
+      next(stepper)
+    }
+
+    stepTwo(stepper: MatStepper)
+    {
+      this.stepTwoDone = true
+      next(stepper)
+    }
+
+    stepThree(stepper: MatStepper)
+    {
+      this.stepThreeDone = true
+      next(stepper)
+    }
+
+    stepFour(stepper: MatStepper)
+    {
+      this.stepFourDone = true
+      next(stepper)
+    }
+
+    stepFive(stepper: MatStepper)
+    {
+      this.stepFiveDone = true
+      next(stepper)
+    }
+
   ngOnInit(): void {
+    
     this.campusComponent = DefaultCampusComponent;
 
     this.surveyForm = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
+    
 
     if (this.eventEmitterService.subsVar === undefined) {
       this.eventEmitterService.subsVar = this.eventEmitterService.
@@ -125,6 +163,7 @@ export class CampusComponent implements OnInit {
         });
     }
 
+   
   }
 
   // tslint:disable-next-line: typedef
@@ -228,4 +267,13 @@ export class CampusComponent implements OnInit {
     this.survey = new Survey();
   }
 
+  
+
 }
+
+function next(stepper: MatStepper) {
+    
+  setTimeout(() => {
+    stepper.next()
+    }, 20);}
+

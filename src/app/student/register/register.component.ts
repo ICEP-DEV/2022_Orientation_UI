@@ -133,7 +133,7 @@ export class RegisterComponent implements OnInit {
       }
       else
       {
-        console.log("Err"+result.message)
+        console.log(result.message)
       }
     })
 

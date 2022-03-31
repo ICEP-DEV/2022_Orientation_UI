@@ -9,17 +9,18 @@
   <!-- Progress Stepper Bar -->
   <mat-card style="align-content: center;">
     <mat-card-title style="align-content: center; font-size:medium;">Online Orientation Progress.</mat-card-title>
-    <mat-vertical-stepper fxLayout="column" [linear]="isLinear" #stepper>
-      <mat-step label='Start'>
+    <mat-vertical-stepper fxLayout="column" linear #stepper>
+
+      <mat-step label='Start' [completed]="stepOneDone">
         
           <ng-template matStepLabel style="background-color: #0d4794;">Start Orientation</ng-template>
           <p>Click next to start the orientation.</p>
           <div>
-            <button mat-button matStepperNext style="background-color: #de0428; color: white;">Next</button>
+            <button mat-button (click)="stepOne(stepper)" style="background-color: #de0428; color: white;">Next</button>
           </div>
         
       </mat-step>
-      <mat-step label='Select Campus'>
+      <mat-step label='Select Campus' [completed]="stepTwoDone">
         
         <ng-template matStepLabel>Select Campus</ng-template>
         <p>Please choose your campus below to continue.</p>
@@ -39,11 +40,11 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193608.30501934033!2d27.991585828177655!3d-25.6213319067973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95621c9c7f5eb5%3A0x18ee995aaa96adda!2sTUT%20Arcadia!5e0!3m2!1sen!2sza!4v1643188613771!5m2!1sen!2sza" width="80%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         -->
         <div class="stepper-next">
-          <button mat-button matStepperNext style="background-color: #de0428; color: white;">Next</button>
+          <button mat-button (click)="stepTwo(stepper)" style="background-color: #de0428; color: white;">Next</button>
         </div>
         
       </mat-step>
-      <mat-step label='Select Faculty'>
+      <mat-step label='Select Faculty' [completed]="stepThreeDone">
         
         <ng-template matStepLabel>Select Faculty</ng-template>
         <p>Please choose your faculty below to continue.</p>
@@ -54,11 +55,11 @@
 
         <br>
         <div>
-          <button mat-button matStepperNext class="btn-2" style="background-color: #de0428; color: white;">Next</button>
+          <button mat-button (click)="stepThree(stepper)" class="btn-2" style="background-color: #de0428; color: white;">Next</button>
         </div>
 
       </mat-step>
-      <mat-step label='Watch Orientation Videos'>
+      <mat-step label='Watch Orientation Videos' [completed]="stepFourDone">
         <div>
             <button mat-button matStepperPrevious>Back</button>
         </div>
@@ -183,11 +184,11 @@
             </div>
         
           <div class="stepper-next">
-            <button mat-button matStepperNext style="background-color: #de0428; color: white;">Next</button>
+            <button mat-button (click)="stepFour(stepper)" style="background-color: #de0428; color: white;">Next</button>
           </div>
         </div>
       </mat-step>
-      <mat-step label="Survey">
+      <mat-step label="Survey" [completed]="stepFiveDone">
         <mat-card >    
           
             <div>
@@ -195,7 +196,7 @@
             </div>
               
             <div>
-              <button mat-button matStepperNext style="background-color: #de0428; color: white;" type="button" >Next </button>
+              <button mat-button (click)="stepFive(stepper)" style="background-color: #de0428; color: white;" type="button" >Next </button>
             </div>
     
         </mat-card>
