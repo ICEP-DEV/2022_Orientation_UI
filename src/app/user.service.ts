@@ -5,7 +5,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +20,7 @@ export class UserService {
 
   submitSurveyURL = "https://txqgcyy28g.execute-api.us-east-1.amazonaws.com/prod/survey";
                   /* https://txqgcyy28g.execute-api.us-east-1.amazonaws.com/prod/survey */
+
 
   /* for video
   API_ENDPOINT: string = 'https://www.cbc.ca/bistro/order'; */
@@ -63,20 +63,12 @@ export class UserService {
   {
     return this.http.post<any>("http://localhost/mailman/sendEmail.php",requestBody, {});
   }
-  public certificate()
+
+  public logActivity(body : any)
   {
-    return this.http.get<any>("http://localhost/pdfrender/temmp.php");
+    return this.http.post<any>("http://localhost:6900/track/new",body,{})
   }
 
-  public setUserEmail(email : string)
-  {
-    this.userEmail = email
-  }
-
-  public getUserEmail()
-  {
-    return this.userEmail;
-  }
 
 
 

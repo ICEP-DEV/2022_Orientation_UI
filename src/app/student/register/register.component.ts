@@ -3,7 +3,7 @@ import { UserService } from './../../user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-
+import { SocketioService } from './../../socketio.service'
 
 @Component({
   selector: 'app-register',
@@ -31,10 +31,12 @@ export class RegisterComponent implements OnInit {
 
   isSignedIn = false
 
-  constructor(private _userService: UserService, private router: Router,private cookieService: CookieService) { }
-
+  constructor(private _userService: UserService, 
+              private router: Router,
+              private cookieService: CookieService,
+              private _socketConnection: SocketioService) { }
   ngOnInit(): void {
-
+    this._socketConnection.socket.emit('RegisteredUsers_soc')
   }
 
   sendOTP()
@@ -105,10 +107,7 @@ export class RegisterComponent implements OnInit {
     this._userService.sendOTP({"otp":this.otp,"email":this.email}).subscribe((result)=>{
       if(result == null)
       {
-        this.cookieService.put("fname", this.firstName)
-        this.cookieService.put("lname", this.lastName)
-        console.log(this.cookieService.get("fname"))
-        console.log(this.cookieService.get("lname"))
+        
         console.log("OTP was sent succesfully")
       }
     })
@@ -128,8 +127,12 @@ export class RegisterComponent implements OnInit {
     this._userService.regStudent({"password":this.password,"studNum":this.studNum,"fname": this.firstName, "lname" : this.lastName,"email":this.email}).subscribe((result)=>{
       if(result.error == false)
       {
+        this.cookieService.put("fname", this.firstName,{secure:true,sameSite:"strict"})
+        this.cookieService.put("lname", this.lastName,{secure:true,sameSite:"strict"})
         this.cookieService.put("userEmail",this.email,{secure:true,sameSite:"strict"})
-        this.router.navigate(['campus'])
+        this._userService.logActivity({"useremail":this.email, "activity":"Registered"}).subscribe(()=>{})
+        
+        this.router.navigate([''])
       }
       else
       {

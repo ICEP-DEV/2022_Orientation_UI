@@ -45,11 +45,15 @@ export class SignInComponent implements OnInit {
       alert('Please enter password');
       return;
     }
-    this._userService.getStudents({"email":this.email, "password":this.password}).subscribe((result)=>{
+    
+    this._userService.getStudents({"email":this.email, "password":this.password}).subscribe(async(result)=>{
           if(result.error == false)
           {
+            this.cookieService.put("fname",result.data[0].firstname,{secure:true,sameSite:"strict"})
+            this.cookieService.put("lname",result.data[0].lastname,{secure:true,sameSite:"strict"})
             this.cookieService.put("userEmail",result.data[0].email,{secure:true,sameSite:"strict"})
-            this.router.navigate(['campus'])
+            this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
+            this.router.navigate([''])
           }
           else
           {
