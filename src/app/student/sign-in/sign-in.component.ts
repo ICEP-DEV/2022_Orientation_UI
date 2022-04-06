@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild,Input } from '@angular/core';
-import { CookieService } from 'ngx-cookie';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from "../../user.service";
-//import { ToastComponent } from "../../system/toast/toast.component"
+import { FirebaseService } from '../../firebase.service';
+import { AngularFireAuth } from "@angular/fire/auth";
+import * as firebase from "firebase/app";
 
 @Component({
   selector: 'app-sign-in',
@@ -13,29 +14,37 @@ export class SignInComponent implements OnInit {
 
   [x: string]: any;
 
-  
+  /*isSignedIn = false;
+  @ViewChild('f')
+  form!: NgForm;
+  error: any;*/
 
   email : string = '';
   password : string = '';
-  message : string = 'Cebolenkosi'
-  isOpen : boolean = false;
- 
- 
-  
-  constructor(private _userService: UserService, private router: Router,private cookieService: CookieService) { }
 
+  constructor(public firebaseService: FirebaseService, private router: Router, public afAuth: AngularFireAuth) { }
+  /*
+  registrationForm = this.fb.group(
+    {
+      studNum:['', [Validators.required]],
+      password:['', Validators.required],
+    }
+
+  )*/
 
   ngOnInit(): void {
-   
-  }
-  fogotClicked()
-  {
-    this.router.navigate(['forgotten'])
-    // this.message = "incorrect password"
-    // this.isOpen = !this.isOpen
+    /*if(localStorage.getItem('user')!== null)
+    {
+      this.isSignedIn= true
+    }
+    else
+    {
+      this.isSignedIn = false
+    }*/
   }
 
   login() {
+
     if (this.email === '') {
       alert('Please enter email');
       return;
@@ -45,22 +54,28 @@ export class SignInComponent implements OnInit {
       alert('Please enter password');
       return;
     }
-    
-    this._userService.getStudents({"email":this.email, "password":this.password}).subscribe(async(result)=>{
-          if(result.error == false)
-          {
-            this.cookieService.put("fname",result.data[0].firstname,{secure:true,sameSite:"strict"})
-            this.cookieService.put("lname",result.data[0].lastname,{secure:true,sameSite:"strict"})
-            this.cookieService.put("userEmail",result.data[0].email,{secure:true,sameSite:"strict"})
-            this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
-            this.router.navigate([''])
-          }
-          else
-          {
-            alert(result.message)
-          }
-      })
+
+    this.firebaseService.login(this.email, this.password);
+
+    this.email = '';
+    this.password = '';
+
   }
 
-  
+  /*async onSignin(email:string,password:string){
+    await this.firebaseService.signin(email,password)
+    .then( res => console.log(res) )
+    .catch( err => this.error = err.message )
+    //this.form.reset();
+    if(this.firebaseService.isLoggedIn)
+    {
+      this.isSignedIn = true;
+      this.router.navigateByUrl('campus');
+    }
+  }
+
+  removeError() {
+    this.error = null;
+  }*/
+
 }

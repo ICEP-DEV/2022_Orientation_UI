@@ -1,8 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
-
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +11,7 @@ import { CookieService } from 'ngx-cookie';
 export class HeaderComponent implements OnInit {
 
 
-  constructor(private _cookiesService : CookieService, private router: Router) { }
+  constructor(private fb: FormBuilder, public firebaseService: FirebaseService, private router: Router) { }
 
   @Output() isLogout = new EventEmitter<void>()
 
@@ -21,10 +20,16 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
-    this._cookiesService.remove('userEmail')
+    this.firebaseService.logout()
     this.isLogout.emit();
-    this.router.navigate(['home']);
+    this.router.navigate(['']);
   }
 
+  /*
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  } 
+  */
 
 }

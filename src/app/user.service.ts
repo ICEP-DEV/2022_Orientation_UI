@@ -5,12 +5,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  userEmail = ''
+
   usersURL = "https://jsonplaceholder.typicode.com/users";
   studentsURL = "https://x0ses6l8i4.execute-api.us-east-1.amazonaws.com/prod/students";
   /* registerStudent = "http://localhost:4242/api/users/regStud"; */
@@ -20,7 +21,6 @@ export class UserService {
 
   submitSurveyURL = "https://txqgcyy28g.execute-api.us-east-1.amazonaws.com/prod/survey";
                   /* https://txqgcyy28g.execute-api.us-east-1.amazonaws.com/prod/survey */
-
 
   /* for video
   API_ENDPOINT: string = 'https://www.cbc.ca/bistro/order'; */
@@ -34,41 +34,20 @@ export class UserService {
     return this.http.get<any>(this.usersURL);
   }
 
-  public getStudents(student : any)
+  public getStudents()
   {
-    return this.http.post<any>("http://localhost:6900/auth/login",student,{});
+    return this.http.get<any>(this.studentsURL);
   }
 
-  public forgottenReq(studentCreds : any)
-  {
-    return this.http.post<any>("http://localhost:6900/auth/Forgotten",studentCreds,{})
-  }
   public regStudent(student: any)
   {
-    return this.http.post<any>('http://localhost:6900/auth/registration', student, {});
-  }
-
-
-  public checkStudent(student: any)
-  {
-    return this.http.post<any>('http://localhost:6900/auth/Forgotten', student, {});
+    return this.http.post<any>(this.registerStudent, student, {});
   }
 
   public submitSurvey(response: any)
   {
     return this.http.post<any>(this.submitSurveyURL, response, {});
   }
-
-  public sendOTP(requestBody: any)
-  {
-    return this.http.post<any>("http://localhost/mailman/sendEmail.php",requestBody, {});
-  }
-
-  public logActivity(body : any)
-  {
-    return this.http.post<any>("http://localhost:6900/track/new",body,{})
-  }
-
 
 
 

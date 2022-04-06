@@ -1,0 +1,65 @@
+
+    <mat-card>    
+      <form #values="ngForm">
+        <div *ngIf="!submitted">
+          <ng-template matStepLabel> Complete the Survey </ng-template>
+        
+          <mat-form-field> 
+              <mat-label>Name</mat-label>
+              <!-- <input matInput placeholder="First name" name="name" [(ngModel)]="surveyData.name" required> -->
+              <input matInput placeholder="First name" id="name" name="name"  type="text"  [(ngModel)]="survey.name" required>   
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Cell Number</mat-label>
+              <input matInput placeholder="Cell number" name="cellNum" id="cell" type="number"  [(ngModel)]="survey.cell" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+              <mat-label>Faculty</mat-label>
+              <input matInput placeholder="Faculty" name="faculty" id="faculty" type="text"  [(ngModel)]="survey.faculty" required>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+              <mat-label>Question 1</mat-label>
+              <input matInput placeholder="Question 1" name="question1" id="question1" type="text"  [(ngModel)]="survey.question1" required>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+            <mat-label>Question 2</mat-label>
+            <input matInput placeholder="Question 2" name="question2" id="question2" type="text"  [(ngModel)]="survey.question2" required>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+            <mat-label>Question 3</mat-label>
+            <input matInput placeholder="Question 3" name="question3" id="question3" type="text"  [(ngModel)]="survey.question3" required>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+          <mat-label>Question 4</mat-label>
+          <input matInput placeholder="Question 4" name="question4" id="question4" type="text"  [(ngModel)]="survey.question4" required>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+          <mat-label>Question 5</mat-label>
+          <input matInput placeholder="Question 5" name="question5"  id="question5" type="text"  [(ngModel)]="survey.question5" required>   
+          </mat-form-field>
+          <br>
+          <mat-form-field> 
+            <mat-label>Question 6</mat-label>
+            <input matInput placeholder="Question 6" name="question6" id="question6" type="text"  [(ngModel)]="survey.question6" required>   
+          </mat-form-field>
+          <br>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext (click)="submitSurvey()">Next</button>
+          </div>
+        </div>
+  
+        <div *ngIf="submitted">
+          <h4>You submitted successfully!</h4>
+          <button class="btn btn-success" (click)="newSurvey()">Add</button>
+        </div>
+  
+      </form>
+    </mat-card>
