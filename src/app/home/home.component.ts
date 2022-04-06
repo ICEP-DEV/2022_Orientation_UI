@@ -16,10 +16,14 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void { 
-    //countVisitors
+    this._socketConnection.socket.connect()
     this._socketConnection.socket.emit("Visitors_soc")
   }
 
+  startOr()
+  {
+   
+  }
  
 
 }

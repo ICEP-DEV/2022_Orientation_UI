@@ -19,10 +19,10 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 //Auth
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 //Other
-import { UpdateComponent } from './admin/update/update.component';
 import { SurveyResponsesComponent} from './admin/survey-responses/survey-responses.component';
-
-
+import { GeneratedReportComponent } from './admin/sideTabs/generated-report/generated-report.component'
+import { TrackingStComponent } from './admin/sideTabs/tracking-st/tracking-st.component'
+import { UploadContentComponent } from './admin/sideTabs/upload-content/upload-content.component'
 
 
 
@@ -44,7 +44,9 @@ const routes: Routes = [
   },
   //Admin Directories
   { path: 'dashboard', component: DashboardComponent},
-  { path: 'update', component: UpdateComponent},
+  { path: 'generate-report', component: GeneratedReportComponent},
+  { path: 'track-student', component: TrackingStComponent},
+  { path: 'upload-cnt', component: UploadContentComponent},
   { path: 'survey-data', component: SurveyResponsesComponent},
   //Admin Auth
   { path: 'admin-login', component: AdminLoginComponent},

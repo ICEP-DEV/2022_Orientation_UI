@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { SocketioService } from './../../socketio.service'
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+     private _socketConnection : SocketioService
+  ) { }
 
   ngOnInit(): void {
+    
   }
 
 }
