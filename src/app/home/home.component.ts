@@ -16,8 +16,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void { 
-    this._socketConnection.socket.connect()
-    this._socketConnection.socket.emit("Visitors_soc")
+   
   }
 
   startOr()
