@@ -1,9 +1,9 @@
 import { Component, OnInit,Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { UserService } from './../../user.service';
-import { FirebaseService } from '../../firebase.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularFireAuth,  } from  "@angular/fire/auth";
+import { CookieService } from 'ngx-cookie';
+import { SocketioService } from './../../socketio.service'
 
 @Component({
   selector: 'app-register',
@@ -17,68 +17,142 @@ export class RegisterComponent implements OnInit {
   form!: NgForm;
   error: any;
 
+  studNum : string ='';
+  firstName : string = '';
+  lastName : string = '';
   email : string = '';
   password : string = '';
+  password2 : string = '';
+  otpField : string = '';
+  otp : string = '';
+  stepTwo : boolean = false;
 
 
-  /*
-  @Input() studentData = {
-    studentNum: " ", password: " ", name:" ", surname: " ", course: " ", email: " ", phone: " ", assessment: " "
-  }
-*/
-   
-  /*@Input() studentData = {
-    id: " " , email: " ", password: " ", studNum: " "
-  }*/
+
   isSignedIn = false
 
-  constructor(public firebaseAuth :AngularFireAuth, private _userService: UserService, public firebaseService: FirebaseService, private router: Router) { }
-
+  constructor(private _userService: UserService, 
+              private router: Router,
+              private cookieService: CookieService,
+              private _socketConnection: SocketioService) { }
   ngOnInit(): void {
-    /*if(localStorage.getItem('user')!== null)
-    {
-      this.isSignedIn= true
-    }
-    else
-    {
-      this.isSignedIn = false
-    }*/
+    this._socketConnection.socket.emit('RegisteredUsers_soc')
   }
 
-  register() {
-
+  sendOTP()
+  {
+    if(this.studNum == '') {
+      alert('Please enter your student number ');
+      return;
+    }
+   
+    if(this.firstName == '') {
+      alert('Please enter your first name ');
+      return;
+    }
+    if(this.lastName == '') {
+      alert('Please enter your last name ');
+      return;
+    }
     if(this.email == '') {
       alert('Please enter email');
       return;
     }
 
+    this._userService.checkStudent({"email":this.email}).subscribe((result)=>{
+      if(this.studNum.length < 9) {
+        alert('Student number is too short');
+        return;
+      }
+      else if(this.studNum.length > 9)
+      {
+        alert('Student number too long');
+      }
+      if(!result.error)
+      {
+        alert("Email already exist");
+        return;
+      }
+    
     if(this.password == '') {
       alert('Please enter password');
       return;
     }
-
-    this.firebaseService.register(this.email,this.password);
     
-    this.email = '';
-    this.password = '';
+    if(this.password != this.password2)
+    {
+      alert('Confirm password does not match');
+      return;
+    }
 
+    if(this.password.length > 26) {
+      alert('Password is too long');
+      return;
+    }
+    
+    if(this.password.length < 6) {
+      alert('Password is too short');
+      return;
+    }
+
+    if(this.password == "123456") {
+      alert('Password is too easy');
+      return;
+    }
+    
+
+
+    this.otp = generateRandomNumber().toString()
+
+    this._userService.sendOTP({"otp":this.otp,"email":this.email}).subscribe((result)=>{
+      if(result == null)
+      {
+        
+        console.log("OTP was sent succesfully")
+      }
+    })
+
+    this.stepTwo = true;
+    })
   }
 
-  /*async onSignup(emailSignup:string,passwordSignup:string){
-    await this.firebaseService.signup(emailSignup,passwordSignup)
-    .then( res => console.log(res) )
-    .catch( err => this.error = err.message );
-     this.form.reset();
-    if(this.firebaseService.isLoggedIn)
+  register() {
+    
+    if(this.otp != this.otpField)
     {
-      this.isSignedIn = true;
-      this.router.navigateByUrl('campus'); 
+      alert('OTP is incorrect');
+      return;
     }
-  }*/
+
+    this._userService.regStudent({"password":this.password,"studNum":this.studNum,"fname": this.firstName, "lname" : this.lastName,"email":this.email}).subscribe((result)=>{
+      if(result.error == false)
+      {
+        this.cookieService.put("fname", this.firstName,{secure:true,sameSite:"strict"})
+        this.cookieService.put("lname", this.lastName,{secure:true,sameSite:"strict"})
+        this.cookieService.put("userEmail",this.email,{secure:true,sameSite:"strict"})
+        this._userService.logActivity({"useremail":this.email, "activity":"Registered"}).subscribe(()=>{})
+        
+        this.router.navigate([''])
+      }
+      else
+      {
+        console.log(result.message)
+      }
+    })
+
+
+  }
 
   removeError() {
     this.error = null;
   }
 
+}
 
+
+function generateRandomNumber() {
+  var minm = 100000;
+  var maxm = 999999;
+  return Math.floor(Math
+  .random() * (maxm - minm + 1)) + minm;
 }

@@ -11,8 +11,8 @@
 
                     <app-topbar></app-topbar>
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
+                    <button id="sidebarToggleTop"  class="btn btn-link d-md-none rounded-circle mr-3">
+                        <mat-icon>assignment_turned_in</mat-icon>
                     </button>
 
                 <!-- Begin Page Content -->
@@ -21,10 +21,12 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a routerLink="/dashboard" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <a routerLink="/dashboard" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" >
+                            <mat-icon style="position: absolute;">picture_as_pdf</mat-icon>
+                            <span style="margin-left: 30px;">Quick Generate Report</span> 
+                        </a>
                     </div>
-
+                    
                     <!-- Content Row -->
                     <div class="row">
 
@@ -35,11 +37,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Registered Students </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">40,000</div>
+                                                Web visitors </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{visitors}}</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <mat-icon>trending_up</mat-icon>
                                         </div>
                                     </div>
                                 </div>
@@ -53,11 +55,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Site Visits </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">215,000</div>
+                                                Registered Students </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{students}}</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <mat-icon>person</mat-icon>
                                         </div>
                                     </div>
                                 </div>
@@ -72,10 +74,10 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Survey Respones
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">10 000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{surveys}}</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <mat-icon>poll</mat-icon>
                                         </div>
                                     </div>
                                 </div>
@@ -89,11 +91,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                Videos Uploaded</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{videos}}</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <mat-icon>slideshow</mat-icon>
                                         </div>
                                     </div>
                                 </div>
@@ -101,72 +103,8 @@
                         </div>
                     </div>
 
-                    <!-- Content Row -->
-
-                    <div class="row">
-
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        
-                    </div>
-                <!--
-                    <table class="table table-dark">
-                        <thead>
-                          <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Usersname</th>
-                            <th scope="col">Email</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let student of students" >
-                            <td> {{students.studNum}} </td>
-                            <td> {{students.email}} </td>
-                            <td> {{students.password}} </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                </div>-->
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
+                    
+    
  
 
     <!-- Core plugin JavaScript-->

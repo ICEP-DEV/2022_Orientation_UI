@@ -4,17 +4,18 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         
-        <div class="sidebar-brand-text mx-3"> Admin </div>
+        <div class="sidebar-brand-text mx-3"> Administration </div>
     </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+    <hr class="sidebar-divider my-20">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" routerLink="/dashboard">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard">    
+            <mat-icon>home</mat-icon>
+            <span class="textAlign">Dashboard</span>
+    </a>
     </li>
 
     <!-- Divider -->
@@ -23,44 +24,25 @@
     <!-- Nav Item - Pages Collapse Menu -->
     
     <li class="nav-item">
-        <a class="nav-link" routerLink="/survey-data" data-target="#collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>  Survey Data </span>
+        <a class="nav-link" routerLink="/survey-data">
+            <mat-icon >picture_as_pdf</mat-icon>
+            <span class="textAlign">Generate Report</span>
         </a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" routerLink="/dashboard" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Update Content</span>
+        <a class="nav-link" routerLink="/survey-data">
+            <mat-icon>timeline</mat-icon>
+            <span class="textAlign">Tracking</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
-            </div>
-        </div>
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" routerLink="/dashboard" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Admin View</span>
+        <a class="nav-link" routerLink="/survey-data">
+            <mat-icon >assignment_turned_in</mat-icon>
+            <span class="textAlign">Survey Data</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
-            </div>
-        </div>
     </li>
 
     <!-- Divider -->
@@ -68,8 +50,11 @@
 
     <!-- Sidebar Message -->
     <div class="sidebar-card d-none d-lg-flex">
-        <p class="text-center mb-2">You are now in the <strong> Admin Dashboard </strong>, view the platform as a Student</p>
-        <a class="btn btn-success btn-sm" routerLink="/">Student View </a>
+        <p class="text-center mb-2"><strong>Cebolenkosi Shezi </strong>please don't not forget to logout when you are done for security reasons</p>
+        <a class="btn btn-success btn-sm" style="border-radius: 10px;padding-left: 15%;padding-right: 40%; padding-top: 10px;" routerLink="/">
+            <mat-icon title="sad">logout</mat-icon>
+            <span style="position: absolute; margin-left: 3px;">Logout</span>
+        </a>
     </div>
 </ul>
 <!-- End of Sidebar -->
