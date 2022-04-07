@@ -16,7 +16,10 @@ export class UserService {
   {
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login",student,{});
   }
-
+  public getAdmin(admin : any)
+  {
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login_admin",admin,{});
+  }
   public forgottenReq(studentCreds : any)
   {
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/Forgotten",studentCreds,{})

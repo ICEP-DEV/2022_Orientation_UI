@@ -17,7 +17,7 @@ export class SignInComponent implements OnInit {
 
   email : string = '';
   password : string = '';
-  message : string = 'Cebolenkosi'
+  message : string = ''
   isOpen : boolean = false;
  
  
