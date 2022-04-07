@@ -6446,7 +6446,7 @@ button.bg-success:focus {
 }
 
 .bg-info {
-  background-color: #36b9cc !important;
+  background-color: #0d4794 !important;
 }
 
 a.bg-info:hover, a.bg-info:focus,
@@ -9597,7 +9597,7 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #4e73df !important;
+  color: #0d4794 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
@@ -10046,7 +10046,7 @@ a:focus {
 }
 
 .border-left-primary {
-  border-left: 0.25rem solid #4e73df !important;
+  border-left: 0.25rem solid #0d4794 !important;
 }
 
 .border-bottom-primary {

@@ -11,8 +11,8 @@
     <hr class="sidebar-divider my-20">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard">    
+    <li class="nav-item active">
+        <a class="nav-link" routerLink="/dashboard" (click)="navLinkHandle(1)">    
             <mat-icon>home</mat-icon>
             <span class="textAlign">Dashboard</span>
     </a>
@@ -24,14 +24,14 @@
     <!-- Nav Item - Pages Collapse Menu -->
     
     <li class="nav-item">
-        <a class="nav-link" routerLink="/generate-report">
+        <a class="nav-link" routerLink="/generate-report" (click)="navLinkHandle(2)">
             <mat-icon >picture_as_pdf</mat-icon>
             <span class="textAlign">Generate Report</span>
         </a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" routerLink="/track-student">
+        <a class="nav-link" routerLink="/track-student" (click)="navLinkHandle(3)">
             <mat-icon>timeline</mat-icon>
             <span class="textAlign">Tracking</span>
         </a>
@@ -39,7 +39,7 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" routerLink="/survey-data">
+        <a class="nav-link" routerLink="/survey-data" (click)="navLinkHandle(4)">
             <mat-icon >assignment_turned_in</mat-icon>
             <span class="textAlign">Survey Data</span>
         </a>
@@ -48,8 +48,8 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <li class="nav-item">
-        <a class="nav-link" routerLink="/upload-cnt">
+    <li [(class)]="classNameNav">
+        <a class="nav-link" routerLink="/upload-cnt" (click)="navLinkHandle(5)">
             <mat-icon >play_circle_filled</mat-icon>
             <span class="textAlign">Upload Content</span>
         </a>

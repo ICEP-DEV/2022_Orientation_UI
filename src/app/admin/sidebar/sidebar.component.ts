@@ -10,9 +10,14 @@ export class SidebarComponent implements OnInit {
   constructor(
      private _socketConnection : SocketioService
   ) { }
-
+  classNameNav : string = "nav-link active"
   ngOnInit(): void {
     
+  }
+
+  navLinkHandle(index : number)
+  {
+    console.log('show')
   }
 
 }
