@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketioService } from './../../socketio.service'
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -8,16 +10,20 @@ import { SocketioService } from './../../socketio.service'
 export class SidebarComponent implements OnInit {
 
   constructor(
-     private _socketConnection : SocketioService
+     private _socketConnection : SocketioService,
+     private _router : Router
   ) { }
-  classNameNav : string = "nav-link active"
+  classNameNav : string[] = ["nav-item","nav-item","nav-item","nav-item","nav-item"]
+
   ngOnInit(): void {
     
   }
 
-  navLinkHandle(index : number)
+  navLinkHandle(index : number,route : string)
   {
-    console.log('show')
+      
+      this.classNameNav[index] = "nav-item active"
+      this._router.navigate([route])
   }
 
 }
