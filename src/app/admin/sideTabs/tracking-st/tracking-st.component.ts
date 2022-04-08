@@ -55,9 +55,6 @@ export class TrackingStComponent implements OnInit {
     
   }
   
-  time()
-  {
-    console.log(this.filterEntity.datetime)
-  }
+ 
 
 }
