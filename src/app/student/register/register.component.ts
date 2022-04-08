@@ -107,7 +107,10 @@ export class RegisterComponent implements OnInit {
     this._userService.sendOTP({"otp":this.otp,"email":this.email}).subscribe((result)=>{
       if(result == null)
       {
-        
+        this.cookieService.put("fname", this.firstName)
+        this.cookieService.put("lname", this.lastName)
+        console.log(this.cookieService.get("fname"))
+        console.log(this.cookieService.get("lname"))
         console.log("OTP was sent succesfully")
       }
     })

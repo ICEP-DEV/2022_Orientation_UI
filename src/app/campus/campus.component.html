@@ -16,7 +16,7 @@
         <button mat-menu-item style="font-size: large;background-color: #0d4794;color: white">{{usernames}} 
             <!-- <mat-icon>assignment</mat-icon> -->
         </button>
-        <button mat-menu-item>Get Your cetificate  
+        <button mat-menu-item > <a href={{url}}>Get Your cetificate</a>
             <mat-icon>assignment_turned_in</mat-icon>
         </button>
         <button mat-menu-item>Campus Directions 
@@ -48,6 +48,7 @@
 
                 <div>
                     <button mat-button (click)="StepOne(stepper)" style="background-color: #de0428; color: white;">Next</button>
+                   
                 </div>
             </mat-step>
 
@@ -170,6 +171,7 @@
             <mat-step label="Finish">
                 <ng-template matStepLabel>Finish Online Orientation</ng-template>
                 <p> You have successfully completed the 2022 online orientation. Thank you.</p>
+              
                 <p style="font-weight: bold;"> What's Next?</p>
                 <div>
                     <button mat-button matStepperPrevious>Back</button>

@@ -40,7 +40,10 @@ export class CampusComponent implements OnInit {
   facultyNameSelected : string = ""
 
 
- 
+ //student data for names + last name
+ public url : string = '';
+ public fname : string ='';
+ public lname: string='';
   
   
 
@@ -53,7 +56,9 @@ export class CampusComponent implements OnInit {
     private router: Router,
     private _socketConnection : SocketioService
   ) {
-
+    this.fname = this._cookiesService.get("fname")
+    this.lname = this._cookiesService.get("lname")
+    this.url = "http://localhost/pdfrender/temmp.php?firstname="+this.fname+"&lastname="+this.lname+""
     if(!this._cookiesService.get("userEmail"))
     {
       this.router.navigate(['home'])
@@ -69,7 +74,15 @@ export class CampusComponent implements OnInit {
   ngOnInit(): void {
    
   }
-
+  certificate(){
+    this._userService.certificate().subscribe((result)=>{
+      if (result == null)
+      {
+        console.log("download success")
+      }
+      console.log(result)
+    })
+  }
 
   //------------------------------------------------------------------Step One Next Button Click
   StepOne(stepper : MatStepper)

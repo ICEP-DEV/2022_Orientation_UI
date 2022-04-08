@@ -43,5 +43,8 @@ export class UserService {
   {
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/new",body,{})
   }
-
+  public certificate()
+  {
+    return this.http.get<any>("http://localhost/pdfrender/temmp.php");
+  }
 }
