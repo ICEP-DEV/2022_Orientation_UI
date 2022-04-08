@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   widthStyle:string ="width:0%";
  
   //
- 
+  nowMonth : string = new Date().toDateString()
   chart: any = [];
   myPieChart:any = [];
 
@@ -62,12 +62,20 @@ export class DashboardComponent implements OnInit {
         this.loggedIn = instream
       })
 
+      function dateShift(shift : number)
+      {
+        var now = new Date();
+        var past = new Date(now)
+        past.setDate(past.getDate() - shift)
+        return past.getDate()
+      }
       
+
         
       this.chart = new Chart('myAreaChart', {
         type: 'line',
         data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          labels: [dateShift(9), dateShift(8), dateShift(7), dateShift(6), dateShift(5), dateShift(4), dateShift(3), dateShift(2), dateShift(1), "Today"],
           datasets: [{
             label: "Logging In",
             backgroundColor: "#0d4794",
@@ -80,7 +88,7 @@ export class DashboardComponent implements OnInit {
             pointHoverBorderColor: "#0d4794",
             pointHitRadius: 10,
             pointBorderWidth: 2,
-            data: [0, 5, 20, 15, 17, 15, 2, 20, 5, 10, 14, 5],
+            data: [0, 5, 20, 15, 17, 15, 2, 20, 5, 10],
             normalized:true,
             tension:0.3,
           }],
