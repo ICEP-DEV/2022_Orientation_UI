@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
         data: {
           labels: ["Logged In", "Registered", "Survey"],
           datasets: [{
-            data: [55, 30, 15],
+            data: [this.loggedIn, 20, this.noOfSurvey],
             backgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
             hoverBackgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
             hoverBorderColor: "rgba(234, 236, 244, 1)",

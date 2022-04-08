@@ -68,8 +68,9 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { UploadContentComponent } from './admin/sideTabs/upload-content/upload-content.component';
 import { TrackingStComponent } from './admin/sideTabs/tracking-st/tracking-st.component';
 import { GeneratedReportComponent } from './admin/sideTabs/generated-report/generated-report.component';
-
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableFilterModule } from 'mat-table-filter';
 
 
 @NgModule({
@@ -136,7 +137,10 @@ import { GeneratedReportComponent } from './admin/sideTabs/generated-report/gene
     MdbTooltipModule,
     MdbValidationModule,
     CookieModule.forRoot(),
-    MatIconModule 
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableFilterModule 
   ],
 
   schemas: [
