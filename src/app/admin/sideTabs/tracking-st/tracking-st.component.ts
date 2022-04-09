@@ -24,6 +24,8 @@ const TRACK_DATA: Track[] = [];
 })
 export class TrackingStComponent implements OnInit {
 
+  groupValue : boolean = true;
+
   displayedColumns: string[] = ['id', 'firstname', 'lastname', 'studNum','activity','datetime'];
   dataSource = new MatTableDataSource<Track>(TRACK_DATA);
 
@@ -44,14 +46,32 @@ export class TrackingStComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sorter;
     this.filterType = MatTableFilter.ANYWHERE;
+    
+    this.getAllTracksTable()
+    
+  }
 
-    this._userService.getTrackAll().subscribe((records)=>
+  getAllTracksTable()
+  { 
+    let body
+    if(this.groupValue)
+      body = {email:"",firstname:"",lastname:"",studNum:"",when:"earliest*"}
+    
+    this._userService.getTrackAll(body).subscribe((records)=>
     {
       this.dataSource = new MatTableDataSource(records.data)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sorter;
       this.filterType = MatTableFilter.ANYWHERE;
     })
+
+  }
+
+  groupEvent()
+  {
+    setTimeout(() => {
+      this.getAllTracksTable()
+    }, 50);
     
   }
   

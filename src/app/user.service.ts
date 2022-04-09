@@ -41,9 +41,9 @@ export class UserService {
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/new",body,{})
   }
 
-  public getTrackAll()
+  public getTrackAll(body:any)
   {
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/query",{},{})
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/query",body,{})
   }
 
 }
