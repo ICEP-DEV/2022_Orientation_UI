@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from './user.service';
+import { UserService } from './user.service';
+import { SocketioService } from './socketio.service'
 
 @Component({
   selector: 'app-root',
@@ -7,18 +8,18 @@ import {UserService} from './user.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'kg-app-cicd';
 
-  users: any = [];
-
-  constructor(private usersService: UserService){}
+  constructor(private usersService: UserService,
+              private _socketConnection: SocketioService,
+              )
+  {
+    this._socketConnection.socket.emit('Visitors_soc') 
+  }
 
   ngOnInit(){
-    this.getUsers();
+  
   }
 
-  getUsers(){
-    this.usersService.getUsers().subscribe((data: any) => this.users = data);
-  }
+ 
   
 }

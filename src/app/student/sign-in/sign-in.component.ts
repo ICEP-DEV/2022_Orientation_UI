@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, ViewChild,Input } from '@angul
 import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { UserService } from "../../user.service";
-//import { ToastComponent } from "../../system/toast/toast.component"
+import { SocketioService } from './../../socketio.service'
 
 @Component({
   selector: 'app-sign-in',
@@ -22,7 +22,10 @@ export class SignInComponent implements OnInit {
  
  
   
-  constructor(private _userService: UserService, private router: Router,private cookieService: CookieService) { }
+  constructor(private _userService: UserService, 
+    private router: Router,
+    private cookieService: CookieService,
+    private _socketConnection : SocketioService) { }
 
 
   ngOnInit(): void {
@@ -31,8 +34,6 @@ export class SignInComponent implements OnInit {
   fogotClicked()
   {
     this.router.navigate(['forgotten'])
-    // this.message = "incorrect password"
-    // this.isOpen = !this.isOpen
   }
 
   login() {
@@ -53,6 +54,7 @@ export class SignInComponent implements OnInit {
             this.cookieService.put("lname",result.data[0].lastname,{secure:true,sameSite:"strict"})
             this.cookieService.put("userEmail",result.data[0].email,{secure:true,sameSite:"strict"})
             this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
+            this._socketConnection.socket.emit('LoggedInUsers_soc')
             this.router.navigate([''])
           }
           else

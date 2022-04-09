@@ -1,0 +1,26 @@
+@import url('../../../../assets//css/admin/sb-admin-2.css');
+table {
+    width: 100%;
+}
+
+.mat-checkbox .mat-checkbox-frame {
+    border-color: black;
+    background-color: #dddddd
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 18px;
+    height: 18px;
+}
+
+.mat-checkbox-background {
+    background-color: transparent;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #341ed7;
+}

@@ -4,6 +4,7 @@ import { OrientationService } from "../orientation.service"
 import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { UserService } from './../user.service';
+import { SocketioService } from '../socketio.service';
 
 @Component({
   selector: 'app-campus',
@@ -49,7 +50,8 @@ export class CampusComponent implements OnInit {
     public _orientation : OrientationService, 
     private _cookiesService : CookieService,
     private _userService : UserService,
-    private router: Router
+    private router: Router,
+    private _socketConnection : SocketioService
   ) {
 
     if(!this._cookiesService.get("userEmail"))
@@ -85,6 +87,8 @@ export class CampusComponent implements OnInit {
       alert("Please select a campus before trying to procceed")
       return
     }
+
+    
 
     this.stepTwoComplete = true
     next(stepper)
@@ -170,6 +174,7 @@ export class CampusComponent implements OnInit {
     this._cookiesService.remove('userEmail')
     this._cookiesService.remove('lname')
     this._cookiesService.remove('fname')
+    this._socketConnection.socket.emit('LoggedOutUsers_soc')
     this.router.navigate(['home'])
   }
   blog(){

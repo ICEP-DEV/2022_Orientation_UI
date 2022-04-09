@@ -27,7 +27,6 @@ import { SignInComponent } from './student/sign-in/sign-in.component';
 import { IndexComponent } from './admin/index/index.component';
 import { SidebarComponent } from './admin/sidebar/sidebar.component';
 import { TopbarComponent } from './admin/topbar/topbar.component';
-import { UpdateComponent } from './admin/update/update.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { SurveyResponsesComponent } from './admin/survey-responses/survey-responses.component';
@@ -66,7 +65,12 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-
+import { UploadContentComponent } from './admin/sideTabs/upload-content/upload-content.component';
+import { TrackingStComponent } from './admin/sideTabs/tracking-st/tracking-st.component';
+import { GeneratedReportComponent } from './admin/sideTabs/generated-report/generated-report.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableFilterModule } from 'mat-table-filter';
 
 
 @NgModule({
@@ -84,10 +88,13 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     IndexComponent,
     SidebarComponent,
     TopbarComponent,
-    UpdateComponent,
     AdminLoginComponent,
     ForgottenComponent,
-    SurveyResponsesComponent
+    SurveyResponsesComponent,
+    UploadContentComponent,
+    TrackingStComponent,
+    GeneratedReportComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -130,7 +137,10 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MdbTooltipModule,
     MdbValidationModule,
     CookieModule.forRoot(),
-    MatIconModule 
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableFilterModule 
   ],
 
   schemas: [

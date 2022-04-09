@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
               private cookieService: CookieService,
               private _socketConnection: SocketioService) { }
   ngOnInit(): void {
-    this._socketConnection.socket.emit('RegisteredUsers_soc')
+    
   }
 
   sendOTP()
@@ -131,7 +131,8 @@ export class RegisterComponent implements OnInit {
         this.cookieService.put("lname", this.lastName,{secure:true,sameSite:"strict"})
         this.cookieService.put("userEmail",this.email,{secure:true,sameSite:"strict"})
         this._userService.logActivity({"useremail":this.email, "activity":"Registered"}).subscribe(()=>{})
-        
+        this._socketConnection.socket.emit('RegisteredUsers_soc')
+        this._socketConnection.socket.emit('LoggedInUsers_soc')
         this.router.navigate([''])
       }
       else
