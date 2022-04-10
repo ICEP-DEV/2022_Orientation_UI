@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserService } from './../user.service';
 import { SocketioService } from '../socketio.service';
 
+
 @Component({
   selector: 'app-campus',
   templateUrl: './campus.component.html',
@@ -16,6 +17,7 @@ import { SocketioService } from '../socketio.service';
 export class CampusComponent implements OnInit {
   isLinear = true;
   usernames =""
+  userEmail =""
 
   //Step Completed Controllers
   stepOneComplete: boolean = false;
@@ -30,6 +32,9 @@ export class CampusComponent implements OnInit {
   categories:any[] = []
   videosData:any[] = [];
   baseSurveyQuestions:any[] = [];
+
+  //surveyAnswers
+  baseSurveyAnswers:any[] = [];
   
   //Orientation Values
   //
@@ -41,7 +46,9 @@ export class CampusComponent implements OnInit {
 
 
  
-  
+  //Videos Control 
+  watchedVideos:number[]=[]  
+
   
 
 
@@ -54,7 +61,9 @@ export class CampusComponent implements OnInit {
     private _socketConnection : SocketioService
   ) {
 
-    if(!this._cookiesService.get("userEmail"))
+    this.userEmail = this._cookiesService.get("userEmail")
+
+    if(!this.userEmail)
     {
       this.router.navigate(['home'])
     }
@@ -63,6 +72,7 @@ export class CampusComponent implements OnInit {
       this._orientation.getCampuses().subscribe((result)=>{
       this.allCampuses = result.data
     })
+    
   }
 
   //Ng Initializer Method
@@ -70,25 +80,49 @@ export class CampusComponent implements OnInit {
    
   }
 
+    
+
 
   //------------------------------------------------------------------Step One Next Button Click
   StepOne(stepper : MatStepper)
   {
-    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"On Step One"}).subscribe(()=>{})
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step One"}).subscribe(()=>{})
+    this._orientation.Store_Steps({"useremail":this.userEmail,"field":"StartOrientation","value":"true"})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+    this._orientation.UpdateProgress({"email":this.userEmail,"progress":1})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+
     this.stepOneComplete = true
     next(stepper)
   } 
   //------------------------------------------------------------------Step Two Next Button Click
   StepTwo(stepper : MatStepper)
   {
-    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"On Step Two"}).subscribe(()=>{})
+    
     if(this.campusSelected == -1)
     {
       alert("Please select a campus before trying to procceed")
       return
     }
 
-    
+    //Activity Loging to database
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Two"}).subscribe(()=>{})
+
+    //Storing the users campus choice
+    this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Campus","value":this.campusNameSelected})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+
+    //Updating the progress of the user
+    this._orientation.UpdateProgress({"email":this.userEmail,"progress":2})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })    
 
     this.stepTwoComplete = true
     next(stepper)
@@ -96,12 +130,27 @@ export class CampusComponent implements OnInit {
   //------------------------------------------------------------------Step Three Next Button Click
   StepThree(stepper : MatStepper)
   {
-    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"On Step Three"}).subscribe(()=>{})
+    //Checking whether is there a selected faculty
     if(this.facultySelected == -1)
     {
       alert("Please select a faculty before trying to procceed")
       return
     }
+
+    //Activity Loging to database
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Three"}).subscribe(()=>{})
+
+    //Storing the users faculty choice
+    this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Faculty","value":this.facultyNameSelected})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+
+    //Updating the progress of the user
+    this._orientation.UpdateProgress({"email":this.userEmail,"progress":3})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    }) 
 
     this.stepThreeComplete = true
     next(stepper)
@@ -109,20 +158,67 @@ export class CampusComponent implements OnInit {
   //------------------------------------------------------------------Step Four Next Button Click
   StepFour(stepper : MatStepper)
   {
-    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"On Step Four"}).subscribe(()=>{})
+
+    //Checking Wherether atleast 2 videos have been watched
+    if(this.watchedVideos.length < 0)
+    {
+        alert("Please watch atleast two videos before proceeding")
+        return
+    }
+
+
+    //Activity Loging to database
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Four"}).subscribe(()=>{})
+
+    //Storing the users faculty choice
+    this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Videos","value":"true"})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+
+    //Updating the progress of the user
+    this._orientation.UpdateProgress({"email":this.userEmail,"progress":4})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
     this.stepFourComplete = true
     next(stepper)
   }
   //------------------------------------------------------------------Step Five Next Button Click
   StepFive(stepper : MatStepper)
   {
-    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"On Step Five"}).subscribe(()=>{})
+
+    //Checking Whether Survey is fully completed
+
+      //checking they are equal    
+      if(this.baseSurveyAnswers.length !== this.baseSurveyQuestions.length)
+      {
+          alert("Please answer every question from the survey")
+          return
+      }
+
+      for (let index = 0; index < this.baseSurveyAnswers.length; index++) {
+        if(!this.baseSurveyAnswers[index])
+        {
+          alert("Please answer every question from the survey")
+          return
+        } 
+      }
+
+
+      
+    
+
+    //
+
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Five"}).subscribe(()=>{})
     this.stepFiveComplete = true
     next(stepper)
   }
   
   StepSix(stepper : MatStepper)
   {
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"Restared the Orientation"}).subscribe(()=>{})
     this.stepOneComplete = false;
     stepper.reset()
   }
@@ -136,6 +232,7 @@ export class CampusComponent implements OnInit {
     this.campusSelected = id;
     this.campusNameSelected = campName
     this.facultySelected = -1;
+    this.watchedVideos = []
     this.stepTwoComplete = false;
     this.stepThreeComplete = false;
     this.stepFourComplete = false;
@@ -154,6 +251,7 @@ export class CampusComponent implements OnInit {
       this.stepThreeComplete = false;
       this.stepFourComplete = false;
       this.stepFiveComplete = false;
+      this.baseSurveyAnswers =[]
 
       this._orientation.getVideos(this.facultySelected.toString()).subscribe((result)=>{
         this.videosData = result.data
@@ -165,10 +263,22 @@ export class CampusComponent implements OnInit {
   }
 
   //=======================Other event Handles
-  onPlayVideo($event : any)
+  onPlayVideo(videoid : any)
   { 
-    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Video played"}).subscribe(()=>{})
+   
+      if(this.watchedVideos.indexOf(videoid) != -1)
+      {
+        return;
+      }
+      else
+      {
+        this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Video played"}).subscribe(()=>{})
+        this.watchedVideos.push(videoid)
+      }
+      
   }
+
+  //Handle logging out
   logout(){
     this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Logged out"}).subscribe(()=>{})
     this._cookiesService.remove('userEmail')
@@ -177,13 +287,15 @@ export class CampusComponent implements OnInit {
     this._socketConnection.socket.emit('LoggedOutUsers_soc')
     this.router.navigate(['home'])
   }
+
+  //Navigation To Blog
   blog(){
     this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Blog clicked"}).subscribe(()=>{})
     this.router.navigate(['blog'])
   }
 }
 
-//
+//Dlay of nextstep
 function next(stepper : MatStepper)
 {
       setTimeout(() => {

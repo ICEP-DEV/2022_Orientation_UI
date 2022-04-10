@@ -11,7 +11,7 @@ export class OrientationService {
   ) { 
 
   }
-
+  //Getting System data
   public getCampuses()
   {
     return this.http.get<any>("http://localhost:6900/Orientation/Campus");
@@ -31,4 +31,22 @@ export class OrientationService {
   {
     return this.http.get<any>("http://localhost:6900/Orientation/Question",{params:{fac_id:facid}})
   }
+  //Storing Values and Progress
+
+  public Store_Steps(body : any)
+  { 
+      return this.http.post<any>("http://localhost:6900/track/orientation",body,{})
+  }
+
+  public UpdateProgress(body : any)
+  { 
+    return this.http.put<any>("http://localhost:6900/Track/Progress",body,{})
+  }
+
+
+
+
+
+
+
 }

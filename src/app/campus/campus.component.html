@@ -144,16 +144,26 @@
                 <ng-template matStepLabel>Survey</ng-template>
                 <p> Please complete the survey</p>
 
-                <ng-templete *ngFor="let question of baseSurveyQuestions">
+                <ng-templete *ngFor="let question of baseSurveyQuestions,let indexOfelement=index;">
                     <br>
-                    <mat-form-field style="width: 90%;margin-left: 2%;">
-                        <mat-label>{{question.question}}</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let eachanswer of question.possible_answer" [value]="1">
-                                {{eachanswer.answer}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                    <div *ngIf="question.possible_answer.length > 1, else oneAnswer">
+                        <mat-form-field style="width: 90%;margin-left: 2%;">
+                            <mat-label>{{ question.question}}</mat-label>
+                            <mat-select [id]="question.question_id" [(ngModel)]="baseSurveyAnswers[indexOfelement]">
+                                <mat-option *ngFor="let eachanswer of question.possible_answer" id={{eachanswer.id}} value={{eachanswer.answer}}>
+                                    {{eachanswer.answer}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <ng-template #oneAnswer>
+                        <mat-form-field style="width: 90%;margin-left: 2%;">
+                            <mat-label>{{question.question}}</mat-label>
+                            <input matInput placeholder="Answer" id={{question.question_id}} [(ngModel)]="baseSurveyAnswers[indexOfelement]">
+                        </mat-form-field>
+                    </ng-template>
+
                 </ng-templete>
 
 
