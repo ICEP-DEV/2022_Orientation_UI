@@ -43,8 +43,30 @@ export class OrientationService {
     return this.http.put<any>("http://localhost:6900/Track/Progress",body,{})
   }
 
+  //Store Survey Answers by person
 
+  public StoreSurveyAnswers(body : any)
+  { 
+    return this.http.post<any>("http://localhost:6900/track/Survey",body,{})
+  }
 
+  //Get Saved Answers from BE
+  //Orientation
+  public GetOrientaionAnswer(usercreds:any)
+  {
+    return this.http.get<any>("http://localhost:6900/track/orientation",{params:usercreds})
+  }
+  //Survey
+  public GetSurveyAnswer(usercreds:any)
+  {
+    return this.http.get<any>("http://localhost:6900/track/survey",{params:usercreds})
+  }
+  
+  //Deleting of progress
+  public DelCustomeSaved(parametrs :any)
+  {
+    return this.http.delete<any>("http://localhost:6900/track/orientation",{params:parametrs})
+  }
 
 
 

@@ -38,12 +38,12 @@
     <!-- Progress Stepper Bar -->
     <mat-card style="align-content: center;box-shadow: none;">
         <mat-card-title style="align-content: center; font-size:medium;">Online Orientation Progress.</mat-card-title>
-        <mat-vertical-stepper fxLayout="column" [linear]="isLinear" #stepper>
+        <mat-vertical-stepper id="stepper" fxLayout="column" [linear]="isLinear" #stepper (selectionChange)="changeSection($event)" (animationDone)="focus(stepper)">
 
             <!-- STEP 1 START ORIENTATION -->
             <mat-step label="Start" [completed]="stepOneComplete">
                 <ng-template matStepLabel style="background-color: #0d4794;">Start Orientation</ng-template>
-                <p>Click next to start the orientation.</p>
+                <p> Click next to start the orientation.</p>
 
 
                 <div>
@@ -58,7 +58,7 @@
                 <p>Please choose your campus below to continue.</p>
 
                 <mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle *ngFor="let camp of allCampuses;" (click)="campClick(camp.id,camp.campus_name)" value="bold" id="camp.id">{{camp.campus_name}}</mat-button-toggle>
+                    <mat-button-toggle *ngFor="let camp of allCampuses; let indexOfCampus = index" (click)="campClick(camp.id,camp.campus_name)" id="camp.id" [checked]="campusUISELECT[indexOfCampus]">{{camp.campus_name}}</mat-button-toggle>
                 </mat-button-toggle-group>
 
                 <div>
@@ -75,7 +75,7 @@
                 <p>Please choose your faculty below to continue.</p>
 
                 <mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle *ngFor="let faculty of baseFaculties;" (click)="facClick(faculty.id,faculty.faculty_name)" value="bold" id="faculty.id">{{faculty.faculty_name}}</mat-button-toggle>
+                    <mat-button-toggle *ngFor="let faculty of baseFaculties, let indexOfFac = index" (click)="facClick(faculty.id,faculty.faculty_name)" value="bold" id="faculty.id" [checked]="facultyUISELECT[indexOfFac]">{{faculty.faculty_name}}</mat-button-toggle>
                 </mat-button-toggle-group>
 
                 <div>
@@ -169,7 +169,7 @@
 
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="StepFive(stepper)" style="background-color: #de0428; color: white;">Next</button>
+                    <button mat-button (click)="StepFive(stepper,false)" style="background-color: #de0428; color: white;">Next</button>
                 </div>
 
             </mat-step>
