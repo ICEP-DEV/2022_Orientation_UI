@@ -16,6 +16,7 @@ export class MapdirComponent implements OnInit {
   allCampuses:any[] = []
   all_lat_marker:any[] = []
   all_lng_marker:any[] = []
+  zoomVar = 10
 
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<MapdirComponent>,
@@ -30,11 +31,17 @@ export class MapdirComponent implements OnInit {
       for (let index = 0; index < this.allCampuses.length; index++) {
          this.all_lat_marker[index] = JSON.parse(this.allCampuses[index].campus_coords)[0]
          this.all_lng_marker[index] = JSON.parse(this.allCampuses[index].campus_coords)[1]
-      }
-      
+      } 
     })
-
   }
+
+  clickCampus(name : string,coords : any)
+  {
+    this.title = name+" Campus"
+    this.lat = JSON.parse(coords)[0]
+    this.lng = JSON.parse(coords)[1]
+    this.zoomVar = 14
+  } 
 
   openLink(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
