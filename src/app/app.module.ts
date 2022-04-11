@@ -73,6 +73,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableFilterModule } from 'mat-table-filter';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MapdirComponent } from './student/mapdir/mapdir.component';
+import { AgmCoreModule } from '@agm/core';
+
 
 
 @NgModule({
@@ -96,7 +99,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     UploadContentComponent,
     TrackingStComponent,
     GeneratedReportComponent,
-
+    MapdirComponent,
   ],
   imports: [
     BrowserModule,
@@ -144,7 +147,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSortModule,
     MatTableFilterModule,
     MatProgressBarModule,
-    MatSnackBarModule 
+    MatSnackBarModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
+    }) 
   ],
 
   schemas: [

@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { UserService } from './../user.service';
 import { SocketioService } from '../socketio.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MapdirComponent } from '../student/mapdir/mapdir.component';
+
 
 @Component({
   selector: 'app-campus',
@@ -71,9 +74,10 @@ export class CampusComponent implements OnInit {
     public _orientation : OrientationService, 
     private _cookiesService : CookieService,
     private _userService : UserService,
-    private router: Router,
+    private _router: Router,
     private _socketConnection : SocketioService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _bottomSheet: MatBottomSheet
     
   ) {
 
@@ -81,7 +85,7 @@ export class CampusComponent implements OnInit {
 
     if(!this.userEmail)
     {
-      this.router.navigate(['home'])
+      this._router.navigate(['home'])
     }
       this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
 
@@ -467,13 +471,13 @@ export class CampusComponent implements OnInit {
     this._cookiesService.remove('lname')
     this._cookiesService.remove('fname')
     this._socketConnection.socket.emit('LoggedOutUsers_soc')
-    this.router.navigate(['home'])
+    this._router.navigate(['home'])
   }
 
   //Navigation To Blog
   blog(){
     this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Blog clicked"}).subscribe(()=>{})
-    this.router.navigate(['blog'])
+    this._router.navigate(['blog'])
   } 
 
   changeSection($event : any)
@@ -512,6 +516,11 @@ export class CampusComponent implements OnInit {
     if($event.selectedIndex == 5)
       this.progressbarVal =100
    
+  }
+
+  campDirection()
+  {
+    this._bottomSheet.open(MapdirComponent);
   }
 }
 
