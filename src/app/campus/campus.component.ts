@@ -61,6 +61,7 @@ export class CampusComponent implements OnInit {
   //Saved Progress Values
   orientation_sav : any = {}
   survey_sav : any = {}
+  progressbarVal:number = 0
 
   
 
@@ -208,7 +209,7 @@ export class CampusComponent implements OnInit {
     .subscribe((result)=>{
       if(result.error) throw result.message
     })
-
+ 
     this.stepOneComplete = true
     next(stepper)
   } 
@@ -236,7 +237,7 @@ export class CampusComponent implements OnInit {
     .subscribe((result)=>{
       if(result.error) throw result.message
     })    
-
+   
     this.stepTwoComplete = true
     next(stepper)
   }
@@ -264,7 +265,7 @@ export class CampusComponent implements OnInit {
     .subscribe((result)=>{
       if(result.error) throw result.message
     }) 
-
+   
     this.stepThreeComplete = true
     next(stepper)
   }
@@ -273,7 +274,7 @@ export class CampusComponent implements OnInit {
   {
 
     //Checking Wherether atleast 2 videos have been watched
-    if(this.watchedVideos.length < 0)
+    if(this.watchedVideos.length < 2)
     {
         alert("Please watch atleast two videos before proceeding")
         return
@@ -294,6 +295,7 @@ export class CampusComponent implements OnInit {
     .subscribe((result)=>{
       if(result.error) throw result.message
     })
+ 
     this.stepFourComplete = true
     next(stepper)
   }
@@ -376,7 +378,9 @@ export class CampusComponent implements OnInit {
       })
 
       this._orientation.DelCustomeSaved({"useremail":this.userEmail,"delete":"all"})
-      .subscribe(()=>{})
+      .subscribe(()=>{
+        this._socketConnection.socket.emit("Add_Survey_soc")
+      })
       
       this._userService.logActivity({"useremail":this.userEmail, "activity":"Restared the Orientation"}).subscribe(()=>{})
 
@@ -385,9 +389,10 @@ export class CampusComponent implements OnInit {
       .subscribe((result)=>{
         if(result.error) throw result.message
       })
-    
+      
+      this.baseSurveyAnswers = []
         
-
+      this.progressbarVal =0
       this.stepOneComplete = false;
       stepper.reset()
     }
@@ -410,8 +415,7 @@ export class CampusComponent implements OnInit {
     this.stepFourComplete = false;
     this.stepFiveComplete = false;
 
-    
-
+    this.progressbarVal = 20
     await this._orientation.getFaculty(this.campusSelected.toString()).toPromise().then((result)=>{
       this.baseFaculties = result.data
     })
@@ -428,7 +432,7 @@ export class CampusComponent implements OnInit {
       this.baseSurveyAnswers =[]
 
     
-
+      this.progressbarVal = 40
       await this._orientation.getVideos(this.facultySelected.toString()).toPromise().then((result)=>{
         this.videosData = result.data
       })
@@ -441,13 +445,14 @@ export class CampusComponent implements OnInit {
   //=======================Other event Handles
   onPlayVideo(videoid : any)
   { 
-   
+
       if(this.watchedVideos.indexOf(videoid) != -1)
       {
         return;
       }
       else
       {
+        this.progressbarVal = 50
         this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Video played"}).subscribe(()=>{})
         this.watchedVideos.push(videoid)
       }
@@ -480,6 +485,32 @@ export class CampusComponent implements OnInit {
     if($event.selectedIndex == 2)
     if(this.baseSurveyAnswers.length > 0)
     alert("Cation!! Looks like you have started with the survey if you change the faculty you will loose your progress")
+
+    if($event.selectedIndex == 0)
+      this.progressbarVal =0
+    
+
+    if($event.selectedIndex == 1)
+      this.progressbarVal = 10
+    
+
+    if($event.selectedIndex == 2) 
+      this.progressbarVal =30
+     
+
+    if($event.selectedIndex == 3)
+      this.progressbarVal =40
+    
+
+    if($event.selectedIndex == 4) 
+      this.progressbarVal =60
+    
+
+    if($event.selectedIndex == 5)
+      this.progressbarVal =100
+    
+
+  
     
   }
 }
