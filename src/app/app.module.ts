@@ -72,6 +72,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableFilterModule } from 'mat-table-filter';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -142,7 +143,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatPaginatorModule,
     MatSortModule,
     MatTableFilterModule,
-    MatProgressBarModule 
+    MatProgressBarModule,
+    MatSnackBarModule 
   ],
 
   schemas: [

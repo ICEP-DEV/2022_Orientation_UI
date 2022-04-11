@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { UserService } from './../user.service';
 import { SocketioService } from '../socketio.service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-campus',
@@ -73,6 +73,7 @@ export class CampusComponent implements OnInit {
     private _userService : UserService,
     private router: Router,
     private _socketConnection : SocketioService,
+    private _snackBar: MatSnackBar
     
   ) {
 
@@ -480,11 +481,13 @@ export class CampusComponent implements OnInit {
      // console.log($event)
     if($event.selectedIndex == 1)
     if(this.baseSurveyAnswers.length > 0)
-    alert("Cation!! Looks like you have started with the survey if you change the campus you will loose your progress")
-
+    //alert("Cation!! Looks like you have started with the survey if you change the campus you will loose your progress")
+    this._snackBar.open("If you change the campus you will loose your survey progress","Cation!",{duration:5000});
+    
     if($event.selectedIndex == 2)
     if(this.baseSurveyAnswers.length > 0)
-    alert("Cation!! Looks like you have started with the survey if you change the faculty you will loose your progress")
+    //alert("Cation!! Looks like you have started with the survey if you change the faculty you will loose your progress")
+    this._snackBar.open("If you change the faculty you will loose your survey progress","Cation!",{duration:5000});
 
     if($event.selectedIndex == 0)
       this.progressbarVal =0
@@ -508,10 +511,7 @@ export class CampusComponent implements OnInit {
 
     if($event.selectedIndex == 5)
       this.progressbarVal =100
-    
-
-  
-    
+   
   }
 }
 
