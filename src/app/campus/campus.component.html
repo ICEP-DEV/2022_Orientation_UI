@@ -7,6 +7,8 @@
         <p> Get to know your campus, library, student support and department staff.</p>
     </div>
 </div>
+<!-- <h6></h6> -->
+<mat-progress-bar  style="height: 1%; " mode="determinate" value={{progressbarVal}}></mat-progress-bar>
 
 <div class="example-button-container" style="position: fixed; margin-top: 25%; margin-left: 90%;z-index: 5;">
     <button mat-button [matMenuTriggerFor]="menu" mat-fab style="background-color: #0d4794;" aria-label="Example icon button with a home icon">
@@ -38,12 +40,12 @@
     <!-- Progress Stepper Bar -->
     <mat-card style="align-content: center;box-shadow: none;">
         <mat-card-title style="align-content: center; font-size:medium;">Online Orientation Progress.</mat-card-title>
-        <mat-vertical-stepper fxLayout="column" [linear]="isLinear" #stepper>
+        <mat-vertical-stepper id="stepper" fxLayout="column" [linear]="isLinear" #stepper (selectionChange)="changeSection($event)" (animationDone)="focus(stepper)">
 
             <!-- STEP 1 START ORIENTATION -->
             <mat-step label="Start" [completed]="stepOneComplete">
                 <ng-template matStepLabel style="background-color: #0d4794;">Start Orientation</ng-template>
-                <p>Click next to start the orientation.</p>
+                <p> Click next to start the orientation.</p>
 
 
                 <div>
@@ -58,7 +60,7 @@
                 <p>Please choose your campus below to continue.</p>
 
                 <mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle *ngFor="let camp of allCampuses;" (click)="campClick(camp.id,camp.campus_name)" value="bold" id="camp.id">{{camp.campus_name}}</mat-button-toggle>
+                    <mat-button-toggle *ngFor="let camp of allCampuses; let indexOfCampus = index" (click)="campClick(camp.id,camp.campus_name)" id="camp.id" [checked]="campusUISELECT[indexOfCampus]">{{camp.campus_name}}</mat-button-toggle>
                 </mat-button-toggle-group>
 
                 <div>
@@ -75,7 +77,7 @@
                 <p>Please choose your faculty below to continue.</p>
 
                 <mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle *ngFor="let faculty of baseFaculties;" (click)="facClick(faculty.id,faculty.faculty_name)" value="bold" id="faculty.id">{{faculty.faculty_name}}</mat-button-toggle>
+                    <mat-button-toggle *ngFor="let faculty of baseFaculties, let indexOfFac = index" (click)="facClick(faculty.id,faculty.faculty_name)" value="bold" id="faculty.id" [checked]="facultyUISELECT[indexOfFac]">{{faculty.faculty_name}}</mat-button-toggle>
                 </mat-button-toggle-group>
 
                 <div>
@@ -144,22 +146,32 @@
                 <ng-template matStepLabel>Survey</ng-template>
                 <p> Please complete the survey</p>
 
-                <ng-templete *ngFor="let question of baseSurveyQuestions">
+                <ng-templete *ngFor="let question of baseSurveyQuestions,let indexOfelement=index;">
                     <br>
-                    <mat-form-field style="width: 90%;margin-left: 2%;">
-                        <mat-label>{{question.question}}</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let eachanswer of question.possible_answer" [value]="1">
-                                {{eachanswer.answer}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                    <div *ngIf="question.possible_answer.length > 1, else oneAnswer">
+                        <mat-form-field style="width: 90%;margin-left: 2%;">
+                            <mat-label>{{ question.question}}</mat-label>
+                            <mat-select [id]="question.question_id" [(ngModel)]="baseSurveyAnswers[indexOfelement]">
+                                <mat-option *ngFor="let eachanswer of question.possible_answer" id={{eachanswer.id}} value={{eachanswer.answer}}>
+                                    {{eachanswer.answer}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <ng-template #oneAnswer>
+                        <mat-form-field style="width: 90%;margin-left: 2%;">
+                            <mat-label>{{question.question}}</mat-label>
+                            <input matInput placeholder="Answer" id={{question.question_id}} [(ngModel)]="baseSurveyAnswers[indexOfelement]">
+                        </mat-form-field>
+                    </ng-template>
+
                 </ng-templete>
 
 
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="StepFive(stepper)" style="background-color: #de0428; color: white;">Next</button>
+                    <button mat-button (click)="StepFive(stepper,false)" style="background-color: #de0428; color: white;">Next</button>
                 </div>
 
             </mat-step>

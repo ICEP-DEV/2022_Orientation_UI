@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
       this._socketConnection.socket.on("countVideos",(instream)=>{
         this.videos= instream;
       })
-      this._socketConnection.socket.on("countSurveys",(instream)=>{
+      this._socketConnection.socket.on("countSurvey",(instream)=>{
         this.surveys = ((instream / this.students) * 100).toFixed(0);
         this.noOfSurvey = instream
         this.widthStyle = "width:"+this.surveys+"%"

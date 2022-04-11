@@ -71,6 +71,7 @@ import { GeneratedReportComponent } from './admin/sideTabs/generated-report/gene
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableFilterModule } from 'mat-table-filter';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -140,7 +141,8 @@ import { MatTableFilterModule } from 'mat-table-filter';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTableFilterModule 
+    MatTableFilterModule,
+    MatProgressBarModule 
   ],
 
   schemas: [
