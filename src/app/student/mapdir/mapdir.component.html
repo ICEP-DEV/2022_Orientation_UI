@@ -9,5 +9,5 @@
 
 
 <agm-map [zoom]="zoomVar" [latitude]="lat" [longitude]="lng">
-  <agm-marker *ngFor="let campus of allCampuses, let i = index" [latitude]="all_lat_marker[i]" [longitude]="all_lng_marker[i]"></agm-marker>
+  <agm-marker animation="DROP" *ngFor="let campus of allCampuses, let i = index" [latitude]="all_lat_marker[i]" [longitude]="all_lng_marker[i]"></agm-marker>
 </agm-map>

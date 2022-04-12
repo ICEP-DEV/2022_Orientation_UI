@@ -40,7 +40,7 @@ export class MapdirComponent implements OnInit {
     this.title = name+" Campus"
     this.lat = JSON.parse(coords)[0]
     this.lng = JSON.parse(coords)[1]
-    this.zoomVar = 14
+    this.zoomVar = 16
   } 
 
   openLink(event: MouseEvent): void {

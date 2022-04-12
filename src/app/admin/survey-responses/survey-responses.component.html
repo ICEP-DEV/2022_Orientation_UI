@@ -31,40 +31,36 @@
                 </div>
                 <!-- picture_as_pdf -->
                 <div class="container">
-                    <div class="row">
-                        <div class="search-hero">
-                            <input class="form-control" type="text" name="search" autocomplete="off" placeholder="Start searching for a response by name or cell number or faculty">
-                        </div>
-                        <table class="table  table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Campus</th>
-                                    <th>Faculty</th>
-                                    <th>Question 1</th>
-                                    <th>Question 2</th>
-                                    <th>Question 3</th>
-                                    <th>Question 4</th>
-                                    <th>Question 5</th>
-                                    <th>Question 6</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!--<tr *ngFor="survey hero of surveys | filter:searchText">-->
-                                <!-- <tr *ngFor="let survey of surveys">
-                                    <td>{{survey.name}}</td>
-                                    <td>{{survey.cell}}</td>
-                                    <td>{{survey.faculty}}</td>
-                                    <td>{{survey.question1}}</td>
-                                    <td>{{survey.question2}}</td>
-                                    <td>{{survey.question3}}</td>
-                                    <td>{{survey.question4}}</td>
-                                    <td>{{survey.question5}}</td>
-                                    <td>{{survey.question6}}</td>
-                                </tr> -->
-                            </tbody>
-                        </table>
-                    </div>
+                    <table mat-table
+                            [dataSource]="dataSource" multiTemplateDataRows
+                            class="mat-elevation-z8">
+                        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                            <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                        </ng-container>
+
+                        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                        <ng-container matColumnDef="expandedDetail">
+                            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                            <div class="example-element-detail"
+                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                <label style="margin-right: 2%;">Survey</label>
+                                <div class="row">
+                                    <h6 *ngFor="let eachsurvey of element.survey">{{eachsurvey.question}} : {{eachsurvey.answer}}</h6>
+                                </div>
+                            </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+                            class="example-element-row"
+                            [class.example-expanded-row]="expandedElement === element"
+                            (click)="expandedElement = expandedElement === element ? null : element">
+                        </tr>
+                        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[10, 15, 20, 25]" [length]="100" [pageSize]="10" style="margin-bottom: 5%;"></mat-paginator>
                 </div>
             </div>
         </div>

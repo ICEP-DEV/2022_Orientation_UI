@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 import { UserService } from './../user.service';
 import { SocketioService } from '../socketio.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MapdirComponent } from '../student/mapdir/mapdir.component';
+import { MeeteamComponent } from '../student/meeteam/meeteam.component';
 
 
 @Component({
@@ -521,6 +522,11 @@ export class CampusComponent implements OnInit {
   campDirection()
   {
     this._bottomSheet.open(MapdirComponent);
+  }
+
+  meeteam()
+  {
+    this._bottomSheet.open(MeeteamComponent)
   }
 }
 

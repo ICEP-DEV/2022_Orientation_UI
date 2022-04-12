@@ -75,6 +75,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MapdirComponent } from './student/mapdir/mapdir.component';
 import { AgmCoreModule } from '@agm/core';
+import { MeeteamComponent } from './student/meeteam/meeteam.component';
 
 
 
@@ -100,6 +101,7 @@ import { AgmCoreModule } from '@agm/core';
     TrackingStComponent,
     GeneratedReportComponent,
     MapdirComponent,
+    MeeteamComponent,
   ],
   imports: [
     BrowserModule,
