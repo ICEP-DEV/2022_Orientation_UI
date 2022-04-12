@@ -68,6 +68,11 @@ export class OrientationService {
     return this.http.delete<any>("http://localhost:6900/track/orientation",{params:parametrs})
   }
 
+  public getUserSurvey()
+  {
+    return this.http.get<any>("http://localhost:6900/track/survey/admin")
+  }
+
 
 
 
