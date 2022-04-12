@@ -72,6 +72,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableFilterModule } from 'mat-table-filter';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MapdirComponent } from './student/mapdir/mapdir.component';
+import { AgmCoreModule } from '@agm/core';
+import { MeeteamComponent } from './student/meeteam/meeteam.component';
+
 
 
 @NgModule({
@@ -95,7 +100,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     UploadContentComponent,
     TrackingStComponent,
     GeneratedReportComponent,
-
+    MapdirComponent,
+    MeeteamComponent,
   ],
   imports: [
     BrowserModule,
@@ -142,7 +148,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatPaginatorModule,
     MatSortModule,
     MatTableFilterModule,
-    MatProgressBarModule 
+    MatProgressBarModule,
+    MatSnackBarModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
+    }) 
   ],
 
   schemas: [

@@ -5,6 +5,10 @@ import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { UserService } from './../user.service';
 import { SocketioService } from '../socketio.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MapdirComponent } from '../student/mapdir/mapdir.component';
+import { MeeteamComponent } from '../student/meeteam/meeteam.component';
 
 
 @Component({
@@ -71,8 +75,10 @@ export class CampusComponent implements OnInit {
     public _orientation : OrientationService, 
     private _cookiesService : CookieService,
     private _userService : UserService,
-    private router: Router,
+    private _router: Router,
     private _socketConnection : SocketioService,
+    private _snackBar: MatSnackBar,
+    private _bottomSheet: MatBottomSheet
     
   ) {
 
@@ -80,7 +86,7 @@ export class CampusComponent implements OnInit {
 
     if(!this.userEmail)
     {
-      this.router.navigate(['home'])
+      this._router.navigate(['home'])
     }
       this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
 
@@ -466,13 +472,13 @@ export class CampusComponent implements OnInit {
     this._cookiesService.remove('lname')
     this._cookiesService.remove('fname')
     this._socketConnection.socket.emit('LoggedOutUsers_soc')
-    this.router.navigate(['home'])
+    this._router.navigate(['home'])
   }
 
   //Navigation To Blog
   blog(){
     this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Blog clicked"}).subscribe(()=>{})
-    this.router.navigate(['blog'])
+    this._router.navigate(['blog'])
   } 
 
   changeSection($event : any)
@@ -480,11 +486,13 @@ export class CampusComponent implements OnInit {
      // console.log($event)
     if($event.selectedIndex == 1)
     if(this.baseSurveyAnswers.length > 0)
-    alert("Cation!! Looks like you have started with the survey if you change the campus you will loose your progress")
-
+    //alert("Cation!! Looks like you have started with the survey if you change the campus you will loose your progress")
+    this._snackBar.open("If you change the campus you will loose your survey progress","Cation!",{duration:5000});
+    
     if($event.selectedIndex == 2)
     if(this.baseSurveyAnswers.length > 0)
-    alert("Cation!! Looks like you have started with the survey if you change the faculty you will loose your progress")
+    //alert("Cation!! Looks like you have started with the survey if you change the faculty you will loose your progress")
+    this._snackBar.open("If you change the faculty you will loose your survey progress","Cation!",{duration:5000});
 
     if($event.selectedIndex == 0)
       this.progressbarVal =0
@@ -508,10 +516,17 @@ export class CampusComponent implements OnInit {
 
     if($event.selectedIndex == 5)
       this.progressbarVal =100
-    
+   
+  }
 
-  
-    
+  campDirection()
+  {
+    this._bottomSheet.open(MapdirComponent);
+  }
+
+  meeteam()
+  {
+    this._bottomSheet.open(MeeteamComponent)
   }
 }
 

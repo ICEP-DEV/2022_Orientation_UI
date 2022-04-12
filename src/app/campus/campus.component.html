@@ -1,4 +1,6 @@
-<app-header></app-header>
+<app-header>
+    <mat-progress-bar  style="height: 1%; " mode="determinate" value={{progressbarVal}}></mat-progress-bar>
+</app-header>
 
 <!-----------------------------------------------------------------------------Header-->
 <div class="hero-image">
@@ -8,7 +10,7 @@
     </div>
 </div>
 <!-- <h6></h6> -->
-<mat-progress-bar  style="height: 1%; " mode="determinate" value={{progressbarVal}}></mat-progress-bar>
+
 
 <div class="example-button-container" style="position: fixed; margin-top: 25%; margin-left: 90%;z-index: 5;">
     <button mat-button [matMenuTriggerFor]="menu" mat-fab style="background-color: #0d4794;" aria-label="Example icon button with a home icon">
@@ -21,13 +23,13 @@
         <button mat-menu-item>Get Your cetificate  
             <mat-icon>assignment_turned_in</mat-icon>
         </button>
-        <button mat-menu-item>Campus Directions 
-            <mat-icon>info</mat-icon>
+        <button (click)="campDirection()" mat-menu-item>Campus Directions 
+            <mat-icon>room</mat-icon>
         </button>
         <button (click)="blog()" mat-menu-item>Blog  
             <mat-icon>view_agenda</mat-icon>
         </button>
-        <button mat-menu-item>About Us  
+        <button (click)="meeteam()" mat-menu-item>Meet the team  
             <mat-icon>info</mat-icon>
         </button>
         <button (click)="logout()" mat-menu-item>Logout  
