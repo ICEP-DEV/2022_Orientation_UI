@@ -67,7 +67,7 @@ export class CampusComponent implements OnInit {
   survey_sav : any = {}
   progressbarVal:number = 0
 
-  
+  public url : string = '';
 
 
   //Constructor
@@ -89,7 +89,7 @@ export class CampusComponent implements OnInit {
       this._router.navigate(['home'])
     }
       this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
-
+      this.url = "http://localhost/pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
       this._orientation.getCampuses().subscribe((result)=>{
       this.allCampuses = result.data
     })

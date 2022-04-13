@@ -46,4 +46,14 @@ export class UserService {
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/query",body,{})
   }
 
+  public getAllBlogs()
+  {
+    return this.http.get<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/blog/blog",{params:{"id":"*"}})
+  }
+
+  public loginAdmin(body :any)
+  {
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login_admin",body,{})
+  }
+
 }

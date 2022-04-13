@@ -21,7 +21,7 @@ export class SurveyResponsesComponent implements OnInit  {
 
   dataSource = new MatTableDataSource<Survey>(ELEMENT_DATA);
 
-  columnsToDisplay = ['id','Firstname', 'Lastname', 'StudentNo', 'Email'];
+  columnsToDisplay = ['Firstname', 'Lastname', 'StudentNo', 'Email'];
   expandedElement: Survey | null = {Id:0,Firstname:"",Lastname:"",StudentNo:"",Email:"",Survey:[]}; 
 
   @ViewChild(MatPaginator, {static: true}) paginator : any

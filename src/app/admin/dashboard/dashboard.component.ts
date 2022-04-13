@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './../../user.service';
 import { SocketioService } from './../../socketio.service'
 import { Chart, registerables } from 'chart.js';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +11,8 @@ import { Chart, registerables } from 'chart.js';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  userEmail : any
 
   students: number = 0;
   visitors: number = 0;
@@ -25,9 +29,18 @@ export class DashboardComponent implements OnInit {
 
   
 
-  constructor(private usersService: UserService, 
-    private _socketConnection: SocketioService,) 
+  constructor(
+    private usersService: UserService, 
+    private _socketConnection: SocketioService,
+    private _router : Router,
+    private _cookiesService : CookieService
+    ) 
   {
+    this.userEmail = this._cookiesService.get("userEmail_A")
+    if(!this.userEmail)
+    {
+      this._router.navigate(['admin-login'])
+    }
     Chart.register(...registerables)
     _socketConnection.getStatsBatch({}).subscribe((result)=>
     {
