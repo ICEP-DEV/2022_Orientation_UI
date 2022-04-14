@@ -1,27 +1,38 @@
 <div class="page-container" style="padding-bottom: 100px;">
-  
+
     <mat-card style="box-shadow: none;">
-      <h1 style="padding-top: 5px;  font-weight: bolder; font-size: 30px; color:#0d4794; margin-bottom: 3%;"> Blog Posts </h1>
+        <h1 style="padding-top: 5px;  font-weight: bolder; font-size: 30px; color:#0d4794; margin-bottom: 3%;"> Blog Posts </h1>
+        <div *ngIf="blogData.length > 0, else noBlog">
+            <mat-card class="card" style=" box-shadow: 6px 4px 29px 2px rgba(0,0,0,0.3); border-radius: 20px; margin-bottom: 3%;" *ngFor="let blog of blogData">
+                <mat-card-header>
+                    <mat-card-title>{{blog.title}}</mat-card-title>
+                    <mat-card-subtitle> {{blog.subTittle}} </mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image src={{blog.path}} alt="T-Res Image">
+                <mat-card-content>
+                    <p>{{blog.description}}
+                        <a href={{blog.link}} target="_blank"><span class="redirect-link" > Learn more about {{blog.title}} here.</span></a>
+                    </p>
+                </mat-card-content>
+                <div>
+                    <label>Author : {{blog.author}}</label>
+                    <label style="margin-left: 70%;">Posted : {{blog.created_on | date:'MM/dd/yyyy hh:mm'}}</label>
+                </div>
+            </mat-card>
+        </div>
 
-      <mat-card class="card" style=" box-shadow: 6px 4px 29px 2px rgba(0,0,0,0.3); border-radius: 20px; margin-bottom: 3%;" *ngFor="let blog of blogData" >
-        <mat-card-header>
-          <mat-card-title>{{blog.title}}</mat-card-title>
-          <mat-card-subtitle> {{blog.subTittle}} </mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src={{blog.path}} alt="T-Res Image">
-        <mat-card-content>
-          <p>{{blog.description}}
-            <a href={{blog.link}} target="_blank"><span class="redirect-link" > Learn more about {{blog.title}} here.</span></a>
-          </p>
-        </mat-card-content>
-        <div >
-          <label>Author : {{blog.author}}</label>
-          <label style="margin-left: 70%;">Posted : {{blog.created_on | date:'MM/dd/yyyy hh:mm'}}</label>
-        </div>      
-      </mat-card>
+        <ng-template #noBlog>
+            <mat-card class="card" style=" box-shadow: 6px 4px 29px 2px rgba(0,0,0,0.3); border-radius: 20px; margin-bottom: 3%;">
+                <mat-card-header>
+                    <mat-card-title>No Blog was found</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <h4>No blog has been posted by your admin as yet please come back later</h4>
+                </mat-card-content>
+
+            </mat-card>
+        </ng-template>
+
     </mat-card>
-  </div>
-
- 
-
-  
+</div>
