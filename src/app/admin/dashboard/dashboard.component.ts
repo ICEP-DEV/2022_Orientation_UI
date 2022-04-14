@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
             pointHoverBorderColor: "#0d4794",
             pointHitRadius: 10,
             pointBorderWidth: 2,
-            data: [0,0,0,0,0,0,0,0,0,0],
+            data: result.data,
             normalized:true,
             tension:0.3,
           }],
@@ -150,8 +150,9 @@ export class DashboardComponent implements OnInit {
       });
 
 
-      this._socketConnection.socket.on('updateLine',(instream)=>{
-        console.log(instream)
+      this._socketConnection.socket.on("updateLine",(instream)=>{
+        this.chart.data.datasets[0].data = JSON.parse(instream);
+        this.chart.update();
       })
   }
  
