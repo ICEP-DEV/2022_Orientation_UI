@@ -148,6 +148,11 @@ export class DashboardComponent implements OnInit {
           },  
         },
       });
+
+
+      this._socketConnection.socket.on('updateLine',(instream)=>{
+        console.log(instream)
+      })
   }
  
 
