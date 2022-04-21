@@ -188,7 +188,8 @@ mat-card{
 .stepper-next {
   padding-top: 20px;
 }
-/*creating a div for congrats*/
+
+/*---------------------------------------------------------------------------- Confetti -----------------------------------------------------------------------*/
 .congrats {
   padding-top: 10px;
   margin: auto;
@@ -216,7 +217,6 @@ body {
 .wrapper {
   position: relative;
   min-height: 50vh;
-  background-image: url("CONGRATS.png");
 }
 
 [class|=confetti] {

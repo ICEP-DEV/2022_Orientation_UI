@@ -13,7 +13,7 @@ export class AdminLoginComponent implements OnInit {
 
   loading = false;
   email : string = '';
-  password : string = '';
+  password : string = '1234567';
   message : string = ''
   isOpen : boolean = false;
 
@@ -39,16 +39,15 @@ export class AdminLoginComponent implements OnInit {
       return;
     }
     
-    this._userService.getStudents({"email":this.email, "password":this.password}).subscribe(async(result)=>{
+    this._userService.loginAdmin({"email":this.email, "password":this.password}).subscribe(async(result)=>{
           if(result.error == false)
           {
-            this.cookieService.put("userEmail",result.data[0].email,{secure:true,sameSite:"strict"})
-            this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
-            this._socketConnection.socket.emit('LoggedInUsers_soc')
+            this.cookieService.put("userEmail_A",result.data[0].email,{secure:true,sameSite:"strict"})
             this.router.navigate(['dashboard'])
           }
           else
           {
+            console.log('email exist')
             alert(result.message)
           }
       })

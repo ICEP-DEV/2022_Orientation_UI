@@ -20,5 +20,10 @@ export class SocketioService {
       return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+'/stat/stats', body, {});
   }
 
+  getLogginsOverView()
+  {
+    return this.http.get<any>(this.secureProtocol+this.serverAddress+this.serverPort+'/Track/LoginOverview',{})
+  }
+
  
 }

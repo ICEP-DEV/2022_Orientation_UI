@@ -11,8 +11,8 @@
     <hr class="sidebar-divider my-20">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard">    
+    <li [class]="classNameNav[0]">
+        <a class="nav-link" (click)="navLinkHandle(0,'/dashboard')">    
             <mat-icon>home</mat-icon>
             <span class="textAlign">Dashboard</span>
     </a>
@@ -23,24 +23,24 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     
-    <li class="nav-item">
-        <a class="nav-link" routerLink="/generate-report">
+    <li [class]="classNameNav[1]">
+        <a class="nav-link" (click)="navLinkHandle(1,'/generate-report')">
             <mat-icon >picture_as_pdf</mat-icon>
             <span class="textAlign">Generate Report</span>
         </a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" routerLink="/track-student">
+    <li [class]="classNameNav[2]">
+        <a class="nav-link" (click)="navLinkHandle(2,'/track-student')">
             <mat-icon>timeline</mat-icon>
             <span class="textAlign">Tracking</span>
         </a>
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link" routerLink="/survey-data">
-            <mat-icon >assignment_turned_in</mat-icon>
+    <li [class]="classNameNav[3]">
+        <a class="nav-link" (click)="navLinkHandle(3,'/survey-data')">
+            <mat-icon>assignment_turned_in</mat-icon>
             <span class="textAlign">Survey Data</span>
         </a>
     </li>
@@ -48,8 +48,8 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <li class="nav-item">
-        <a class="nav-link" routerLink="/upload-cnt">
+    <li [class]="classNameNav[4]">
+        <a class="nav-link" (click)="navLinkHandle(4,'upload-cnt')">
             <mat-icon >play_circle_filled</mat-icon>
             <span class="textAlign">Upload Content</span>
         </a>
@@ -57,8 +57,8 @@
 
     <!-- Sidebar Message -->
     <div class="sidebar-card d-none d-lg-flex">
-        <p class="text-center mb-2"><strong>Cebolenkosi Shezi </strong>please don't not forget to logout when you are done for security reasons</p>
-        <a class="btn btn-success btn-sm" style="border-radius: 10px;padding-left: 15%;padding-right: 40%; padding-top: 10px;" routerLink="/">
+        <p class="text-center mb-2"><strong>Cation </strong>please don't not forget to logout when you are done for security reasons</p>
+        <a class="btn btn-success btn-sm" style="border-radius: 10px;padding-left: 15%;padding-right: 40%; padding-top: 10px;" (click)="logOut()">
             <mat-icon title="sad">logout</mat-icon>
             <span style="position: absolute; margin-left: 3px;">Logout</span>
         </a>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../../user.service';
 import { SocketioService } from './../../socketio.service'
-
+import { Chart, registerables } from 'chart.js';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +12,8 @@ import { SocketioService } from './../../socketio.service'
 })
 export class DashboardComponent implements OnInit {
 
+  userEmail : any
+
   students: number = 0;
   visitors: number = 0;
   videos:number =0;
@@ -17,12 +21,27 @@ export class DashboardComponent implements OnInit {
   loggedIn:number=0;
   noOfSurvey:number = 0
   widthStyle:string ="width:0%";
+ 
+  //
+  nowMonth : string = new Date().toDateString()
+  chart: any = [];
+  myPieChart:any = [];
 
   
 
-  constructor(private usersService: UserService, 
-    private _socketConnection: SocketioService,) 
+  constructor(
+    private usersService: UserService, 
+    private _socketConnection: SocketioService,
+    private _router : Router,
+    private _cookiesService : CookieService
+    ) 
   {
+    this.userEmail = this._cookiesService.get("userEmail_A")
+    if(!this.userEmail)
+    {
+      this._router.navigate(['admin-login'])
+    }
+    Chart.register(...registerables)
     _socketConnection.getStatsBatch({}).subscribe((result)=>
     {
       this.visitors = result.data[0].viewNumVisitors
@@ -47,7 +66,7 @@ export class DashboardComponent implements OnInit {
       this._socketConnection.socket.on("countVideos",(instream)=>{
         this.videos= instream;
       })
-      this._socketConnection.socket.on("countSurveys",(instream)=>{
+      this._socketConnection.socket.on("countSurvey",(instream)=>{
         this.surveys = ((instream / this.students) * 100).toFixed(0);
         this.noOfSurvey = instream
         this.widthStyle = "width:"+this.surveys+"%"
@@ -55,6 +74,94 @@ export class DashboardComponent implements OnInit {
       this._socketConnection.socket.on("countLoggedIn",(instream)=>{
         this.loggedIn = instream
       })
-  }
 
+      function dateShift(shift : number)
+      {
+        var now = new Date();
+        var past = new Date(now)
+        past.setDate(past.getDate() - shift)
+        return past.getDate()
+      }
+      
+      
+      this._socketConnection.getLogginsOverView().subscribe((result)=>{  
+      this.chart = new Chart('myAreaChart', {
+        type: 'line',
+        data: {
+          labels: ["Today",dateShift(1), dateShift(2), dateShift(3), dateShift(4), dateShift(5), dateShift(6), dateShift(7), dateShift(8), dateShift(9)],
+          datasets: [{
+            label: "Logging In",
+            backgroundColor: "#0d4794",
+            borderColor: "#0d4794",
+            pointRadius: 3,
+            pointBackgroundColor: "#0d4794",
+            pointBorderColor: "#0d4794",
+            pointHoverRadius: 3,
+            pointHoverBackgroundColor: "#0d4794",
+            pointHoverBorderColor: "#0d4794",
+            pointHitRadius: 10,
+            pointBorderWidth: 2,
+            data: result.data,
+            normalized:true,
+            tension:0.3,
+          }],
+        },
+        options: {
+          plugins: {
+            legend: {
+                display: false,
+            }
+          },
+          maintainAspectRatio: false,
+          layout: {
+            padding: {
+              left: 10,
+              right: 25,
+              top: 25,
+              bottom: 0
+            }
+          },
+        },
+      });
+      })
+
+
+
+      this.myPieChart = new Chart('myPieChart', {
+        type: 'doughnut',
+        data: {
+          labels: ["Logged In", "Registered", "Survey"],
+          datasets: [{
+            data: [20, 20, 20],
+            backgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
+            hoverBackgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
+            hoverBorderColor: "rgba(234, 236, 244, 1)",
+          }],
+        },
+        options: {
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+                display: true,
+                position:"bottom"
+            }
+          },  
+        },
+      });
+
+
+      this._socketConnection.socket.on("updateLine",(instream)=>{
+        this.chart.data.datasets[0].data = JSON.parse(instream);
+        this.chart.update();
+      })
+  }
+ 
+
+  upload()
+  {
+    this._socketConnection.getLogginsOverView().subscribe((result)=>{
+      this.chart.data.datasets[0].data = result.data;
+      this.chart.update();
+    })
+  }
 }

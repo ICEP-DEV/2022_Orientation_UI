@@ -68,7 +68,14 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { UploadContentComponent } from './admin/sideTabs/upload-content/upload-content.component';
 import { TrackingStComponent } from './admin/sideTabs/tracking-st/tracking-st.component';
 import { GeneratedReportComponent } from './admin/sideTabs/generated-report/generated-report.component';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableFilterModule } from 'mat-table-filter';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MapdirComponent } from './student/mapdir/mapdir.component';
+import { AgmCoreModule } from '@agm/core';
+import { MeeteamComponent } from './student/meeteam/meeteam.component';
 
 
 
@@ -93,7 +100,8 @@ import { GeneratedReportComponent } from './admin/sideTabs/generated-report/gene
     UploadContentComponent,
     TrackingStComponent,
     GeneratedReportComponent,
-
+    MapdirComponent,
+    MeeteamComponent,
   ],
   imports: [
     BrowserModule,
@@ -136,7 +144,15 @@ import { GeneratedReportComponent } from './admin/sideTabs/generated-report/gene
     MdbTooltipModule,
     MdbValidationModule,
     CookieModule.forRoot(),
-    MatIconModule 
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableFilterModule,
+    MatProgressBarModule,
+    MatSnackBarModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
+    }) 
   ],
 
   schemas: [

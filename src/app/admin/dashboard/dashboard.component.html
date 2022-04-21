@@ -21,9 +21,9 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    <a routerLink="/dashboard" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <mat-icon style="position: absolute;">picture_as_pdf</mat-icon>
-                        <span style="margin-left: 30px;">Quick Generate Report</span>
+                    <a (click)="upload()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <mat-icon style="position: absolute;">autorenew</mat-icon>
+                        <span style="margin-left: 30px;">Refresh Analytics</span>
                     </a>
                 </div>
 
@@ -40,7 +40,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Web visitors </div>
+                                            Active visitors </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{visitors}}</div>
                                     </div>
                                     <div class="col-auto">
@@ -141,12 +141,51 @@
                 </div>
 
 
+                <!--------------------------------------------------------------------------Cards Stats------------------------------------------------------------------------->
+
+                <div class="row">
+
+                    <!-- Pie Chart -->
+                    <div class="col-xl-4 col-lg-2">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-4 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Students Comparisons</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body" style="margin-bottom: 4%;">
+                                <div class="chart-pie pt-4 pb-2">
+                                    <canvas id="myPieChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Area Chart -->
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Logging In Overview ({{nowMonth}})</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChart" style="height: 0%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
 
 
-
+                <!-- Bootstrap core JavaScript-->
+                <script src="vendor/jquery/jquery.min.js"></script>
+                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
                 <!-- Core plugin JavaScript-->
                 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -160,3 +199,7 @@
                 <!-- Page level custom scripts -->
                 <script src="js/demo/chart-area-demo.js"></script>
                 <script src="js/demo/chart-pie-demo.js"></script>
+            </div>
+        </div>
+    </div>
+</div>

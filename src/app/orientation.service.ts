@@ -11,7 +11,7 @@ export class OrientationService {
   ) { 
 
   }
-
+  //Getting System data
   public getCampuses()
   {
     return this.http.get<any>("http://localhost:6900/Orientation/Campus");
@@ -31,4 +31,49 @@ export class OrientationService {
   {
     return this.http.get<any>("http://localhost:6900/Orientation/Question",{params:{fac_id:facid}})
   }
+  //Storing Values and Progress
+
+  public Store_Steps(body : any)
+  { 
+      return this.http.post<any>("http://localhost:6900/track/orientation",body,{})
+  }
+
+  public UpdateProgress(body : any)
+  { 
+    return this.http.put<any>("http://localhost:6900/Track/Progress",body,{})
+  }
+
+  //Store Survey Answers by person
+
+  public StoreSurveyAnswers(body : any)
+  { 
+    return this.http.post<any>("http://localhost:6900/track/Survey",body,{})
+  }
+
+  //Get Saved Answers from BE
+  //Orientation
+  public GetOrientaionAnswer(usercreds:any)
+  {
+    return this.http.get<any>("http://localhost:6900/track/orientation",{params:usercreds})
+  }
+  //Survey
+  public GetSurveyAnswer(usercreds:any)
+  {
+    return this.http.get<any>("http://localhost:6900/track/survey",{params:usercreds})
+  }
+  
+  //Deleting of progress
+  public DelCustomeSaved(parametrs :any)
+  {
+    return this.http.delete<any>("http://localhost:6900/track/orientation",{params:parametrs})
+  }
+
+  public getUserSurvey()
+  {
+    return this.http.get<any>("http://localhost:6900/track/survey/admin")
+  }
+
+
+
+
 }

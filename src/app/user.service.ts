@@ -16,10 +16,12 @@ export class UserService {
   {
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login",student,{});
   }
-  public getAdmin(admin : any)
+  public loginAdmin(body :any)
   {
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login_admin",admin,{});
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login_admin",body,{})
   }
+
+
   public forgottenReq(studentCreds : any)
   {
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/Forgotten",studentCreds,{})
@@ -43,8 +45,16 @@ export class UserService {
   {
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/new",body,{})
   }
-  public certificate()
+
+  public getTrackAll(body:any)
   {
-    return this.http.get<any>("http://localhost/pdfrender/temmp.php");
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/query",body,{})
   }
+
+  public getAllBlogs()
+  {
+    return this.http.get<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/blog/blog",{params:{"id":"*"}})
+  }
+
+
 }

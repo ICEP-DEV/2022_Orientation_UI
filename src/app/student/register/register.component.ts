@@ -107,10 +107,7 @@ export class RegisterComponent implements OnInit {
     this._userService.sendOTP({"otp":this.otp,"email":this.email}).subscribe((result)=>{
       if(result == null)
       {
-        this.cookieService.put("fname", this.firstName)
-        this.cookieService.put("lname", this.lastName)
-        console.log(this.cookieService.get("fname"))
-        console.log(this.cookieService.get("lname"))
+        
         console.log("OTP was sent succesfully")
       }
     })
@@ -135,6 +132,7 @@ export class RegisterComponent implements OnInit {
         this.cookieService.put("userEmail",this.email,{secure:true,sameSite:"strict"})
         this._userService.logActivity({"useremail":this.email, "activity":"Registered"}).subscribe(()=>{})
         this._socketConnection.socket.emit('RegisteredUsers_soc')
+        this._socketConnection.socket.emit('LoggedInUsers_soc')
         this.router.navigate([''])
       }
       else
