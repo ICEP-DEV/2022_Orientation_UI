@@ -73,6 +73,11 @@ export class OrientationService {
     return this.http.get<any>("http://localhost:6900/track/survey/admin")
   }
 
+  public sendNewVideo(bodyElement : any)
+  {
+    return this.http.post<any>("http://localhost:3007/uploadVideo",bodyElement,{})
+  }
+
 
 
 

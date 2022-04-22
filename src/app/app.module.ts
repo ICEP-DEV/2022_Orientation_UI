@@ -76,7 +76,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MapdirComponent } from './student/mapdir/mapdir.component';
 import { AgmCoreModule } from '@agm/core';
 import { MeeteamComponent } from './student/meeteam/meeteam.component';
-
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -150,6 +151,8 @@ import { MeeteamComponent } from './student/meeteam/meeteam.component';
     MatTableFilterModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    MatChipsModule,
+    MatTooltipModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
     }) 
