@@ -11,7 +11,6 @@ import { CookieModule } from 'ngx-cookie';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
 
-
 //Components
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Student Components
 import { HeaderComponent } from './header/header.component';
@@ -78,6 +77,8 @@ import { AgmCoreModule } from '@agm/core';
 import { MeeteamComponent } from './student/meeteam/meeteam.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/bottomtop/modifyvideos/modifyvideos.component';
+
 
 
 @NgModule({
@@ -103,6 +104,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     GeneratedReportComponent,
     MapdirComponent,
     MeeteamComponent,
+    ModifyvideosComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule,
