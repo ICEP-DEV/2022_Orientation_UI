@@ -78,7 +78,7 @@ import { MeeteamComponent } from './student/meeteam/meeteam.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/bottomtop/modifyvideos/modifyvideos.component';
-
+import { NgParticlesModule } from 'ng-particles' 
 
 
 @NgModule({

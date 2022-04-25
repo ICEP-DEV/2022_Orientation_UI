@@ -10,8 +10,8 @@
         <div class="card-body">
             <div class="chart-area">
                 <div class=" py-3 d-flex flex-row">
-                    <video id={{videosEle.id}} class="video-js vjs-default-skin" controls preload="none" poster="https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg" #videoplayer controls width="40%">
-                    <source src={{videosEle.path}} type="video/mp4"/>
+                    <video [id]="videosEle.id" class="video-js vjs-default-skin" controls preload="none" poster="https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg" #videoplayer width="40%">
+                    <source [src]="videosEle.path" type="video/mp4"/>
                  </video>
                     <div style="margin-left:2%">
                         <h2 class="m-0 font-weight-bold text-primary">{{videosEle.tittle}}</h2>
