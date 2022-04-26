@@ -60,8 +60,8 @@
                 <ng-template matStepLabel>Select Campus</ng-template>
                 <p>Please choose your campus below to continue.</p>
 
-                <mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle *ngFor="let camp of allCampuses; let indexOfCampus = index" (click)="campClick(camp.id,camp.campus_name)" id="camp.id" [checked]="campusUISELECT[indexOfCampus]">{{camp.campus_name}}</mat-button-toggle>
+                <mat-button-toggle-group style="margin: 2%; " name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle  *ngFor="let camp of allCampuses; let indexOfCampus = index" (click)="campClick(camp.id,camp.campus_name)" id="camp.id" [checked]="campusUISELECT[indexOfCampus]">{{camp.campus_name}}</mat-button-toggle>
                 </mat-button-toggle-group>
 
                 <div>
