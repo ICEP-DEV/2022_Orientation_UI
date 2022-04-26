@@ -1,26 +1,41 @@
-<mat-card style="align-content: center; padding: 20px 20% 20px 20%;">
-    <h2>Admin Login</h2>
+<!--Header-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="./">
+        <img src="https://dh2dlbjd2qx17.cloudfront.net/img/tut-logo.png" alt="" width="260" height="80" style="padding: auto;">
+      </a>
+    </div>
+  </nav>
+  <div class="heading" style="margin-top: 3%; text-align: center;line-height: 0.8; display: flex; justify-content: center;font-size: 5vw;font-weight: bold; color: rgb(13, 71, 148);">TUT Online Orientation</div>
+
+  <!--form for admin inputs-->
+  <div class="row">
+  <div class="mx-auto" style="width: 700px; margin-top: 3%;">
+<mat-card style="align-content: center; padding: 20px 20% 20px 20%; background-color: rgba(13, 71, 148, 0.2);">
+    <h2 style="font-weight: bold; text-align: center;">ADMIN LOGIN</h2>
     <form  >
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" formControlName="username" class="form-control" />
+            <label style="font-weight: bold; font-size: 1.2em;" for="email">Email</label>
+            <input style="text-align: left;font-size: 1.2rem;" placeholder="Enter Email" type="email" class="form-control" name="email" [(ngModel)]="email" required>
             <div  class="invalid-feedback">
-                <div >Username is required</div>
+                <div >Email is required</div>
             </div>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" formControlName="password" class="form-control" />
+            <label style="font-weight: bold; font-size: 1.2em;" for="email">Password</label>
+            <input style="text-align: left;font-size: 1.2rem;" placeholder="Enter Password" type="password" class="form-control" name="password" [(ngModel)]="password" required/>
             <div  class="invalid-feedback">
                 <div >Password is required</div>
             </div>
         </div>
         <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">
-                <span  class="spinner-border spinner-border-sm mr-1"></span>
+            <button type="submit" class="btn btn-primary" style="width: 40%;border-radius: 10px; margin-top: 20px;" (click)="login()">
                 Login
             </button>
-            
-        </div>
+            <a class="forgot" style="margin-left: 10%;" (click)="fogotClicked()"><span class="text-danger">I forgot my password</span></a>
+                    <p> </p>
+        </div>  
     </form>
 </mat-card>
+</div>
+</div>

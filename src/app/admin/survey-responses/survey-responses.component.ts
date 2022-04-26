@@ -1,53 +1,67 @@
-import { Component, OnInit } from '@angular/core';
-import { SurveysService } from 'src/app/_services/surveys.service';
-import { Survey } from 'src/app/models/survey.model';
-import { map } from 'rxjs/operators';
+import { Component,ViewChild,OnInit } from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { OrientationService } from 'src/app/orientation.service';
 
 @Component({
   selector: 'app-survey-responses',
   templateUrl: './survey-responses.component.html',
-  styleUrls: ['./survey-responses.component.css']
+  styleUrls: ['./survey-responses.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
-export class SurveyResponsesComponent implements OnInit {
+export class SurveyResponsesComponent implements OnInit  {
 
-  surveys?: Survey[];
-  currentSurvey?: Survey;
-  currentIndex = -1;
-  title = '';
-  
-  constructor(private surveyService: SurveysService) { }
+  dataSource = new MatTableDataSource<Survey>(ELEMENT_DATA);
+
+  columnsToDisplay = ['Firstname', 'Lastname', 'StudentNo', 'Email'];
+  expandedElement: Survey | null = {Id:0,Firstname:"",Lastname:"",StudentNo:"",Email:"",Survey:[]}; 
+
+  @ViewChild(MatPaginator, {static: true}) paginator : any
+  @ViewChild(MatSort, {static: true}) sorter : any
+
+  constructor(
+    private _orientationService : OrientationService
+  )
+  {
+
+  }
 
   ngOnInit(): void {
-    this.retrieveSurveys();
+    this.dataSource.paginator = this.paginator 
+    this.dataSource.sort = this.sorter;
+
+    this._orientationService.getUserSurvey().subscribe((result)=>{
+        this.dataSource = result
+    })
   }
 
-  refreshList(): void {
-    this.currentSurvey = undefined;
-    this.currentIndex = -1;
-    this.retrieveSurveys();
-  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.toString();
+  
 
-  retrieveSurveys(): void {
-    this.surveyService.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-      this.surveys = data;
-    });
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
-
-  setActiveSurvey(tutorial: Survey, index: number): void {
-    this.currentSurvey = tutorial;
-    this.currentIndex = index;
-  }
-
-  removeAllSurveys(): void {
-    this.surveyService.deleteAll()
-      .then(() => this.refreshList())
-      .catch(err => console.log(err));
-  }
-
+  
 }
+
+export interface Survey {
+  Id:number;
+  Firstname: string;
+  Lastname: string;
+  StudentNo: string;
+  Email: string;
+  Survey: any[] ;
+}
+
+const ELEMENT_DATA: Survey[] = [];

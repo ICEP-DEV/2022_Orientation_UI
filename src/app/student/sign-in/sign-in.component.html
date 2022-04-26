@@ -1,95 +1,60 @@
-<img src="https://dh2dlbjd2qx17.cloudfront.net/img/Orientation-blurred.jpg" style="object-fit: cover;position: absolute;width: 100%;height: 100vh;">
+<img src="../../../assets/img/ori31 (26 of 32).jpg" style="object-fit: cover;position: absolute;width: 100%;height: 100vh;">
+
 <div style="overflow-x: hidden;">
 
-<div class="container page-container">
+    <div class="container page-container">
 
-    <mat-card style="box-shadow: none;background-color: rgba(240, 248, 255, 0);">
-        <div class="heading" style="text-align: center;line-height: 0.8;display: flex; justify-content: center;font-size: 4vw; text-shadow: 2px 2px #0d4794; color: rgb(255, 255, 255);;font-weight:500;margin-top: 5%; margin-bottom: 5%;">TUT Online Orientation</div>
+        <mat-card style="box-shadow: none;background-color: rgba(240, 248, 255, 0);">
+            <div class="heading" style="text-align: center;line-height: 0.8;display: flex; justify-content: center;font-size: 4vw; text-shadow: 2px 2px #0d4794; color: rgb(255, 255, 255);;font-weight:500;margin-top: 5%; margin-bottom: 5%;">TUT Online Orientation</div>
 
-        <div class="wrapper fadeInDown">
-            <div id="formContent" style="border-radius: 25px; padding-left: 2%;padding-right: 2%;">
-                <h1 class="sec-title" style="margin-top: 5%;margin-bottom: 15%;"> Sign in </h1>
-                <!-- Tabs Titles -->
+            <div class="wrapper fadeInDown">
+                <div id="formContent" style="border-radius: 25px; padding-left: 2%;padding-right: 2%;">
+                    <h1 class="sec-title" style="margin-top: 5%;margin-bottom: 15%;"> Sign in </h1>
+                    <!-- Tabs Titles -->
 
-                <!-- Icon -->
-                <div class="fadeIn first" style="display: none; padding-bottom: 10px;">
-                    <!-- <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" /> -->
-                </div>
+                    <!-- Icon -->
+                    <div class="fadeIn first" style="display: none; padding-bottom: 10px;">
 
-                <!-- Login Form -->
-
-                <span *ngIf="error" (click)="removeError()">{{error}}</span>
-                <form #myForm="ngForm">
-
-                    <div class="form-group">
-                        <label style="text-align: left;width:85%;font-size: medium;" for="username">Email</label>
-                        <input style="text-align: left;font-size: 1.2rem;" placeholder="Enter Email" type="email" class="form-control" name="email" [(ngModel)]="email" required>
-                        <div class="invalid-feedback">
-                            <div>Username is required</div>
-                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label style="text-align: left;width:85%;font-size: medium;" for="password">Password</label>
-                        <input style="text-align: left;font-size: 1.2rem;" placeholder="Enter Password" type="password" class="form-control" name="password" [(ngModel)]="password" required/>
-                        <div class="invalid-feedback">
-                            <div>Password is required</div>
+                    <!-- Login Form -->
+
+                    <span *ngIf="error" (click)="removeError()">{{error}}</span>
+                    <form #myForm="ngForm">
+
+                        <div class="form-group">
+                            <label style="text-align: left;width:85%;font-size: medium;" for="username">Email</label>
+                            <input style="text-align: left;font-size: 1.2rem;" placeholder="Enter Email" type="email" class="form-control" name="email" [(ngModel)]="email" required>
+                            <div class="invalid-feedback">
+                                <div>Username is required</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" style="width: 70%;border-radius: 15px; margin-top: 20px;" (click)="login()">
+
+                        <div class="form-group">
+                            <label style="text-align: left;width:85%;font-size: medium;" for="password">Password</label>
+                            <input style="text-align: left;font-size: 1.2rem;" placeholder="Enter Password" type="password" class="form-control" name="password" [(ngModel)]="password" required/>
+                            <div class="invalid-feedback">
+                                <div>Password is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" style="width: 70%;border-radius: 15px; margin-top: 20px;" (click)="login()">
                         Login
                     </button>
+                        </div>
+                    </form>
+
+
+
+
+                    <div id="formFooter" style="border-radius: 25px;margin-top: 20%;background-color: white;">
+                        <a class="underlineHover" (click)="fogotClicked()"><span class="text-danger">I forgot my password</span></a>
+                        <p> </p>
+                        <button class="button" style="width: 70%; margin-top: 20px;border-radius: 15px;" routerLink="/student-reg"> Sign up </button>
                     </div>
-                </form>
-
-
-                <!--<form  *ngIf="!isSignedIn">
-                <h3 style="font-weight: bold; color: #0d4794;"> Provide Credentials to login </h3>
-                <div class="form-group">
-                     <label for="exampleInputPassword1">Student Number</label>
-                     <input type="text" id="studentNum" class="fadeIn second" name="studNum" class="form-control" placeholder="Enter student number">
-                     <br>
-                     <label for="exampleInputPassword1">Password</label>
-                     <input type="text" formControlName="password" id="password" class="fadeIn third" name="login" class="form-control" placeholder=" Enter password">
-                     <br>
-                </div>
-               
-                <div class = "form-group">
-                <input type="submit" class="fadeIn fourth" href="./campus" value="Sign In">-->
-                <!--<a type="submit" class="button" routerLink="/welcome" value="Sign In" id="password" style="width: 85%; margin-top: 20px; background-color: #0d4794;"> Sign In </a>
-                </div>
-            </form>-->
-
-                <!-- Remind Passowrd -->
-                <!---<h1 *ngIf="firebaseService.user | async">Welcome {{ (firebaseService.user | async)?.email }}!</h1>
-
-            <div *ngIf="!(firebaseService.user | async)"  class = "form-group">
-              <input type="text" [(ngModel)]="email" placeholder="email">
-              <input type="password" [(ngModel)]="password" placeholder="password">
-            
-              <button (click)="signup()" [disabled]="!email || !password">
-                Signup
-              </button>
-            
-              <button (click)="login()" [disabled]="!email || !password">
-                Login
-              </button>
-            </div>
-            
-            <button (click)="logout()" *ngIf="firebaseService.user | async">
-              Logout
-            </button>-->
-                <!-- href="#" -->
-               
-                <div id="formFooter" style="border-radius: 25px;margin-top: 20%;background-color: white;">
-                    <a class="underlineHover" (click)="fogotClicked()"><span class="text-danger">I forgot my password</span></a>
-                    <p> </p>
-                    <button class="button" style="width: 70%; margin-top: 20px;border-radius: 15px;" routerLink="/student-reg"> Sign up </button>
                 </div>
             </div>
-        </div>
-     </mat-card> 
-</div>
-<!-- <app-toast  [messageProp]="message" [isOpen]="isOpen"></app-toast> -->
+        </mat-card>
+    </div>
+
 </div>

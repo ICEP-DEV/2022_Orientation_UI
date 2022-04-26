@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, ViewChild,Input } from '@angul
 import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { UserService } from "../../user.service";
-//import { ToastComponent } from "../../system/toast/toast.component"
+import { SocketioService } from './../../socketio.service'
 
 @Component({
   selector: 'app-sign-in',
@@ -17,12 +17,15 @@ export class SignInComponent implements OnInit {
 
   email : string = '';
   password : string = '';
-  message : string = 'Cebolenkosi'
+  message : string = ''
   isOpen : boolean = false;
  
  
   
-  constructor(private _userService: UserService, private router: Router,private cookieService: CookieService) { }
+  constructor(private _userService: UserService, 
+    private router: Router,
+    private cookieService: CookieService,
+    private _socketConnection : SocketioService) { }
 
 
   ngOnInit(): void {
@@ -31,8 +34,6 @@ export class SignInComponent implements OnInit {
   fogotClicked()
   {
     this.router.navigate(['forgotten'])
-    // this.message = "incorrect password"
-    // this.isOpen = !this.isOpen
   }
 
   login() {
@@ -45,11 +46,17 @@ export class SignInComponent implements OnInit {
       alert('Please enter password');
       return;
     }
-    this._userService.getStudents({"email":this.email, "password":this.password}).subscribe((result)=>{
+    
+    this._userService.getStudents({"email":this.email, "password":this.password}).subscribe(async(result)=>{
           if(result.error == false)
           {
+            this.cookieService.put("fname",result.data[0].firstname,{secure:true,sameSite:"strict"})
+            this.cookieService.put("lname",result.data[0].lastname,{secure:true,sameSite:"strict"})
             this.cookieService.put("userEmail",result.data[0].email,{secure:true,sameSite:"strict"})
-            this.router.navigate(['campus'])
+            this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
+            this._socketConnection.socket.emit('LoggedInUsers_soc')
+            this._socketConnection.socket.emit('LineGraph_update')
+            this.router.navigate([''])
           }
           else
           {

@@ -1,28 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../../user.service';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-/*
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-*/
-
-
+import { SocketioService } from './../../socketio.service'
+import { Chart, registerables } from 'chart.js';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,24 +12,156 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class DashboardComponent implements OnInit {
 
-  students: any = [];
+  userEmail : any
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  //dataSource = ELEMENT_DATA;
-  dataSource = this.students;
+  students: number = 0;
+  visitors: number = 0;
+  videos:number =0;
+  surveys:string ="";
+  loggedIn:number=0;
+  noOfSurvey:number = 0
+  widthStyle:string ="width:0%";
+ 
+  //
+  nowMonth : string = new Date().toDateString()
+  chart: any = [];
+  myPieChart:any = [];
 
-  constructor(private usersService: UserService) { }
+  
 
-  ngOnInit(): void {
-    // this.getStudents();
+  constructor(
+    private usersService: UserService, 
+    private _socketConnection: SocketioService,
+    private _router : Router,
+    private _cookiesService : CookieService
+    ) 
+  {
+    this.userEmail = this._cookiesService.get("userEmail_A")
+    if(!this.userEmail)
+    {
+      this._router.navigate(['admin-login'])
+    }
+    Chart.register(...registerables)
+    _socketConnection.getStatsBatch({}).subscribe((result)=>
+    {
+      this.visitors = result.data[0].viewNumVisitors
+      this.surveys = ((result.data[0].survey / result.data[0].countUsers) * 100).toFixed(0)
+      this.noOfSurvey = result.data[0].survey
+      this.widthStyle = "width:"+this.surveys+"%"
+      this.videos = result.data[0].videoCounts
+      this.students = result.data[0].countUsers
+      this.loggedIn = result.data[0].loggedin
+    })
+
   }
 
-  // getStudents()
-  // {
-  //   this.usersService.getStudents().subscribe((data: any) =>
-  //     {this.students = data});
-  //     console.log(this.students);
-  //     ;
-  // }
+  ngOnInit(): void {
+      
+      this._socketConnection.socket.on("countVisitors",(instream)=>{
+          this.visitors = instream;
+      })
+      this._socketConnection.socket.on("countStudents",(instream)=>{
+        this.students = instream;
+      })
+      this._socketConnection.socket.on("countVideos",(instream)=>{
+        this.videos= instream;
+      })
+      this._socketConnection.socket.on("countSurvey",(instream)=>{
+        this.surveys = ((instream / this.students) * 100).toFixed(0);
+        this.noOfSurvey = instream
+        this.widthStyle = "width:"+this.surveys+"%"
+      })
+      this._socketConnection.socket.on("countLoggedIn",(instream)=>{
+        this.loggedIn = instream
+      })
 
+      function dateShift(shift : number)
+      {
+        var now = new Date();
+        var past = new Date(now)
+        past.setDate(past.getDate() - shift)
+        return past.getDate()
+      }
+      
+      
+      this._socketConnection.getLogginsOverView().subscribe((result)=>{  
+      this.chart = new Chart('myAreaChart', {
+        type: 'line',
+        data: {
+          labels: ["Today",dateShift(1), dateShift(2), dateShift(3), dateShift(4), dateShift(5), dateShift(6), dateShift(7), dateShift(8), dateShift(9)],
+          datasets: [{
+            label: "Logging In",
+            backgroundColor: "#0d4794",
+            borderColor: "#0d4794",
+            pointRadius: 3,
+            pointBackgroundColor: "#0d4794",
+            pointBorderColor: "#0d4794",
+            pointHoverRadius: 3,
+            pointHoverBackgroundColor: "#0d4794",
+            pointHoverBorderColor: "#0d4794",
+            pointHitRadius: 10,
+            pointBorderWidth: 2,
+            data: result.data,
+            normalized:true,
+            tension:0.3,
+          }],
+        },
+        options: {
+          plugins: {
+            legend: {
+                display: false,
+            }
+          },
+          maintainAspectRatio: false,
+          layout: {
+            padding: {
+              left: 10,
+              right: 25,
+              top: 25,
+              bottom: 0
+            }
+          },
+        },
+      });
+      })
+
+
+
+      this.myPieChart = new Chart('myPieChart', {
+        type: 'doughnut',
+        data: {
+          labels: ["Logged In", "Registered", "Survey"],
+          datasets: [{
+            data: [20, 20, 20],
+            backgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
+            hoverBackgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
+            hoverBorderColor: "rgba(234, 236, 244, 1)",
+          }],
+        },
+        options: {
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+                display: true,
+                position:"bottom"
+            }
+          },  
+        },
+      });
+
+
+      this._socketConnection.socket.on("updateLine",(instream)=>{
+        this.chart.data.datasets[0].data = JSON.parse(instream);
+        this.chart.update();
+      })
+  }
+ 
+
+  upload()
+  {
+    this._socketConnection.getLogginsOverView().subscribe((result)=>{
+      this.chart.data.datasets[0].data = result.data;
+      this.chart.update();
+    })
+  }
 }

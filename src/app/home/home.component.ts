@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //import * as Immutable from 'immutable';
+import { SocketioService } from './../socketio.service'
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,18 @@ export class HomeComponent implements OnInit {
 
 
   
-  constructor() { }
+  constructor(
+    private _socketConnection : SocketioService
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+   
+  }
 
+  startOr()
+  {
+   
+  }
  
 
 }

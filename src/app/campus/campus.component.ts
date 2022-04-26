@@ -1,71 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ArcadiaComponent } from './arcadia/arcadia.component';
-import { ArtsComponent } from './arts/arts.component';
-import { EmalahleniComponent } from './emalahleni/emalahleni.component';
-import { MbombelaComponent } from './mbombela/mbombela.component';
-import { PlkComponent } from './plk/plk.component';
-import { PtaComponent } from './pta/pta.component';
-import { RankuwaComponent } from './rankuwa/rankuwa.component';
-import { SoshNorthComponent } from './sosh-north/sosh-north.component';
-import { SoshSouthComponent } from './sosh-south/sosh-south.component';
-import { DefaultCampusComponent } from './default-campus/default-campus.component';
-import {FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
+import { OrientationService } from "../orientation.service"
 import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
-/*---------------------------------*/
-import { FacultyComponent } from '../faculty/faculty.component';
-import { EconomicsComponent } from '../faculty/economics/economics.component';
-import { EconomicsMbombelaComponent} from '../faculty/economics-mbombela/economics-mbombela.component';
-import { EconomicsPlkComponent } from '../faculty/economics-plk/economics-plk.component';
-import { EngineeringComponent } from '../faculty/engineering/engineering.component';
-import { EngineeringEmalahleniComponent } from '../faculty/engineering-emalahleni/engineering-emalahleni.component';
-import { FoartsComponent } from '../faculty/foarts/foarts.component';
-import { HumanitiesComponent } from '../faculty/humanities/humanities.component';
-import { HumanitiesEmalahleniComponent } from '../faculty/humanities-emalahleni/humanities-emalahleni.component';
-import { HumanitiesNorthComponent } from '../faculty/humanities-north/humanities-north.component';
-import { HumanitiesPlkComponent } from '../faculty/humanities-plk/humanities-plk.component';
-import { IctEmalahleniComponent } from '../faculty/ict-emalahleni/ict-emalahleni.component';
-import { IctPlkComponent } from '../faculty/ict-plk/ict-plk.component';
-import { ManSciencePlkComponent } from '../faculty/man-science-plk/man-science-plk.component';
-import { ManagementComponent } from '../faculty/management/management.component';
-import { ManagementEmalahleniComponent} from '../faculty/management-emalahleni/management-emalahleni.component';
-import { MbombelaHumanitiesComponent } from '../faculty/mbombela-humanities/mbombela-humanities.component';
-import { MbombelaManScienceComponent } from '../faculty/mbombela-man-science/mbombela-man-science.component';
-import { ScienceComponent } from '../faculty/science/science.component';
-import { SciencePtaComponent } from '../faculty/science-pta/science-pta.component';
-
 import { UserService } from './../user.service';
-
-// Surveys
-import { Survey} from 'src/app/models/survey.model';
-import { SurveysService } from 'src/app/_services/surveys.service';
-import { EventEmitterService} from '../_services/event-emitter.service';
-
-import { ArtsSurveyComponent } from '../survey/arts-survey/arts-survey.component';
-import { EconomicsMbombelaSurveyComponent } from '../survey/economics-mbombela-survey/economics-mbombela-survey.component';
-import { EconomicsPlkSurveyComponent } from '../survey/economics-plk-survey/economics-plk-survey.component';
-import { EconomicsSurveyComponent } from '../survey/economics-survey/economics-survey.component';
-import { EngineeringEmalahleniSurveyComponent } from '../survey/engineering-emalahleni-survey/engineering-emalahleni-survey.component';
-import { EngineeringSurveyComponent } from '../survey/engineering-survey/engineering-survey.component';
-import { FoartsSurveyComponent } from '../survey/foarts-survey/foarts-survey.component';
-import { HumanitiesEmalahleniSurveyComponent } from '../survey/humanities-emalahleni-survey/humanities-emalahleni-survey.component';
-import { HumanitiesNorthSurveyComponent } from '../survey/humanities-north-survey/humanities-north-survey.component';
-import { HumanitiesPlkSurveyComponent } from '../survey/humanities-plk-survey/humanities-plk-survey.component';
-import { HumanitiesSurveyComponent } from '../survey/humanities-survey/humanities-survey.component';
-import { IctSurveyComponent } from '../survey/ict-survey/ict-survey.component';
-import { IctEmalahleniSurveyComponent } from '../survey/ict-emalahleni-survey/ict-emalahleni-survey.component';
-import { IctPlkSurveyComponent } from '../survey/ict-plk-survey/ict-plk-survey.component';
-import { ManSciencePlkSurveyComponent } from '../survey/man-science-plk-survey/man-science-plk-survey.component';
-import { ManagementEmalahleniSurveyComponent } from '../survey/management-emalahleni-survey/management-emalahleni-survey.component';
-import { ManagementSurveyComponent } from '../survey/management-survey/management-survey.component';
-import { MbombelaHumanitiesSurveyComponent } from '../survey/mbombela-humanities-survey/mbombela-humanities-survey.component';
-import { MbombelaManScienceSurveyComponent } from '../survey/mbombela-man-science-survey/mbombela-man-science-survey.component';
-import { SciencePtaSurveyComponent } from '../survey/science-pta-survey/science-pta-survey.component';
-import { ScienceSurveyComponent } from '../survey/science-survey/science-survey.component';
-import { MatStep, MatStepperNext } from '@angular/material/stepper';
-
-import { MatStepper } from '@angular/material/stepper';
+import { SocketioService } from '../socketio.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MapdirComponent } from '../student/mapdir/mapdir.component';
+import { MeeteamComponent } from '../student/meeteam/meeteam.component';
 
 
 @Component({
@@ -76,223 +19,522 @@ import { MatStepper } from '@angular/material/stepper';
 
 
 export class CampusComponent implements OnInit {
-
-  @Input() surveyData = {
-    name : '', cellNum: '', faculty: '', question1: '', question2: '', question3: '', question4: '', question5: '', question6: '', question7: '', question8: '', question9: '',
-  };
- 
-  stepNumber : number = 0;
-  firstVal : string =""
-
-  campusComponent: any;
-  facultyComponent: any;
-  surveyComponent: any;
-
-  survey: Survey = new Survey();
-
-  submitted = false;
-
   isLinear = true;
-  surveyForm!: FormGroup;
-  // firstFormGroup!: FormGroup;
-  // secondFormGroup!: FormGroup;
+  usernames =""
+  userEmail =""
 
-  stepOneDone: boolean = false;
-  stepTwoDone: boolean = false;
-  stepThreeDone: boolean = false;
-  stepFourDone: boolean = false;
-  stepFiveDone: boolean = false;
+  public astepper:any
+  
 
-  // tslint:disable-next-line: variable-name
+  //Step Completed Controllers
+  stepOneComplete: boolean = false;
+  stepTwoComplete: boolean = false;
+  stepThreeComplete: boolean = false;
+  stepFourComplete: boolean = false;
+  stepFiveComplete: boolean = false;
+
+  //Orientaion Full Data
+  allCampuses:any[] = []
+  baseFaculties:any[] = []
+  categories:any[] = []
+  videosData:any[] = [];
+
+  //surveyQuestions
+  baseSurveyQuestions:any[] = [];
+
+  //surveyAnswers
+  baseSurveyAnswers:any[] = [];
+
+  //surveyQuestion and users answers
+  _surveyQueAnsTemp:any[] = []
+  surveyQueAnsUser:any={}
+  
+  //Orientation Values
+  //
+  campusSelected : number = -1;
+  facultySelected : number = -1;
+  //
+  campusNameSelected : string = ""
+  campusUISELECT:any[] = []
+  facultyNameSelected : string = ""
+  facultyUISELECT:any[]=[]
+
+  //Videos Control 
+  watchedVideos:number[]=[]  
+
+  //Saved Progress Values
+  orientation_sav : any = {}
+  survey_sav : any = {}
+  progressbarVal:number = 0
+
+  public url : string = '';
+
+
+  //Constructor
   constructor(
-    private _formBuilder: FormBuilder,
-    private surveyService: SurveysService,
-    private eventEmitterService: EventEmitterService,
+    public _orientation : OrientationService, 
     private _cookiesService : CookieService,
-    private router: Router,
+    private _userService : UserService,
+    private _router: Router,
+    private _socketConnection : SocketioService,
+    private _snackBar: MatSnackBar,
+    private _bottomSheet: MatBottomSheet
     
-    ) { 
-      
-      if(!this._cookiesService.get("userEmail"))
-      {
-        this.router.navigate(['student-login'])
+  ) {
+
+    this.userEmail = this._cookiesService.get("userEmail")
+
+    if(!this.userEmail)
+    {
+      this._router.navigate(['home'])
+    }
+      this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
+      this.url = "http://localhost/pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
+      this._orientation.getCampuses().subscribe((result)=>{
+      this.allCampuses = result.data
+    })
+    
+  }
+
+  //Ng Initializer Method
+  ngOnInit(): void {
+    setTimeout(async() => {
+      await this.loadSavedProgress()
+    }, 500);
+    
+  }
+
+  async loadSavedProgress()
+  {
+    this._orientation.GetOrientaionAnswer({"useremail":this.userEmail}).subscribe(async (result)=>{
+      this.orientation_sav = result.data
+
+      //Restore for step One+++++++++++++++++++++++++++++++++++++++++++++++++++++
+      for (let index = 0; index < this.orientation_sav.length; index++) {
+        if(this.orientation_sav[index].field == "StartOrientation")
+        {
+          if(this.orientation_sav[index].value == 'true')
+          {
+            this.StepOne(this.astepper)
+            break;
+          }
+        }
+      }
+     
+      //Restore for step Two+++++++++++++++++++++++++++++++++++++++++++++++++++++
+      for (let index = 0; index < this.orientation_sav.length; index++) {
+        if(this.orientation_sav[index].field == "Campus")
+        {
+          this.campusNameSelected = this.orientation_sav[index].value
+
+          for (let x = 0; x < this.allCampuses.length; x++) {
+              if(this.allCampuses[x].campus_name == this.campusNameSelected)
+              {
+                this.campusUISELECT[this.allCampuses[x].id - 1]=true
+                this.campClick(this.allCampuses[x].id,this.orientation_sav[index].value).then(async ()=>{
+                  this.StepTwo(this.astepper)
+
+
+                  for (let index = 0; index < this.orientation_sav.length; index++) {
+                    if(this.orientation_sav[index].field == "Faculty")
+                    {
+                      this.facultyNameSelected = this.orientation_sav[index].value
+                      
+            
+                      for (let x = 0; x < this.baseFaculties.length; x++) {
+                          if(this.baseFaculties[x].faculty_name == this.facultyNameSelected)
+                          {
+                            this.facultyUISELECT[x]=true
+                            this.facClick(this.baseFaculties[x].id,this.facultyNameSelected).then(async ()=>{
+                              this.StepThree(this.astepper)
+
+                              for (let index = 0; index < this.orientation_sav.length; index++) {
+                                if(this.orientation_sav[index].field == "Videos")
+                                {
+                                  this.onPlayVideo(1)
+                                  this.onPlayVideo(2)
+                                  this.StepFour(this.astepper)
+                                  break;
+                                } 
+                              }
+                             
+                              for (let index = 0; index < this.orientation_sav.length; index++) {
+                                if(this.orientation_sav[index].field == "Survey")
+                                {
+                                    await this._orientation.GetSurveyAnswer({"useremail":this.userEmail}).toPromise().then((result)=>{
+                                       for (let index = 0; index < result.data.length; index++) {
+                                           this.baseSurveyAnswers[index] = result.data[index].answer            
+                                       }    
+                                    })
+                                    this.StepFive(this.astepper,true)
+                                    break;
+                                }    
+                              }
+                            })   
+                            break;
+                          } 
+                      }
+                      break;
+                    }
+                  }
+                })           
+                break;
+              } 
+          }
+          break;
+        }
       }
 
+
+      //Restore for step Three+++++++++++++++++++++++++++++++++++++++++++++++++++++
       
-      
-    }
-
-    // firstStep()
-    // {
-    //     this.firstVal = 'true'
-    // }
 
 
-    stepOne(stepper: MatStepper)
-    {
-      this.stepOneDone = true
-      next(stepper)
-    }
-
-    stepTwo(stepper: MatStepper)
-    {
-      this.stepTwoDone = true
-      next(stepper)
-    }
-
-    stepThree(stepper: MatStepper)
-    {
-      this.stepThreeDone = true
-      next(stepper)
-    }
-
-    stepFour(stepper: MatStepper)
-    {
-      this.stepFourDone = true
-      next(stepper)
-    }
-
-    stepFive(stepper: MatStepper)
-    {
-      this.stepFiveDone = true
-      next(stepper)
-    }
 
 
-  ngOnInit(): void {
-    
-    
-  
-    this.campusComponent = DefaultCampusComponent;
 
-    this.surveyForm = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
-    });
 
-    if (this.eventEmitterService.subsVar === undefined) {
-      this.eventEmitterService.subsVar = this.eventEmitterService.
-        invokeFirstComponentFunction.subscribe((faculty: string) => {
-          this.assignFaculty(faculty);
-        });
-    }
 
-    if (this.eventEmitterService.subsVar2 === undefined) {
-      this.eventEmitterService.subsVar2 = this.eventEmitterService.
-        invokeFirstComponentFunction2.subscribe((survey: string) => {
-          this.assignSurvey(survey);
-        });
-    }
+    })
 
   }
 
-  // tslint:disable-next-line: typedef
-  assignComponent(component: string) {
-    if (component === 'arcadia') { this.campusComponent = ArcadiaComponent; }
-    else if (component === 'arts') { this.campusComponent = ArtsComponent; }
-    else if (component === 'emalahleni') { this.campusComponent = EmalahleniComponent; }
-    else if (component === 'garankuwa') { this.campusComponent = RankuwaComponent; }
-    else if (component === 'mbombela') { this.campusComponent = MbombelaComponent; }
-    else if (component === 'polokwane') { this.campusComponent = PlkComponent; }
-    else if (component === 'pretoria') { this.campusComponent = PtaComponent; }
-    else if (component === 'sosh-south') { this.campusComponent = SoshSouthComponent; }
-    else { this.campusComponent = SoshNorthComponent; }
+  focus(stepper : MatStepper){
+    this.astepper = stepper
   }
 
-
-  // tslint:disable-next-line: typedef
-  assignFaculty(faculty: string){
-    if (faculty === 'ict') this.facultyComponent = FacultyComponent;
-    else if (faculty === 'economics') this.facultyComponent = EconomicsComponent;
-    else if (faculty === 'economics-mbombela') this.facultyComponent = EconomicsMbombelaComponent;
-    else if (faculty === 'economics-plk') this.facultyComponent = EconomicsPlkComponent;
-    else if (faculty === 'engineering') this.facultyComponent = EngineeringComponent;
-    else if (faculty === 'engineering-em') this.facultyComponent = EngineeringEmalahleniComponent;
-    else if (faculty === 'forats') this.facultyComponent = FoartsComponent;
-    else if (faculty === 'humanities') this.facultyComponent = HumanitiesComponent;
-    else if (faculty === 'humanities-em') this.facultyComponent = HumanitiesEmalahleniComponent;
-    else if (faculty === 'humanities-north') this.facultyComponent = HumanitiesNorthComponent;
-    else if (faculty === 'humanities-plk') this.facultyComponent = HumanitiesPlkComponent;
-    else if (faculty === 'ict-em') this.facultyComponent = IctEmalahleniComponent;
-    else if (faculty === 'ict-plk') this.facultyComponent = IctPlkComponent;
-    else if (faculty === 'man-science-plk') this.facultyComponent = ManSciencePlkComponent;
-    else if (faculty === 'man-science') this.facultyComponent = ManagementComponent;
-    else if (faculty === 'man-science-em') this.facultyComponent = ManagementEmalahleniComponent;
-    else if (faculty === 'humanities-mbo') this.facultyComponent = MbombelaHumanitiesComponent;
-    else if (faculty === 'science-mbo') this.facultyComponent = MbombelaManScienceComponent; 
-    else if (faculty === 'science') this.facultyComponent = ScienceComponent;
-    else { this.facultyComponent = SciencePtaComponent; }
-
-  }
-
-
-  // tslint:disable-next-line: typedef
-  assignSurvey(survey: string){
-    if (survey === 'ict-survey') { this.surveyComponent = IctSurveyComponent; }
-    else if (survey === 'economics-survey') { this.surveyComponent = EconomicsSurveyComponent; }
-    else if (survey === 'economics-mbombela-survey') { this.surveyComponent = EconomicsMbombelaSurveyComponent; }
-    else if (survey === 'economics-plk-survey') { this.surveyComponent = EconomicsPlkSurveyComponent; }
-    else if (survey === 'engineering-survey') { this.surveyComponent = EngineeringSurveyComponent; }
-    else if (survey === 'engineering-em-survey') { this.surveyComponent = EngineeringEmalahleniSurveyComponent; }
-    else if (survey === 'forats-survey') { this.surveyComponent = ArtsSurveyComponent; }
-    else if (survey === 'humanities-survey') { this.surveyComponent = HumanitiesSurveyComponent; }
-    else if (survey === 'humanities-em-survey') { this.surveyComponent = HumanitiesEmalahleniSurveyComponent; }
-    else if (survey === 'humanities-north-survey') { this.surveyComponent = HumanitiesNorthSurveyComponent; }
-    else if (survey === 'humanities-plk-survey') { this.surveyComponent = HumanitiesPlkSurveyComponent; }
-    else if (survey === 'ict-em-survey') { this.surveyComponent = IctEmalahleniSurveyComponent; }
-    else if (survey === 'ict-plk-survey-survey') { this.surveyComponent = IctPlkSurveyComponent; }
-    else if (survey === 'man-science-plk-survey') { this.surveyComponent = ManSciencePlkSurveyComponent; }
-    else if (survey === 'man-science-survey') { this.surveyComponent = ManagementSurveyComponent; }
-    else if (survey === 'man-science-em-survey') { this.surveyComponent = ManagementEmalahleniSurveyComponent; }
-    else if (survey === 'humanities-mbo-survey') { this.surveyComponent = MbombelaHumanitiesSurveyComponent; }
-    else if (survey === 'science-mbo-survey') { this.surveyComponent = MbombelaManScienceSurveyComponent; }
-    else if (survey === 'science-survey') { this.surveyComponent = ScienceSurveyComponent; }
-    else if (survey === 'science-pta-survey') { this.surveyComponent = SciencePtaSurveyComponent; }
-    else { this.surveyComponent = ArtsSurveyComponent; }
-
-  }
-
-  /*
-
-  submitSurvey()
+  //------------------------------------------------------------------Step One Next Button Click
+  StepOne(stepper : MatStepper)
   {
-    this._userService.submitSurvey(this.surveyData).subscribe(
-    data =>
-      console.log(data));
-      console.log(this.surveyData.name);
-      console.log(this.surveyData.cellNum);
-      console.log(this.surveyData.faculty);
-      console.log(this.surveyData.question1);
-      console.log(this.surveyData.question2);
-      console.log(this.surveyData.question3);
-      console.log(this.surveyData.question4);
-      console.log(this.surveyData.question5);
-      console.log(this.surveyData.question6);
-      console.log(this.surveyData.question7);
-      console.log(this.surveyData.question8);
-      console.log(this.surveyData.question9);
-
-  }
-*/
-
-  submitSurvey(): void {
-    this.surveyService.create(this.survey).then(() => {
-      console.log('Survey response successfully sent!');
-      this.submitted = true;
-    });
-  }
-
-  newSurvey(): void {
-    this.submitted = false;
-    this.survey = new Survey();
-  }
-
-  
-
-}
-
-function next(stepper: MatStepper) {
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step One"}).subscribe(()=>{})
+    this._orientation.Store_Steps({"useremail":this.userEmail,"field":"StartOrientation","value":"true"})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+    this._orientation.UpdateProgress({"email":this.userEmail,"progress":1})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+ 
+    this.stepOneComplete = true
+    next(stepper)
+  } 
+  //------------------------------------------------------------------Step Two Next Button Click
+  StepTwo(stepper : MatStepper)
+  {
     
-    setTimeout(() => {
-      stepper.next()
-    }, 20);
+    if(this.campusSelected == -1)
+    {
+      alert("Please select a campus before trying to procceed")
+      return
+    }
+
+    //Activity Loging to database
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Two"}).subscribe(()=>{})
+
+    //Storing the users campus choice
+    this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Campus","value":this.campusNameSelected})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+
+    //Updating the progress of the user
+    this._orientation.UpdateProgress({"email":this.userEmail,"progress":2})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })    
+   
+    this.stepTwoComplete = true
+    next(stepper)
+  }
+  //------------------------------------------------------------------Step Three Next Button Click
+  StepThree(stepper : MatStepper)
+  {
+    //Checking whether is there a selected faculty
+    if(this.facultySelected == -1)
+    {
+      alert("Please select a faculty before trying to procceed")
+      return
+    }
+
+    //Activity Loging to database
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Three"}).subscribe(()=>{})
+
+    //Storing the users faculty choice
+    this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Faculty","value":this.facultyNameSelected})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+
+    //Updating the progress of the user
+    this._orientation.UpdateProgress({"email":this.userEmail,"progress":3})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    }) 
+   
+    this.stepThreeComplete = true
+    next(stepper)
+  }
+  //------------------------------------------------------------------Step Four Next Button Click
+  StepFour(stepper : MatStepper)
+  {
+
+    //Checking Wherether atleast 2 videos have been watched
+    if(this.watchedVideos.length < 2)
+    {
+        alert("Please watch atleast two videos before proceeding")
+        return
+    }
+
+
+    //Activity Loging to database
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Four"}).subscribe(()=>{})
+
+    //Storing the users faculty choice
+    this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Videos","value":"true"})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+
+    //Updating the progress of the user
+    this._orientation.UpdateProgress({"email":this.userEmail,"progress":4})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+ 
+    this.stepFourComplete = true
+    next(stepper)
+  }
+  //------------------------------------------------------------------Step Five Next Button Click
+  StepFive(stepper : MatStepper,saved : boolean)
+  {
+
+    //Checking Whether Survey is fully completed
+
+      //checking they are equal  
+      if(!saved)  
+      if(this.baseSurveyAnswers.length !== this.baseSurveyQuestions.length)
+      {
+          alert("Please answer every question from the survey")
+          return
+      }
+
+      for (let index = 0; index < this.baseSurveyAnswers.length; index++) {
+        if(!this.baseSurveyAnswers[index])
+        {
+          alert("Please answer every question from the survey 2")
+          return
+        } 
+      }
+
+
+
+    for (let index = 0; index < this.baseSurveyQuestions.length; index++) {
+      this._surveyQueAnsTemp[index] = {
+            "answer":this.baseSurveyAnswers[index],
+            "question":this.baseSurveyQuestions[index].question_id
+          } 
+    }
+
+    this.surveyQueAnsUser = {
+      "useremail":this.userEmail,
+      "survey":this._surveyQueAnsTemp
+    }
+
+    
+
+     //Activity Loging to database
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Five"}).subscribe(()=>{})
+
+     //Storing the users faculty choice
+    this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Survey","value":"true"})
+     .subscribe((result)=>{
+       if(result.error) throw result.message
+       if(!result.error)
+       {
+        this._orientation.StoreSurveyAnswers(this.surveyQueAnsUser).subscribe((result)=>{
+          if(!result.error)
+          {
+            this._socketConnection.socket.emit("Add_Survey_soc")
+          }
+        })
+       }
+    })
+ 
+
+    //Updating the progress of the user
+    this._orientation.UpdateProgress({"email":this.userEmail,"progress":5})
+    .subscribe((result)=>{
+      if(result.error) throw result.message
+    })
+    
+
+    this.stepFiveComplete = true
+    next(stepper)
+  }
+  //------------------------------------------------------------------Step Sive Restart Button Click
+  StepSix(stepper : MatStepper)
+  {
+    if(confirm("Are you sure you want to restart the orientaion all your saves will be lost ?"))
+    {
+      //Updating the progress of the user
+      this._orientation.UpdateProgress({"email":this.userEmail,"progress":0})
+      .subscribe((result)=>{
+        if(result.error) throw result.message
+      })
+
+      this._orientation.DelCustomeSaved({"useremail":this.userEmail,"delete":"all"})
+      .subscribe(()=>{
+        this._socketConnection.socket.emit("Add_Survey_soc")
+      })
+      
+      this._userService.logActivity({"useremail":this.userEmail, "activity":"Restared the Orientation"}).subscribe(()=>{})
+
+        //Storing the users faculty choice
+      this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Initialize","value":"true"})
+      .subscribe((result)=>{
+        if(result.error) throw result.message
+      })
+      
+      this.baseSurveyAnswers = []
+        
+      this.progressbarVal =0
+      this.stepOneComplete = false;
+      stepper.reset()
+    }
+  }
+
+
+  //Click of Each Dynamical componet
+   //========================Campus button click
+  async campClick(id : number, campName : string)
+  {
+    
+    this.baseSurveyAnswers =[]
+    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Campus clicked"}).subscribe(()=>{})
+    this.campusSelected = id;
+    this.campusNameSelected = campName
+    this.facultySelected = -1;
+    this.watchedVideos = []
+    this.stepTwoComplete = false;
+    this.stepThreeComplete = false;
+    this.stepFourComplete = false;
+    this.stepFiveComplete = false;
+
+    this.progressbarVal = 20
+    await this._orientation.getFaculty(this.campusSelected.toString()).toPromise().then((result)=>{
+      this.baseFaculties = result.data
+    })
+  }
+  //========================Faculty button click
+  async facClick(id : number,facName : string)
+  {
+      this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Faculty clicked"}).subscribe(()=>{})
+      this.facultySelected = id
+      this.facultyNameSelected = facName
+      this.stepThreeComplete = false;
+      this.stepFourComplete = false;
+      this.stepFiveComplete = false;
+      this.baseSurveyAnswers =[]
+
+    
+      this.progressbarVal = 40
+      await this._orientation.getVideos(this.facultySelected.toString()).toPromise().then((result)=>{
+        this.videosData = result.data
+      })
+
+      await this._orientation.getSurvQuestion(this.facultySelected.toString()).toPromise().then((result)=>{
+        this.baseSurveyQuestions = result.data
+      })
+  }
+
+  //=======================Other event Handles
+  onPlayVideo(videoid : any)
+  { 
+
+      if(this.watchedVideos.indexOf(videoid) != -1)
+      {
+        return;
+      }
+      else
+      {
+        this.progressbarVal = 50
+        this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Video played"}).subscribe(()=>{})
+        this.watchedVideos.push(videoid)
+      }
+      
+  }
+
+  //Handle logging out
+  logout(){
+    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Logged out"}).subscribe(()=>{})
+    this._cookiesService.remove('userEmail')
+    this._cookiesService.remove('lname')
+    this._cookiesService.remove('fname')
+    this._socketConnection.socket.emit('LoggedOutUsers_soc')
+    this._router.navigate(['home'])
+  }
+
+  //Navigation To Blog
+  blog(){
+    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Blog clicked"}).subscribe(()=>{})
+    this._router.navigate(['blog'])
+  } 
+
+  changeSection($event : any)
+  {
+     // console.log($event)
+    if($event.selectedIndex == 1)
+    if(this.baseSurveyAnswers.length > 0)
+    //alert("Cation!! Looks like you have started with the survey if you change the campus you will loose your progress")
+    this._snackBar.open("If you change the campus you will loose your survey progress","Cation!",{duration:5000});
+    
+    if($event.selectedIndex == 2)
+    if(this.baseSurveyAnswers.length > 0)
+    //alert("Cation!! Looks like you have started with the survey if you change the faculty you will loose your progress")
+    this._snackBar.open("If you change the faculty you will loose your survey progress","Cation!",{duration:5000});
+
+    if($event.selectedIndex == 0)
+      this.progressbarVal =0
+    
+
+    if($event.selectedIndex == 1)
+      this.progressbarVal = 10
+    
+
+    if($event.selectedIndex == 2) 
+      this.progressbarVal =30
+     
+
+    if($event.selectedIndex == 3)
+      this.progressbarVal =40
+    
+
+    if($event.selectedIndex == 4) 
+      this.progressbarVal =60
+    
+
+    if($event.selectedIndex == 5)
+      this.progressbarVal =100
+   
+  }
+
+  campDirection()
+  {
+    this._bottomSheet.open(MapdirComponent);
+  }
+
+  meeteam()
+  {
+    this._bottomSheet.open(MeeteamComponent)
+  }
 }
+
+//Delay of nextstep
+function next(stepper : MatStepper)
+{
+      setTimeout(() => {
+          stepper.next()
+      }, 20);
+}
+

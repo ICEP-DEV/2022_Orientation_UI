@@ -1,1 +1,63 @@
 @import url('../../../assets/css/style1.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+#mainNav {
+    border-color: rgba(34, 34, 34, 0.05);
+    background-color: rgb(255, 255, 255);
+    transition: all .35s;
+    font-weight: 200;
+    letter-spacing: 1px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 5px 5px -2px rgba(0, 0, 0, .2);
+    z-index: 1;
+}
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+}
+
+#mainNav .navbar-toggler {
+    font-size: 12px;
+    padding: 8px 10px;
+    color: #222222;
+}
+
+#mainNav .navbar-nav>li>a {
+    font-size: 16px;
+    font-family: 'Roboto', 'sans-serif';
+    /*text-transform: uppercase; */
+    color: #0d4794;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+#mainNav .navbar-nav>li>a:hover {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#mainNav .navbar-nav>li>a.active {
+    color: #fdcc52 !important;
+    background-color: transparent;
+}
+
+#sign-in {
+    font-size: 16px;
+    font-family: 'Roboto', 'sans-serif';
+    /*text-transform: uppercase; */
+    color: #0d4794;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.user-img {
+    width: 25px;
+    height: 25px;
+    margin-right: 3px;
+}
+
+.forgot{
+    cursor: pointer;
+}

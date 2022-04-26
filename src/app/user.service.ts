@@ -1,62 +1,34 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
-
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  userEmail = ''
-  usersURL = "https://jsonplaceholder.typicode.com/users";
-  studentsURL = "https://x0ses6l8i4.execute-api.us-east-1.amazonaws.com/prod/students";
-  /* registerStudent = "http://localhost:4242/api/users/regStud"; */
-  registerStudent = "https://x0ses6l8i4.execute-api.us-east-1.amazonaws.com/prod/student";
-  /* studLogin = "https://us-central1-testrun2-d2bcc.cloudfunctions.net/user/:studNum";*/
-  loginUrl = "https://x0ses6l8i4.execute-api.us-east-1.amazonaws.com/prod/student?studNum="
-
-  submitSurveyURL = "https://txqgcyy28g.execute-api.us-east-1.amazonaws.com/prod/survey";
-                  /* https://txqgcyy28g.execute-api.us-east-1.amazonaws.com/prod/survey */
-
-  /* for video
-  API_ENDPOINT: string = 'https://www.cbc.ca/bistro/order'; */
-  /*
-    http://10.2.40.92:1000/information
-  */
-
+  private secureProtocol : string = "http://"
+  private serverAddress : string = "localhost:"
+  private serverPort : string = "6900"
+                
   constructor(private http: HttpClient) { }
-
-  public getUsers(){
-    return this.http.get<any>(this.usersURL);
-  }
 
   public getStudents(student : any)
   {
-    return this.http.post<any>("http://localhost:6900/auth/login",student,{});
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login",student,{});
   }
 
   public forgottenReq(studentCreds : any)
   {
-    return this.http.post<any>("http://localhost:6900/Forgotten",studentCreds,{})
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/Forgotten",studentCreds,{})
   }
   public regStudent(student: any)
   {
-    return this.http.post<any>('http://localhost:6900/registration', student, {});
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+'/auth/registration', student, {});
   }
-
 
   public checkStudent(student: any)
   {
-    return this.http.post<any>('http://localhost:6900/Forgotten', student, {});
-  }
-
-  public submitSurvey(response: any)
-  {
-    return this.http.post<any>(this.submitSurveyURL, response, {});
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+'/auth/Forgotten', student, {});
   }
 
   public sendOTP(requestBody: any)
@@ -64,34 +36,24 @@ export class UserService {
     return this.http.post<any>("http://localhost/mailman/sendEmail.php",requestBody, {});
   }
 
-  public setUserEmail(email : string)
+  public logActivity(body : any)
   {
-    this.userEmail = email
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/new",body,{})
   }
 
-  public getUserEmail()
+  public getTrackAll(body:any)
   {
-    return this.userEmail;
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/query",body,{})
   }
 
-
-
-  /*
-
-  login(username, password) {
-    return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
-        .pipe(map(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
-            this.userSubject.next(user);
-            return user;
-        }));
+  public getAllBlogs()
+  {
+    return this.http.get<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/blog/blog",{params:{"id":"*"}})
   }
-  /*
-  getVideo(mediaID: string) {
-    return this.http.get(`${this.API_ENDPOINT}?mediaId=${mediaID}`);
-  }*/
 
-
+  public loginAdmin(body :any)
+  {
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login_admin",body,{})
+  }
 
 }

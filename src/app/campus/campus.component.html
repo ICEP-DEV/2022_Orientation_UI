@@ -1,228 +1,356 @@
+<app-header>
+</app-header>
+
+<!-----------------------------------------------------------------------------Header-->
 <div class="hero-image">
-  <div class="hero-text">
-    <h1 id="hero-heading"style="font-size:40px; font-weight: 600;">  First Year Orientation </h1>
-    <p> Get to know your campus, library, student support and department staff.</p>
-  </div>
+    <div class="hero-text">
+        <h1 id="hero-heading" style="font-size:40px; font-weight: 600;"> First Year Orientation </h1>
+        <p> Get to know your campus, library, student support and department staff.</p>
+    </div>
+</div>
+<!-- <h6></h6> -->
+<mat-progress-bar style="height: 1%; " mode="determinate" [value]="progressbarVal"></mat-progress-bar>
+
+<div class="example-button-container" style="position: fixed; margin-top: 25%; margin-left: 90%;z-index: 5;">
+    <button mat-button [matMenuTriggerFor]="menu" mat-fab style="background-color: #0d4794;" aria-label="Example icon button with a home icon">
+      <mat-icon>dashboard</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" yPosition="above">
+        <button mat-menu-item style="font-size: large;background-color: #0d4794;color: white">{{usernames}} 
+            <!-- <mat-icon>assignment</mat-icon> -->
+        </button>
+        <button mat-menu-item>Get Your cetificate  
+            <mat-icon>assignment_turned_in</mat-icon>
+        </button>
+        <button (click)="campDirection()" mat-menu-item>Campus Directions 
+            <mat-icon>room</mat-icon>
+        </button>
+        <button (click)="blog()" mat-menu-item>Blog  
+            <mat-icon>view_agenda</mat-icon>
+        </button>
+        <button (click)="meeteam()" mat-menu-item>Meet the team  
+            <mat-icon>info</mat-icon>
+        </button>
+        <button (click)="logout()" mat-menu-item>Logout  
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+    </mat-menu>
 </div>
 
 <div class="page-container" style="padding-bottom: 100px;">
-  <!-- Progress Stepper Bar -->
-  <mat-card style="align-content: center;">
-    <mat-card-title style="align-content: center; font-size:medium;">Online Orientation Progress.</mat-card-title>
-    <mat-vertical-stepper linear [selectedIndex]="stepNumber" fxLayout="column" #stepper>
-      
-      <mat-step [completed]="stepOneDone">
-        <form>
-          <ng-template matStepLabel style="background-color: #0d4794;">Start Orientation</ng-template>
-          
-          <div>  
-            <button (click)="stepOne(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
-          </div>
-        </form>
-      </mat-step>
+    <!-- Progress Stepper Bar -->
+    <mat-card style="align-content: center;box-shadow: none;">
+        <mat-card-title style="align-content: center; font-size:medium;">Online Orientation Progress.</mat-card-title>
+        <mat-vertical-stepper id="stepper" fxLayout="column" [linear]="isLinear" #stepper (selectionChange)="changeSection($event)" (animationDone)="focus(stepper)">
+
+            <!-- STEP 1 START ORIENTATION -->
+            <mat-step label="Start" [completed]="stepOneComplete">
+                <ng-template matStepLabel style="background-color: #0d4794;">Start Orientation</ng-template>
+                <p> Click next to start the orientation.</p>
 
 
-      <mat-step label='Select Campus' [completed]="stepTwoDone" >
-        
-        <ng-template matStepLabel>Select Campus</ng-template>
-        <p>Please choose your campus below to continue.</p>
-
-        <div class="button-grp">
-          <button type="button" class="btn btn-primary" (click)="assignComponent('arcadia')"> Arcadia </button>
-          <button type="button" class="btn btn-primary" (click)="assignComponent('arts')"> Arts </button>
-          <button type="button" class="btn btn-primary" (click)="assignComponent('emalahleni')"> eMalahleni </button>
-          <button type="button" class="btn btn-primary" (click)="assignComponent('garankuwa')"> Ga-Rankuwa </button>
-          <button type="button" class="btn btn btn-primary" (click)="assignComponent('mbombela')"> Mbombela </button>
-          <button type="button" class="btn btn-primary" (click)="assignComponent('polokwane')"> Polokwane </button>
-          <button type="button" class="btn btn-primary" (click)="assignComponent('pretoria')" >Pretoria</button>
-          <button type="button" class="btn btn btn-primary" (click)="assignComponent('sosh-south')"> Soshanguve South </button>
-          <button type="button" class="btn btn-primary" (click)="assignComponent('sosh-north')"> Soshanguve North </button>
-        </div>
-        <!--
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193608.30501934033!2d27.991585828177655!3d-25.6213319067973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95621c9c7f5eb5%3A0x18ee995aaa96adda!2sTUT%20Arcadia!5e0!3m2!1sen!2sza!4v1643188613771!5m2!1sen!2sza" width="80%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        -->
-        <div class="stepper-next">
-          
-          <button (click)="stepTwo(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
-        </div>
-
-        
-        
-      </mat-step>
-
-      <mat-step label='Select Faculty' [completed]="stepThreeDone">
-        
-        <ng-template matStepLabel>Select Faculty</ng-template>
-        <p>Please choose your faculty below to continue.</p>
-        
-        <div>
-          <h1><ng-container *ngComponentOutlet="campusComponent"> No Campus yet selected.</ng-container></h1>
-        </div>
-
-        <br>
-        <div>
-          
-          <button (click)="stepThree(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
-        </div>
-
-      </mat-step>
-      <mat-step label='Watch Orientation Videos' [completed]="stepFourDone">
-        <div>
-            <button mat-button matStepperPrevious>Back</button>
-        </div>
-
-        <div>
-
-
-          <ng-template matStepLabel>Watch Orientation Videos</ng-template>
-          <p>Please Watch the Orientation Videos</p>
-
-          <mat-card style="margin-bottom: 20px;">
-      
-            <p style="padding-top: 15px; font-size: 14px; color:#0d4794;"> Please watch the following videos and select a campus to continue</p>
-              
-            <div class="row">
-        
-              <div class="column">
-                <div class="card">
-        
-                  <div id="vc">
-                      
-                      <mat-card-content>
-                        <img mat-card-image  src="https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg" height="130px" alt="Photo of a Shiba Inu">
-                        
-                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Prof Tinyiko Maluleke</p>
-                        Vice Chancellor and Principal
-                      </mat-card-content>
-                  </div>
-        
+                <div>
+                    <button mat-button (click)="StepOne(stepper)" style="background-color: #de0428; color: white;">Next</button>
                 </div>
-              </div>
-        
-              <div class="column">
-                <div class="card">
-        
-                  <div id="*dvc">
-                      <video id="dvc-vid" class="video-js vjs-default-skin"  controls preload="none"
-                        poster='https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg'
-                        #videoplayer controls  width="100%">
-                        <source src="https://dh2dlbjd2qx17.cloudfront.net/videos/New+Videos/Prof+Ben+van+Wyk.mp4" type='video/mp4' />
-        
-                      </video>
-                      
-                      <mat-card-content>
-                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Prof Ben van Wyk</p>
-                          Deputy Vice Chancellor
-                      </mat-card-content>
-                  </div>
-        
-                </div>
-              </div>
-        
-              <div class="column">
-                <div class="card">
-        
-                  <div id="brightspace-div">
-                      
-                      <video id="brightspace-vid" class="video-js vjs-default-skin"  controls preload="none"
-                        poster='https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg'
-                        #videoplayer controls  width="100%">
-                        <source src="https://dh2dlbjd2qx17.cloudfront.net/videos/general/Introduction+To+Brightspace.mp4" type='video/mp4' />
-        
-                      </video>
-                      
-                      <mat-card-content>
-                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Brightspace </p>
-                        Learning Management System
-                      </mat-card-content>
-                  </div>
-        
-                </div>
-              </div>
-        
-              <div class="column">
-                <div class="card">
-        
-                  <div id="library">
-                      
-                      <video id="library-vid" class="video-js vjs-default-skin"  controls preload="none"
-                        poster='https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg'
-                        #videoplayer controls  width="100%">
-                        <source src="https://dh2dlbjd2qx17.cloudfront.net/videos/general/Library+%26+Information+Services%2C+an+introduction.mp4" type='video/mp4' />
-        
-                      </video>
-                      
-                      <mat-card-content>
-                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Library  </p>
-                        Library and Information Services
-                      </mat-card-content>
-                  </div>
-        
-                </div>
-              </div>
+            </mat-step>
 
-              <div class="column">
-                <div class="card">
-        
-                  <div id="vaccination">
-                      
-                      <video id="my_video_1" class="video-js vjs-default-skin"  controls preload="none"
-                        poster='https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg'
-                        #videoplayer controls  width="100%">
-                        <source src="https://dh2dlbjd2qx17.cloudfront.net/videos/iNew+Videos/Vaccination+_Vid.mp4" type='video/mp4' />
-        
-                      </video>
-                      
-                      <mat-card-content>
-                        <p style="font-weight: bold; color: #de0428; padding-left: 10px;"> Vaccination  </p>
-                        Health and Wellness
-                      </mat-card-content>
-                  </div>
-        
-                </div>
-              </div>
+            <!-- STEP 2 SELECT CAMPUS -->
+            <mat-step label="Select Campus" [completed]="stepTwoComplete">
 
-            </div>
-          
-          </mat-card>
-          
-            <h1 style="padding-top: 5px; text-align: center; font-weight: bold; font-size: 20px; color:#0d4794;"> Selected Faculty </h1>
-        
-            <div>
-              <h1><ng-container *ngComponentOutlet="facultyComponent"> NO FACULTY YET SELECTED </ng-container></h1>
-            </div>
-        
-          <div class="stepper-next">
-            
-            <button (click)="stepFour(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
-          </div>
-        </div>
-      </mat-step>
+                <ng-template matStepLabel>Select Campus</ng-template>
+                <p>Please choose your campus below to continue.</p>
+
+                <mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle *ngFor="let camp of allCampuses; let indexOfCampus = index" (click)="campClick(camp.id,camp.campus_name)" id="camp.id" [checked]="campusUISELECT[indexOfCampus]">{{camp.campus_name}}</mat-button-toggle>
+                </mat-button-toggle-group>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="StepTwo(stepper)" style="background-color: #de0428; color: white;">Next</button>
+                </div>
 
 
-      <mat-step label="Survey" [completed]="stepFiveDone">
-        <mat-card >    
-          
-            <div>
-              <h1><ng-container *ngComponentOutlet="surveyComponent"> NO FACULTY YET SELECTED </ng-container></h1>
-            </div>
-              
-            <div>
-              
-              <button (click)="stepFive(stepper)" mat-button style="background-color: #de0428; color: white;">Next</button>
-            </div>
-    
-        </mat-card>
-      </mat-step>
-      <mat-step label="Finish">
-        <ng-template matStepLabel>Finish Online Orientation</ng-template>
-        <p> You have successfully completed the 2022 online orientation. Thank you.</p>
-        <p style="font-weight: bold;"> What's Next?</p>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Start Again</button>
-        </div>
-      </mat-step>
-    </mat-vertical-stepper>  
-  </mat-card>
+            </mat-step>
+
+            <!-- STEP 3 SELECT FACULTY -->
+            <mat-step label="Select Faculty" [completed]="stepThreeComplete">
+                <ng-template matStepLabel>Select Faculty</ng-template>
+                <p>Please choose your faculty below to continue.</p>
+
+                <mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle *ngFor="let faculty of baseFaculties, let indexOfFac = index" (click)="facClick(faculty.id,faculty.faculty_name)" value="bold" id="faculty.id" [checked]="facultyUISELECT[indexOfFac]">{{faculty.faculty_name}}</mat-button-toggle>
+                </mat-button-toggle-group>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="StepThree(stepper)" style="background-color: #de0428; color: white;">Next</button>
+                </div>
+            </mat-step>
+
+
+
+            <!-- STEP 4 WATCH VIDEOS ORIENTATION -->
+            <mat-step label="Watch Orientation Videos" [completed]="stepFourComplete">
+                <p>Watch at least 15% of videos to continue</p>
+
+                <!---------------------------------------------------------------------------------------------------------->
+
+                <h1 class="sec-title" style="padding-top: 20px; text-align: center; font-weight: bolder; font-size: 25px; color:#0019a1;"> {{facultyNameSelected}} </h1>
+                <p style="color: #0d4794 ; text-align: center;"> {{campusNameSelected}} </p>
+
+                <mat-card *ngFor="let category of videosData" style="margin: 2%;box-shadow: none; border-radius: 23%;border-width: 63pt;border-color: #0d4794;">
+                    <h2 style="padding-top: 15px; font-weight:bold; font-size: 20px; color:#0019a1;"> {{category.category}} </h2>
+
+                    <div class="row">
+                        <div class="column" style="margin-left: 4%;" *ngFor="let content of category.content">
+                            <!-- CASE OF VIDEO -->
+                            <div class="card" style="width: 110%;" *ngIf="content.type == 'video', else noDocument">
+
+                                <div id="instructions">
+                                    <video [id]="content.id" class="video-js vjs-default-skin" (durationchange)="onPlayVideo(content.id)" controls preload="none" poster="https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg" #videoplayer width="100%">
+                                       <source [src]="content.path" type="video/mp4"/>
+                                    </video>
+                                    <p style="font-weight: bold; color: #de0428;">{{content.tittle}}</p>
+
+                                </div>
+
+                            </div>
+                            <!-- CASE OF DOCUMENT PDF -->
+                            <ng-template class="column" #noDocument>
+
+                                <a [href]="content.path" target="_blank" style="text-decoration: underline; color: rgb(196, 0, 0);">
+                                    <div class="card">
+                                        <mat-card class="example-card">
+                                            <mat-card-content>
+                                                <img mat-card-image src="https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg" height="190px" alt="Photo of a Shiba Inu"> Click to download the first year Guide.
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </a>
+                            </ng-template>
+                        </div>
+
+
+                    </div>
+                    <div style="background-color: rgb(219, 219, 219); width: 90%;height: 1px;margin-top: 2%;"></div>
+                </mat-card>
+
+
+                <!-- ------------------------------------------------------------------------------------------------------->
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="StepFour(stepper)" style="background-color: #de0428; color: white;">Next</button>
+                </div>
+            </mat-step>
+
+            <mat-step label="Survey">
+                <ng-template matStepLabel>Survey</ng-template>
+                <p> Please complete the survey</p>
+
+                <ng-templete *ngFor="let question of baseSurveyQuestions,let indexOfelement=index;">
+                    <br>
+                    <div *ngIf="question.possible_answer.length > 1, else oneAnswer">
+                        <mat-form-field style="width: 90%;margin-left: 2%;">
+                            <mat-label>{{ question.question}}</mat-label>
+                            <mat-select [id]="question.question_id" [(ngModel)]="baseSurveyAnswers[indexOfelement]">
+                                <mat-option *ngFor="let eachanswer of question.possible_answer" [id]="eachanswer.id" [value]="eachanswer.answer">
+                                    {{eachanswer.answer}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <ng-template #oneAnswer>
+                        <mat-form-field style="width: 90%;margin-left: 2%;">
+                            <mat-label>{{question.question}}</mat-label>
+                            <input matInput placeholder="Answer" [id]="question.question_id" [(ngModel)]="baseSurveyAnswers[indexOfelement]">
+                        </mat-form-field>
+                    </ng-template>
+
+                </ng-templete>
+
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="StepFive(stepper,false)" style="background-color: #de0428; color: white;">Next</button>
+                </div>
+
+            </mat-step>
+
+
+
+            <!-- STEP 5 FINISH -->
+            <mat-step label="Finish">
+                <ng-template matStepLabel>Finish Online Orientation</ng-template>
+                <p style="font-weight: bold;"> What's Next?</p>
+                <!--making confetti-->
+
+                <div class="main" style=" height: 300px; width: 100%;">
+
+                    <div class="wrapper">
+                        <h1 class="congrats">Congratulations</h1>
+                        <h6> You have successfully completed the 2022 online orientation. Thank you.</h6>
+                        <div class="confetti-149"></div>
+                        <div class="confetti-148"></div>
+                        <div class="confetti-147"></div>
+                        <div class="confetti-146"></div>
+                        <div class="confetti-145"></div>
+                        <div class="confetti-144"></div>
+                        <div class="confetti-143"></div>
+                        <div class="confetti-142"></div>
+                        <div class="confetti-141"></div>
+                        <div class="confetti-140"></div>
+                        <div class="confetti-139"></div>
+                        <div class="confetti-138"></div>
+                        <div class="confetti-137"></div>
+                        <div class="confetti-136"></div>
+                        <div class="confetti-135"></div>
+                        <div class="confetti-134"></div>
+                        <div class="confetti-133"></div>
+                        <div class="confetti-132"></div>
+                        <div class="confetti-131"></div>
+                        <div class="confetti-130"></div>
+                        <div class="confetti-129"></div>
+                        <div class="confetti-128"></div>
+                        <div class="confetti-127"></div>
+                        <div class="confetti-126"></div>
+                        <div class="confetti-125"></div>
+                        <div class="confetti-124"></div>
+                        <div class="confetti-123"></div>
+                        <div class="confetti-122"></div>
+                        <div class="confetti-121"></div>
+                        <div class="confetti-120"></div>
+                        <div class="confetti-119"></div>
+                        <div class="confetti-118"></div>
+                        <div class="confetti-117"></div>
+                        <div class="confetti-116"></div>
+                        <div class="confetti-115"></div>
+                        <div class="confetti-114"></div>
+                        <div class="confetti-113"></div>
+                        <div class="confetti-112"></div>
+                        <div class="confetti-111"></div>
+                        <div class="confetti-110"></div>
+                        <div class="confetti-109"></div>
+                        <div class="confetti-108"></div>
+                        <div class="confetti-107"></div>
+                        <div class="confetti-106"></div>
+                        <div class="confetti-105"></div>
+                        <div class="confetti-104"></div>
+                        <div class="confetti-103"></div>
+                        <div class="confetti-102"></div>
+                        <div class="confetti-101"></div>
+                        <div class="confetti-100"></div>
+                        <div class="confetti-99"></div>
+                        <div class="confetti-98"></div>
+                        <div class="confetti-97"></div>
+                        <div class="confetti-96"></div>
+                        <div class="confetti-95"></div>
+                        <div class="confetti-94"></div>
+                        <div class="confetti-93"></div>
+                        <div class="confetti-92"></div>
+                        <div class="confetti-91"></div>
+                        <div class="confetti-90"></div>
+                        <div class="confetti-89"></div>
+                        <div class="confetti-88"></div>
+                        <div class="confetti-87"></div>
+                        <div class="confetti-86"></div>
+                        <div class="confetti-85"></div>
+                        <div class="confetti-84"></div>
+                        <div class="confetti-83"></div>
+                        <div class="confetti-82"></div>
+                        <div class="confetti-81"></div>
+                        <div class="confetti-80"></div>
+                        <div class="confetti-79"></div>
+                        <div class="confetti-78"></div>
+                        <div class="confetti-77"></div>
+                        <div class="confetti-76"></div>
+                        <div class="confetti-75"></div>
+                        <div class="confetti-74"></div>
+                        <div class="confetti-73"></div>
+                        <div class="confetti-72"></div>
+                        <div class="confetti-71"></div>
+                        <div class="confetti-70"></div>
+                        <div class="confetti-69"></div>
+                        <div class="confetti-68"></div>
+                        <div class="confetti-67"></div>
+                        <div class="confetti-66"></div>
+                        <div class="confetti-65"></div>
+                        <div class="confetti-64"></div>
+                        <div class="confetti-63"></div>
+                        <div class="confetti-62"></div>
+                        <div class="confetti-61"></div>
+                        <div class="confetti-60"></div>
+                        <div class="confetti-59"></div>
+                        <div class="confetti-58"></div>
+                        <div class="confetti-57"></div>
+                        <div class="confetti-56"></div>
+                        <div class="confetti-55"></div>
+                        <div class="confetti-54"></div>
+                        <div class="confetti-53"></div>
+                        <div class="confetti-52"></div>
+                        <div class="confetti-51"></div>
+                        <div class="confetti-50"></div>
+                        <div class="confetti-49"></div>
+                        <div class="confetti-48"></div>
+                        <div class="confetti-47"></div>
+                        <div class="confetti-46"></div>
+                        <div class="confetti-45"></div>
+                        <div class="confetti-44"></div>
+                        <div class="confetti-43"></div>
+                        <div class="confetti-42"></div>
+                        <div class="confetti-41"></div>
+                        <div class="confetti-40"></div>
+                        <div class="confetti-39"></div>
+                        <div class="confetti-38"></div>
+                        <div class="confetti-37"></div>
+                        <div class="confetti-36"></div>
+                        <div class="confetti-35"></div>
+                        <div class="confetti-34"></div>
+                        <div class="confetti-33"></div>
+                        <div class="confetti-32"></div>
+                        <div class="confetti-31"></div>
+                        <div class="confetti-30"></div>
+                        <div class="confetti-29"></div>
+                        <div class="confetti-28"></div>
+                        <div class="confetti-27"></div>
+                        <div class="confetti-26"></div>
+                        <div class="confetti-25"></div>
+                        <div class="confetti-24"></div>
+                        <div class="confetti-23"></div>
+                        <div class="confetti-22"></div>
+                        <div class="confetti-21"></div>
+                        <div class="confetti-20"></div>
+                        <div class="confetti-19"></div>
+                        <div class="confetti-18"></div>
+                        <div class="confetti-17"></div>
+                        <div class="confetti-16"></div>
+                        <div class="confetti-15"></div>
+                        <div class="confetti-14"></div>
+                        <div class="confetti-13"></div>
+                        <div class="confetti-12"></div>
+                        <div class="confetti-11"></div>
+                        <div class="confetti-10"></div>
+                        <div class="confetti-9"></div>
+                        <div class="confetti-8"></div>
+                        <div class="confetti-7"></div>
+                        <div class="confetti-6"></div>
+                        <div class="confetti-5"></div>
+                        <div class="confetti-4"></div>
+                        <div class="confetti-3"></div>
+                        <div class="confetti-2"></div>
+                        <div class="confetti-1"></div>
+                        <div class="confetti-0"></div>
+                    </div>
+
+                </div>
+                <div style="align-items: center;">
+                    <p style="font-weight: bold; text-align: center;">You have successfully completed the 2022 online orientation. Thank you.</p>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button style="background-color: #0d4794; text-align:center;padding-right: 3%;"> <a [href]="url" style="background-color: #0d4794; color: white; margin-left: 10%;text-align:center;">Collect Your Cetificate</a></button>
+                    <button mat-button (click)=" StepSix(stepper)" style="background-color: #0d4794; color: white; margin-left: 2%;">Restart course</button>
+                </div>
+            </mat-step>
+        </mat-vertical-stepper>
+    </mat-card>
+
 </div>
