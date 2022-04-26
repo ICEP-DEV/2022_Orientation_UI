@@ -19,7 +19,7 @@
         <button mat-menu-item style="font-size: large;background-color: #0d4794;color: white">{{usernames}} 
             <!-- <mat-icon>assignment</mat-icon> -->
         </button>
-        <button mat-menu-item>Get Your cetificate  
+        <button  mat-menu-item [disabled]="complete===0"><a href={{url}}   >Get Your Cetificate</a> 
             <mat-icon>assignment_turned_in</mat-icon>
         </button>
         <button (click)="campDirection()" mat-menu-item>Campus Directions 
@@ -91,7 +91,7 @@
 
             <!-- STEP 4 WATCH VIDEOS ORIENTATION -->
             <mat-step label="Watch Orientation Videos" [completed]="stepFourComplete">
-                <p>Watch at least 15% of videos to continue</p>
+                <p style="text-align: center;">Watch at least 15% of videos to continue</p>
 
                 <!---------------------------------------------------------------------------------------------------------->
 
@@ -182,7 +182,7 @@
             <!-- STEP 5 FINISH -->
             <mat-step label="Finish">
                 <ng-template matStepLabel>Finish Online Orientation</ng-template>
-                <p style="font-weight: bold;"> What's Next?</p>
+           
                 <!--making confetti-->
                 
      <div class="main" style=" height: 300px; width: 100%;">
@@ -347,7 +347,7 @@
                     <p style="font-weight: bold; text-align: center;">You have successfully completed the 2022 online orientation. Thank you.</p>
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-button style="background-color: #0d4794; text-align:center;padding-right: 3%;"> <a href={{url}} style="background-color: #0d4794; color: white; margin-left: 10%;text-align:center;">Collect Your Cetificate</a></button> 
-                    <button mat-button (click)=" StepSix(stepper)" style="background-color: #0d4794; color: white; margin-left: 2%;">Restart course</button>                                
+                    <button mat-button (click)=" StepSix(stepper)"  style="background-color: #0d4794; color: white; margin-left: 2%;">Restart course</button>                                
                 </div>
             </mat-step>
         </mat-vertical-stepper>

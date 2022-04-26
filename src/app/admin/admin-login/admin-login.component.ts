@@ -13,7 +13,7 @@ export class AdminLoginComponent implements OnInit {
 
   loading = false;
   email : string = '';
-  password : string = '1234567';
+  password : string = '';
   message : string = ''
   isOpen : boolean = false;
 
@@ -47,7 +47,6 @@ export class AdminLoginComponent implements OnInit {
           }
           else
           {
-            console.log('email exist')
             alert(result.message)
           }
       })

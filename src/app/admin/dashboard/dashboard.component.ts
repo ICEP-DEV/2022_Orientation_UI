@@ -37,10 +37,10 @@ export class DashboardComponent implements OnInit {
     ) 
   {
     this.userEmail = this._cookiesService.get("userEmail_A")
-    if(!this.userEmail)
+    /*if(!this.userEmail)
     {
       this._router.navigate(['admin-login'])
-    }
+    }*/
     Chart.register(...registerables)
     _socketConnection.getStatsBatch({}).subscribe((result)=>
     {

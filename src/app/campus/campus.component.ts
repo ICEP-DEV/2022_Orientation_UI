@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MapdirComponent } from '../student/mapdir/mapdir.component';
 import { MeeteamComponent } from '../student/meeteam/meeteam.component';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -22,6 +23,8 @@ export class CampusComponent implements OnInit {
   isLinear = true;
   usernames =""
   userEmail =""
+  
+  
 
   public astepper:any
   
@@ -68,6 +71,7 @@ export class CampusComponent implements OnInit {
   progressbarVal:number = 0
 
   public url : string = '';
+  public complete:number = 0;
 
 
   //Constructor
@@ -88,14 +92,14 @@ export class CampusComponent implements OnInit {
     {
       this._router.navigate(['home'])
     }
-      this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
+      this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname"); 
       this.url = "http://localhost/pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
       this._orientation.getCampuses().subscribe((result)=>{
-      this.allCampuses = result.data
-    })
+      this.allCampuses = result.data})
     
+      
   }
-
+  
   //Ng Initializer Method
   ngOnInit(): void {
     setTimeout(async() => {
@@ -217,6 +221,7 @@ export class CampusComponent implements OnInit {
     })
  
     this.stepOneComplete = true
+    console.log("Step 1 is completed "+this.complete)
     next(stepper)
   } 
   //------------------------------------------------------------------Step Two Next Button Click
@@ -370,6 +375,9 @@ export class CampusComponent implements OnInit {
     
 
     this.stepFiveComplete = true
+    this.complete = 1;
+    console.log("Step 5 is completed "+this.complete)
+
     next(stepper)
   }
   //------------------------------------------------------------------Step Sive Restart Button Click
@@ -397,13 +405,13 @@ export class CampusComponent implements OnInit {
       })
       
       this.baseSurveyAnswers = []
-        
       this.progressbarVal =0
+      this.complete = 0
       this.stepOneComplete = false;
       stepper.reset()
     }
   }
-
+  
 
   //Click of Each Dynamical componet
    //========================Campus button click
@@ -519,6 +527,7 @@ export class CampusComponent implements OnInit {
    
   }
 
+ 
   campDirection()
   {
     this._bottomSheet.open(MapdirComponent);

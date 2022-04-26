@@ -64,16 +64,4 @@ export interface Survey {
   Survey: any[] ;
 }
 
-const ELEMENT_DATA: Survey[] = [
-  {
-    Id:0,
-    Firstname: "Cebolenkosi",
-    Lastname: 'Shezi',
-    StudentNo: "217070554",
-    Email: 'cbshezi5@gmail.com',
-    Survey: [
-      {"question":"survquestion1","answer":"useransw1"},
-      {"question":"survquestion2","answer":"useransw2"},
-    ],
-  }
-];
+const ELEMENT_DATA: Survey[] = [];

@@ -1,5 +1,7 @@
 <!-- Page Wrapper -->
 
+
+
 <div id="wrapper">
 
     <app-sidebar> </app-sidebar>
@@ -38,7 +40,7 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="chart-area">
-                                
+                                    
                                 </div>
                             </div>
                         </div>
@@ -53,7 +55,43 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="chart-area">
-           
+                                
+                                      <mat-form-field appearance="fill">
+                                      <mat-label>Title</mat-label>
+                                        <input matInput>
+                                      </mat-form-field>
+                                      <mat-form-field appearance="fill">
+                                        <mat-label>SubTitle</mat-label>
+                                          <input matInput>
+                                        </mat-form-field>
+                                      <mat-form-field appearance="fill">
+                                        <mat-label>Description</mat-label>
+                                        <textarea matInput></textarea>
+                                      </mat-form-field>
+                                      <mat-form-field appearance="fill">
+                                        <mat-label>Author</mat-label>
+                                          <input matInput>
+                                        </mat-form-field>
+                                      <mat-form-field appearance="fill">
+                                        <mat-label>Select</mat-label>
+                                        <mat-select>
+                                          <mat-option value="one"><input type="file" (change)="onFileSelected($event)"></mat-option>
+                                          
+                                        </mat-select>
+                                      </mat-form-field>
+                                      <mat-form-field appearance="fill">
+                                        <mat-label>Link</mat-label>
+                                          <input matInput>
+                                        </mat-form-field>
+                                      <mat-form-field appearance="fill">
+                                      <mat-label>Date Posted</mat-label>
+                                      <input matInput>
+                                      </mat-form-field>
+                                      <button type="button" (click)="onUpload()">Upload</button>
+                                      <button type="button" (click)="onUploadVideo()">Upload Video</button>
+                                  
+                                      
+
                                 </div>
                             </div>
                         </div>

@@ -28,47 +28,44 @@
                         <mat-icon style="position: absolute;">picture_as_pdf</mat-icon>
                         <span style="margin-left: 30px;">Quick Generate Report</span>
                     </a>
-                    
+
                 </div>
                 <mat-form-field appearance="outline" style="width: 30%;">
                     <mat-label>Search</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 217070" #input>
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
-                
+
                 <!-- picture_as_pdf -->
                 <div class="container">
-                    <table mat-table
-                            [dataSource]="dataSource" multiTemplateDataRows
-                            class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
                         <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-                            <th mat-header-cell *matHeaderCellDef > {{column}} </th>
+                            <th mat-header-cell *matHeaderCellDef> {{column}} </th>
                             <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
                         </ng-container>
 
                         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
                         <ng-container matColumnDef="expandedDetail">
                             <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-                            <div class="example-element-detail"
-                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                                
-                                <br>
-                                <div class="row">
-                                    <label style="margin-right: 2%; margin-bottom: 3%; font-size: large;">Survey</label>
-                                    <label *ngFor="let eachsurvey of element.Survey">{{eachsurvey.question}} : <label style="font-weight: 500;color: rgb(12, 197, 12)">{{eachsurvey.answer}}</label></label>
+                                <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+                                    <br>
+                                    <div class="row">
+                                        <label style="margin-right: 2%; margin-bottom: 3%; font-size: large;">Survey</label>
+                                        <label *ngFor="let eachsurvey of element.Survey">{{eachsurvey.question}} : <label style="font-weight: 500;color: rgb(12, 197, 12)">{{eachsurvey.answer}}</label></label>
+                                    </div>
                                 </div>
-                            </div>
                             </td>
                         </ng-container>
 
 
                         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-                        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
-                            class="example-element-row"
-                            [class.example-expanded-row]="expandedElement === element"
-                            (click)="expandedElement = expandedElement === element ? null : element">
+                        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
                         </tr>
                         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No Students completed survey found</td>
+                        </tr>
                     </table>
                     <mat-paginator [pageSizeOptions]="[10, 15, 20, 25]" [length]="100" [pageSize]="10" style="margin-bottom: 5%;"></mat-paginator>
                 </div>
