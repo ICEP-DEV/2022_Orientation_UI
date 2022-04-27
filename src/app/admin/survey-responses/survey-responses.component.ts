@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { OrientationService } from 'src/app/orientation.service';
+import { SocketioService } from './../../socketio.service'
 
 @Component({
   selector: 'app-survey-responses',
@@ -28,7 +29,8 @@ export class SurveyResponsesComponent implements OnInit  {
   @ViewChild(MatSort, {static: true}) sorter : any
 
   constructor(
-    private _orientationService : OrientationService
+    private _orientationService : OrientationService,
+    private _socketConnection: SocketioService,
   )
   {
 
@@ -41,6 +43,12 @@ export class SurveyResponsesComponent implements OnInit  {
     this._orientationService.getUserSurvey().subscribe((result)=>{
         this.dataSource = result
     })
+
+    this._socketConnection.socket.on("countSurvey",(instream)=>{
+      this._orientationService.getUserSurvey().subscribe((result)=>{
+        this.dataSource = result
+      })
+    });
   }
 
   applyFilter(event: Event) {
