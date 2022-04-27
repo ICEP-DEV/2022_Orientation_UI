@@ -1,36 +1,22 @@
-
 // Custom Theming for Angular Material
-@use '@angular/material' as mat;
 // For more information: https://material.angular.io/guide/theming
-@import '@angular/material/theming';
+@import '~@angular/material/theming';
 // Plus imports for other components in your app.
-
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat.core();
-
+@include mat-core();
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$kg-app-cicd-primary: mat.define-palette(mat.$indigo-palette);
-$kg-app-cicd-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
+$kg-app-cicd-primary: mat-palette($mat-indigo);
+$kg-app-cicd-accent: mat-palette($mat-pink, A200, A100, A400);
 // The warn palette is optional (defaults to red).
-$kg-app-cicd-warn: mat.define-palette(mat.$red-palette);
-
+$kg-app-cicd-warn: mat-palette($mat-red);
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$kg-app-cicd-theme: mat.define-light-theme((
-  color: (
-    primary: $kg-app-cicd-primary,
-    accent: $kg-app-cicd-accent,
-    warn: $kg-app-cicd-warn,
-  )
-));
-
+$kg-app-cicd-theme: mat-light-theme(( color: ( primary: $kg-app-cicd-primary, accent: $kg-app-cicd-accent, warn: $kg-app-cicd-warn, )));
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($kg-app-cicd-theme);
-
+@include angular-material-theme($kg-app-cicd-theme);
