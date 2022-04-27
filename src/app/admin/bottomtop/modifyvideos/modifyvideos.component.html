@@ -1,0 +1,25 @@
+<h1>Delete or Edit Orientation Videos</h1>
+<div *ngFor="let video of videos">
+    <div *ngFor="let videosEle of video.content" class="card mb-4" style="width:1000px">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center">
+            <mat-icon (click)="deleteVideo(videosEle.id)" color="warn" style="cursor:pointer" matTooltip="Delete the video">delete</mat-icon>
+            <mat-icon (click)="editVideo(videosEle.id,videosEle.tittle,video.category)" color="primary" style="margin-left:3%;cursor:pointer" matTooltip="Edit the video">create</mat-icon>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="chart-area">
+                <div class=" py-3 d-flex flex-row">
+                    <video [id]="videosEle.id" class="video-js vjs-default-skin" controls preload="none" poster="https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg" #videoplayer width="40%">
+                    <source [src]="videosEle.path" type="video/mp4"/>
+                 </video>
+                    <div style="margin-left:2%">
+                        <h2 class="m-0 font-weight-bold text-primary">{{videosEle.tittle}}</h2>
+                        <h4 class="m-0 font-weight-bold">{{video.category}}</h4>
+                        <h5 style="color: gray;margin-top: 70%;">{{videosEle.createdAt | date : 'dd MMMM yyyy HH:mm' }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

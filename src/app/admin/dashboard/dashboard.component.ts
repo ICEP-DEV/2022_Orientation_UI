@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './../../user.service';
 import { SocketioService } from './../../socketio.service'
 import { Chart, registerables } from 'chart.js';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +11,8 @@ import { Chart, registerables } from 'chart.js';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  userEmail : any
 
   students: number = 0;
   visitors: number = 0;
@@ -25,9 +29,18 @@ export class DashboardComponent implements OnInit {
 
   
 
-  constructor(private usersService: UserService, 
-    private _socketConnection: SocketioService,) 
+  constructor(
+    private usersService: UserService, 
+    private _socketConnection: SocketioService,
+    private _router : Router,
+    private _cookiesService : CookieService
+    ) 
   {
+    this.userEmail = this._cookiesService.get("userEmail_A")
+    if(!this.userEmail)
+    {
+      this._router.navigate(['admin-login'])
+    }
     Chart.register(...registerables)
     _socketConnection.getStatsBatch({}).subscribe((result)=>
     {
@@ -70,12 +83,12 @@ export class DashboardComponent implements OnInit {
         return past.getDate()
       }
       
-
-        
+      
+      this._socketConnection.getLogginsOverView().subscribe((result)=>{  
       this.chart = new Chart('myAreaChart', {
         type: 'line',
         data: {
-          labels: [dateShift(9), dateShift(8), dateShift(7), dateShift(6), dateShift(5), dateShift(4), dateShift(3), dateShift(2), dateShift(1), "Today"],
+          labels: ["Today",dateShift(1), dateShift(2), dateShift(3), dateShift(4), dateShift(5), dateShift(6), dateShift(7), dateShift(8), dateShift(9)],
           datasets: [{
             label: "Logging In",
             backgroundColor: "#0d4794",
@@ -88,7 +101,7 @@ export class DashboardComponent implements OnInit {
             pointHoverBorderColor: "#0d4794",
             pointHitRadius: 10,
             pointBorderWidth: 2,
-            data: [0, 5, 20, 15, 17, 15, 2, 20, 5, 10],
+            data: result.data,
             normalized:true,
             tension:0.3,
           }],
@@ -109,8 +122,8 @@ export class DashboardComponent implements OnInit {
             }
           },
         },
-        
       });
+      })
 
 
 
@@ -119,7 +132,7 @@ export class DashboardComponent implements OnInit {
         data: {
           labels: ["Logged In", "Registered", "Survey"],
           datasets: [{
-            data: [this.loggedIn, 20, this.noOfSurvey],
+            data: [20, 20, 20],
             backgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
             hoverBackgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
             hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -137,10 +150,18 @@ export class DashboardComponent implements OnInit {
       });
 
 
+      this._socketConnection.socket.on("updateLine",(instream)=>{
+        this.chart.data.datasets[0].data = JSON.parse(instream);
+        this.chart.update();
+      })
+  }
+ 
 
-
-
-
-
+  upload()
+  {
+    this._socketConnection.getLogginsOverView().subscribe((result)=>{
+      this.chart.data.datasets[0].data = result.data;
+      this.chart.update();
+    })
   }
 }

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -68,7 +70,58 @@ export class OrientationService {
     return this.http.delete<any>("http://localhost:6900/track/orientation",{params:parametrs})
   }
 
+  public getUserSurvey()
+  {
+    return this.http.get<any>("http://localhost:6900/track/survey/admin")
+  }
 
+ 
+
+  public addVideo(bodyElement : any): Observable<any> {
+
+    return this.http
+      .post('http://localhost:3007/uploadVideo', bodyElement, {
+        reportProgress: true,
+        observe: 'events',
+      })
+      .pipe(catchError(this.errorMgmt));
+  }
+
+
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      if(error.status != 200)
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    if(error.status != 200)
+    {
+      console.log(errorMessage);
+    
+      return throwError(() => {
+        return errorMessage;
+      });
+
+    }
+    else
+    {
+      return "Done"
+    }
+  }
+
+  public updateVideo(body : any)
+  {
+     return this.http.put<any>('http://localhost:6900/Admin/UpdateDeleteVideo',body)
+  }
+
+  public deleteVideo(paramsVal : any)
+  {
+    return this.http.delete<any>('http://localhost:6900/Admin/UpdateDeleteVideo',{params:paramsVal})
+  }
 
 
 }

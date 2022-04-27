@@ -17,7 +17,7 @@ export class SignInComponent implements OnInit {
 
   email : string = '';
   password : string = '';
-  message : string = 'Cebolenkosi'
+  message : string = ''
   isOpen : boolean = false;
  
  
@@ -55,6 +55,7 @@ export class SignInComponent implements OnInit {
             this.cookieService.put("userEmail",result.data[0].email,{secure:true,sameSite:"strict"})
             this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
             this._socketConnection.socket.emit('LoggedInUsers_soc')
+            this._socketConnection.socket.emit('LineGraph_update')
             this.router.navigate([''])
           }
           else
