@@ -24,6 +24,8 @@ export class CampusComponent implements OnInit {
   userEmail =""
 
   public astepper:any
+
+  surveyAleadyDone = false
   
 
   //Step Completed Controllers
@@ -161,11 +163,12 @@ export class CampusComponent implements OnInit {
                               for (let index = 0; index < this.orientation_sav.length; index++) {
                                 if(this.orientation_sav[index].field == "Survey")
                                 {
-                                    await this._orientation.GetSurveyAnswer({"useremail":this.userEmail}).toPromise().then((result)=>{
-                                       for (let index = 0; index < result.data.length; index++) {
-                                           this.baseSurveyAnswers[index] = result.data[index].answer            
-                                       }    
-                                    })
+                                  this.surveyAleadyDone = true
+                                    // await this._orientation.GetSurveyAnswer({"useremail":this.userEmail}).toPromise().then((result)=>{
+                                    //    for (let index = 0; index < result.data.length; index++) {
+                                    //        this.baseSurveyAnswers[index] = result.data[index].answer            
+                                    //    }    
+                                    // })
                                     this.StepFive(this.astepper,true)
                                     break;
                                 }    
@@ -282,8 +285,12 @@ export class CampusComponent implements OnInit {
     //Checking Wherether atleast 2 videos have been watched
     if(this.watchedVideos.length < 2)
     {
+      if(!this.surveyAleadyDone)
+      {
         alert("Please watch atleast two videos before proceeding")
         return
+      }
+        
     }
 
 
@@ -322,7 +329,7 @@ export class CampusComponent implements OnInit {
       for (let index = 0; index < this.baseSurveyAnswers.length; index++) {
         if(!this.baseSurveyAnswers[index])
         {
-          alert("Please answer every question from the survey 2")
+          alert("Please answer every question from the survey")
           return
         } 
       }
@@ -347,6 +354,7 @@ export class CampusComponent implements OnInit {
     this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Five"}).subscribe(()=>{})
 
      //Storing the users faculty choice
+     if(!this.surveyAleadyDone)
     this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Survey","value":"true"})
      .subscribe((result)=>{
        if(result.error) throw result.message
@@ -368,7 +376,7 @@ export class CampusComponent implements OnInit {
       if(result.error) throw result.message
     })
     
-
+    this.surveyAleadyDone = true
     this.stepFiveComplete = true
     next(stepper)
   }
@@ -412,9 +420,14 @@ export class CampusComponent implements OnInit {
         this.videosData = result.data
       })
 
-      await this._orientation.getSurvQuestion(this.facultySelected.toString()).toPromise().then((result)=>{
-        this.baseSurveyQuestions = result.data
-      })
+      if(!this.surveyAleadyDone)
+      {
+        await this._orientation.getSurvQuestion(this.facultySelected.toString()).toPromise().then((result)=>{
+        
+          this.baseSurveyQuestions = result.data
+        })
+      }
+      
   }
 
   //=======================Other event Handles
@@ -452,19 +465,9 @@ export class CampusComponent implements OnInit {
 
   changeSection($event : any)
   {
-     // console.log($event)
-    if($event.selectedIndex == 1)
-    if(this.baseSurveyAnswers.length > 0)
-    //alert("Cation!! Looks like you have started with the survey if you change the campus you will loose your progress")
-    this._snackBar.open("If you change the campus you will loose your survey progress","Cation!",{duration:5000});
-    
-    if($event.selectedIndex == 2)
-    if(this.baseSurveyAnswers.length > 0)
-    //alert("Cation!! Looks like you have started with the survey if you change the faculty you will loose your progress")
-    this._snackBar.open("If you change the faculty you will loose your survey progress","Cation!",{duration:5000});
 
     if($event.selectedIndex == 0)
-      this.progressbarVal =0
+      this.progressbarVal = 0
     
 
     if($event.selectedIndex == 1)
@@ -472,15 +475,19 @@ export class CampusComponent implements OnInit {
     
 
     if($event.selectedIndex == 2) 
-      this.progressbarVal =30
+      this.progressbarVal = 30
      
 
     if($event.selectedIndex == 3)
-      this.progressbarVal =40
+      this.progressbarVal = 40
     
 
-    if($event.selectedIndex == 4) 
-      this.progressbarVal =60
+    if($event.selectedIndex == 4)
+    {
+      this.progressbarVal = 60
+      this.surveyAleadyDone
+    } 
+      
     
 
     if($event.selectedIndex == 5)

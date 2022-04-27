@@ -144,9 +144,17 @@
             </mat-step>
 
             <mat-step label="Survey">
+                <div style="position: absolute; height: 100%;width:100%;z-index: 1;display: flex; justify-content: center;align-items: center;background: rgb(255,255,255);
+                    background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(255,255,255,1) 38%, rgba(255,255,255,1) 100%);" *ngIf="surveyAleadyDone">
+                    <div style="font-size: 40px">
+                        <mat-icon color="primary" [inline]="true">assignment_turned_in</mat-icon>
+                    </div>
+                    <label style="font-size: larger;">You have completed your survey</label>
+                </div>
                 <ng-template matStepLabel>Survey</ng-template>
-                <p> Please complete the survey</p>
 
+
+                <p> Please complete the survey</p>
                 <ng-templete *ngFor="let question of baseSurveyQuestions,let indexOfelement=index;">
                     <br>
                     <div *ngIf="question.possible_answer.length > 1, else oneAnswer">
