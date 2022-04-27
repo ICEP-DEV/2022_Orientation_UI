@@ -372,37 +372,6 @@ export class CampusComponent implements OnInit {
     this.stepFiveComplete = true
     next(stepper)
   }
-  //------------------------------------------------------------------Step Sive Restart Button Click
-  StepSix(stepper : MatStepper)
-  {
-    if(confirm("Are you sure you want to restart the orientaion all your saves will be lost ?"))
-    {
-      //Updating the progress of the user
-      this._orientation.UpdateProgress({"email":this.userEmail,"progress":0})
-      .subscribe((result)=>{
-        if(result.error) throw result.message
-      })
-
-      this._orientation.DelCustomeSaved({"useremail":this.userEmail,"delete":"all"})
-      .subscribe(()=>{
-        this._socketConnection.socket.emit("Add_Survey_soc")
-      })
-      
-      this._userService.logActivity({"useremail":this.userEmail, "activity":"Restared the Orientation"}).subscribe(()=>{})
-
-        //Storing the users faculty choice
-      this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Initialize","value":"true"})
-      .subscribe((result)=>{
-        if(result.error) throw result.message
-      })
-      
-      this.baseSurveyAnswers = []
-        
-      this.progressbarVal =0
-      this.stepOneComplete = false;
-      stepper.reset()
-    }
-  }
 
 
   //Click of Each Dynamical componet
