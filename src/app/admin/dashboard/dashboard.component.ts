@@ -4,16 +4,26 @@ import { SocketioService } from './../../socketio.service'
 import { Chart, registerables } from 'chart.js';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
+import {trigger, state, style, animate, transition} from '@angular/animations';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  animations: [
+    // Each unique animation requires its own trigger. The first argument of the trigger function is the name
+    trigger('rotatedState', [
+        state('default', style({ transform: 'rotate(0)' })),
+        state('rotated', style({ transform: 'rotate(360deg)' })),
+        transition('rotated => default', animate('400ms ease-out')),
+        transition('default => rotated', animate('400ms ease-in'))
+  ])
+  ]
 })
 export class DashboardComponent implements OnInit {
 
   userEmail : any
-
+  state: string = 'default';
   students: number = 0;
   visitors: number = 0;
   videos:number =0;
@@ -159,6 +169,7 @@ export class DashboardComponent implements OnInit {
 
   upload()
   {
+    this.state = (this.state === 'default' ? 'rotated' : 'default');
     this._socketConnection.getLogginsOverView().subscribe((result)=>{
       this.chart.data.datasets[0].data = result.data;
       this.chart.update();
