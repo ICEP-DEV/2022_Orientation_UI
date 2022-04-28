@@ -71,6 +71,8 @@ export class CampusComponent implements OnInit {
 
   public url : string = '';
 
+  public complete:number = 0;
+
 
   //Constructor
   constructor(
@@ -378,6 +380,8 @@ export class CampusComponent implements OnInit {
     
     this.surveyAleadyDone = true
     this.stepFiveComplete = true
+    this.complete = 1;
+    
     next(stepper)
   }
 
