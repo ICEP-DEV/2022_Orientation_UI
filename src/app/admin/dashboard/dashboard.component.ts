@@ -4,7 +4,7 @@ import { SocketioService } from './../../socketio.service'
 import { Chart, registerables } from 'chart.js';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-import {trigger, state, style, animate, transition} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-dashboard',
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
       this.surveys = ((result.data[0].survey / result.data[0].countUsers) * 100).toFixed(0)
       this.noOfSurvey = result.data[0].survey
       this.widthStyle = "width:"+this.surveys+"%"
-      this.videos = result.data[0].videoCounts
+      this.videos = result.data[0].uploadVideo
       this.students = result.data[0].countUsers
       this.loggedIn = result.data[0].loggedin
     })
@@ -73,7 +73,8 @@ export class DashboardComponent implements OnInit {
       this._socketConnection.socket.on("countStudents",(instream)=>{
         this.students = instream;
       })
-      this._socketConnection.socket.on("countVideos",(instream)=>{
+      this._socketConnection.socket.on("VideosCount",(instream)=>{
+        console.log(instream)
         this.videos= instream;
       })
       this._socketConnection.socket.on("countSurvey",(instream)=>{
@@ -140,7 +141,7 @@ export class DashboardComponent implements OnInit {
       this.myPieChart = new Chart('myPieChart', {
         type: 'doughnut',
         data: {
-          labels: ["Logged In", "Registered", "Survey"],
+          labels: ["Soshnguve South", "Arcadia", "Garankuwa"],
           datasets: [{
             data: [20, 20, 20],
             backgroundColor: ['#0d4794', '#de0428', '#f6c23e'],

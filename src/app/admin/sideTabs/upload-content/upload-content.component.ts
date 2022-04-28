@@ -7,6 +7,7 @@ import { OrientationService } from './../../../orientation.service'
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ModifyvideosComponent } from './../../bottomtop/modifyvideos/modifyvideos.component'
+import { SocketioService } from './../../../socketio.service'
 
 interface Campus{
   campus_name: string;
@@ -184,8 +185,9 @@ export class UploadContentComponent implements OnInit {
           this.uploadProg = "0";
           this.uploadStyle= "width:0%"
           this.uploadWait = false
-          //window.location.reload()
-        }, 2500);
+
+          this._SocketService.socket.emit("VideoUploaded")
+        }, 2000);
       }
     })
     
@@ -196,7 +198,8 @@ export class UploadContentComponent implements OnInit {
   constructor(
     private _orientation : OrientationService,
     private cdref: ChangeDetectorRef,
-    private _bottomSheet :MatBottomSheet
+    private _bottomSheet :MatBottomSheet,
+    private _SocketService : SocketioService
   ) {
     this.formData = new FormData();
    }
