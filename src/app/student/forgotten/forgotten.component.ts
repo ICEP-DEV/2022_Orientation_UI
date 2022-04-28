@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../../user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forgotten',
@@ -15,7 +16,7 @@ export class ForgottenComponent implements OnInit {
   private otp : string = '';
   public password : string='';
   
-  constructor(private _userService : UserService,private _router : Router) { }
+  constructor(private _userService : UserService,private _router : Router, private toast : ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -27,13 +28,15 @@ export class ForgottenComponent implements OnInit {
     {
         if(!this.email) 
         {
-          alert("Please enter your email")
+          
+          this.toast.error('Please enter your email', 'Error')
           return
         }
 
         if(this.email.length < 3)
         {
-          alert("Incorrect email")
+          
+          this.toast.error('Incorrect email', 'Error')
           return
         }
 
@@ -41,7 +44,8 @@ export class ForgottenComponent implements OnInit {
           console.log(result)
           if(result.error)
           {
-            alert(result.message)
+            
+            this.toast.error(result.message)
             return;
           }
 
@@ -52,6 +56,7 @@ export class ForgottenComponent implements OnInit {
               {
                 this._userService.logActivity({"useremail":this.email, "activity":"Forgot otp"}).subscribe(()=>{})
                   console.log("OTP was sent succesfully")
+                  this.toast.success('OTP was sent succesfully')
               }
           })
           this.step++;
@@ -66,7 +71,8 @@ export class ForgottenComponent implements OnInit {
 
         if(!this.otpField)
         {
-          alert("OTP is required")
+          
+          this.toast.error('OTP is required')
           return;
         }
         if(this.otp != this.otpField)
@@ -74,10 +80,12 @@ export class ForgottenComponent implements OnInit {
           
           if(this.otpField.length != 6)
           {
-            alert("The OTP expacted is 6 digit")
+            
+            this.toast.info('The OTP expacted is 6 digit')
             return;
           }
-            alert("Your OTP is incorrect make sure you are using the most recent OTP")
+            
+            this.toast.info('Your OTP is incorrect make sure you are using the most recent OTP')
           return;
         }
       

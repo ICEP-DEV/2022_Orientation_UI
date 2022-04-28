@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieModule } from 'ngx-cookie';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
+import { ToastrModule } from 'ngx-toastr';
 
 //Components
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Student Components
@@ -158,7 +159,11 @@ import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/botto
     MatTooltipModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
-    }) 
+    }),
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,}),
   ],
 
   schemas: [

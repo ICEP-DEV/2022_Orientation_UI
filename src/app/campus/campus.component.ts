@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MapdirComponent } from '../student/mapdir/mapdir.component';
 import { MeeteamComponent } from '../student/meeteam/meeteam.component';
+import { ToastrService } from 'ngx-toastr';
+import { throws } from 'assert';
 
 
 @Component({
@@ -78,6 +80,7 @@ export class CampusComponent implements OnInit {
     private _router: Router,
     private _socketConnection : SocketioService,
     private _snackBar: MatSnackBar,
+    private toast: ToastrService ,
     private _bottomSheet: MatBottomSheet
     
   ) {
@@ -225,7 +228,8 @@ export class CampusComponent implements OnInit {
     
     if(this.campusSelected == -1)
     {
-      alert("Please select a campus before trying to procceed")
+      
+      this.toast.info('Please select a campus before trying to procceed', 'Notification')
       return
     }
 
@@ -253,7 +257,8 @@ export class CampusComponent implements OnInit {
     //Checking whether is there a selected faculty
     if(this.facultySelected == -1)
     {
-      alert("Please select a faculty before trying to procceed")
+      
+      this.toast.info('Please select a faculty before trying to procceed', 'Notification')
       return
     }
 
@@ -282,7 +287,8 @@ export class CampusComponent implements OnInit {
     //Checking Wherether atleast 2 videos have been watched
     if(this.watchedVideos.length < 2)
     {
-        alert("Please watch atleast two videos before proceeding")
+        
+        this.toast.info('Please watch at least two videos before proceeding', 'Notification')
         return
     }
 
@@ -315,14 +321,16 @@ export class CampusComponent implements OnInit {
       if(!saved)  
       if(this.baseSurveyAnswers.length !== this.baseSurveyQuestions.length)
       {
-          alert("Please answer every question from the survey")
+          
+          this.toast.info('Please answer every question from the survey', 'Information')
           return
       }
 
       for (let index = 0; index < this.baseSurveyAnswers.length; index++) {
         if(!this.baseSurveyAnswers[index])
         {
-          alert("Please answer every question from the survey 2")
+          
+          this.toast.info('Please answer every question from the survey', 'Information')
           return
         } 
       }
