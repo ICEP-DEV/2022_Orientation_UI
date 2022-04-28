@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieModule } from 'ngx-cookie';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
+import { ToastrModule } from 'ngx-toastr';
 
 //Components
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Student Components
@@ -29,6 +30,7 @@ import { TopbarComponent } from './admin/topbar/topbar.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { SurveyResponsesComponent } from './admin/survey-responses/survey-responses.component';
+import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/bottomtop/modifyvideos/modifyvideos.component';
 
 //Mdb 5 Matirials 
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
@@ -77,7 +79,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MeeteamComponent } from './student/meeteam/meeteam.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/bottomtop/modifyvideos/modifyvideos.component';
+
 
 
 
@@ -156,6 +158,7 @@ import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/botto
     MatSnackBarModule,
     MatChipsModule,
     MatTooltipModule,
+    ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
     })
