@@ -74,7 +74,6 @@ export class DashboardComponent implements OnInit {
         this.students = instream;
       })
       this._socketConnection.socket.on("VideosCount",(instream)=>{
-        console.log(instream)
         this.videos= instream;
       })
       this._socketConnection.socket.on("countSurvey",(instream)=>{
@@ -141,9 +140,9 @@ export class DashboardComponent implements OnInit {
       this.myPieChart = new Chart('myPieChart', {
         type: 'doughnut',
         data: {
-          labels: ["Soshnguve South", "Arcadia", "Garankuwa"],
+          labels: [],
           datasets: [{
-            data: [20, 20, 20],
+            data: [],
             backgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
             hoverBackgroundColor: ['#0d4794', '#de0428', '#f6c23e'],
             hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -165,15 +164,37 @@ export class DashboardComponent implements OnInit {
         this.chart.data.datasets[0].data = JSON.parse(instream);
         this.chart.update();
       })
+
+      this._socketConnection.socket.on("updatePie",(instream)=>{
+        this.upload()
+      })
+
+      this.upload()
   }
+
+
  
 
   upload()
   {
     this.state = (this.state === 'default' ? 'rotated' : 'default');
+
     this._socketConnection.getLogginsOverView().subscribe((result)=>{
       this.chart.data.datasets[0].data = result.data;
       this.chart.update();
     })
+
+    this._socketConnection.getCampusesMost().subscribe((result)=>{
+      
+      for (let index = 0; index < result.data.length; index++) {
+        this.myPieChart.data.datasets[0].data[index] = result.data[index].campusStudents
+        this.myPieChart.data.labels[index] = result.data[index].value
+      }
+
+      this.myPieChart.update()
+
+    })
+
+    
   }
 }

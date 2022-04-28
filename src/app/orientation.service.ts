@@ -123,5 +123,4 @@ export class OrientationService {
     return this.http.delete<any>('http://localhost:6900/Admin/UpdateDeleteVideo',{params:paramsVal})
   }
 
-
 }

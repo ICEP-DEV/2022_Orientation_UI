@@ -249,6 +249,7 @@ export class CampusComponent implements OnInit {
       if(result.error) throw result.message
     })    
    
+    this._socketConnection.socket.emit("CampusSaved")
     this.stepTwoComplete = true
     next(stepper)
   }

@@ -25,5 +25,8 @@ export class SocketioService {
     return this.http.get<any>(this.secureProtocol+this.serverAddress+this.serverPort+'/Track/LoginOverview',{})
   }
 
- 
+  getCampusesMost()
+  {
+    return this.http.get<any>('http://localhost:6900/stat/stats',{})
+  }
 }
