@@ -76,6 +76,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MapdirComponent } from './student/mapdir/mapdir.component';
 import { AgmCoreModule } from '@agm/core';
 import { MeeteamComponent } from './student/meeteam/meeteam.component';
+<<<<<<< Updated upstream
+=======
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+>>>>>>> Stashed changes
 
 
 
@@ -150,6 +156,13 @@ import { MeeteamComponent } from './student/meeteam/meeteam.component';
     MatTableFilterModule,
     MatProgressBarModule,
     MatSnackBarModule,
+<<<<<<< Updated upstream
+=======
+    MatChipsModule,
+    MatTooltipModule,
+    ToastrModule.forRoot(),
+    MatProgressSpinnerModule,
+>>>>>>> Stashed changes
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
     }) 
