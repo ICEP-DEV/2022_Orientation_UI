@@ -79,7 +79,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MeeteamComponent } from './student/meeteam/meeteam.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -159,6 +159,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatChipsModule,
     MatTooltipModule,
     ToastrModule.forRoot(),
+    MatProgressSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
     })

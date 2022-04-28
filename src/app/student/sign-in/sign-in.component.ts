@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { UserService } from "../../user.service";
 import { SocketioService } from './../../socketio.service'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-in',
@@ -25,6 +26,7 @@ export class SignInComponent implements OnInit {
   constructor(private _userService: UserService, 
     private router: Router,
     private cookieService: CookieService,
+    private toast: ToastrService ,
     private _socketConnection : SocketioService) { }
 
 
@@ -38,12 +40,12 @@ export class SignInComponent implements OnInit {
 
   login() {
     if (this.email === '') {
-      alert('Please enter email');
+      this.toast.info('Please enter email', 'Notification');
       return;
     }
 
     if (this.password === '') {
-      alert('Please enter password');
+      this.toast.info('Please enter email', 'Notification');
       return;
     }
     
@@ -60,7 +62,7 @@ export class SignInComponent implements OnInit {
           }
           else
           {
-            alert(result.message)
+            this.toast.error(result.message, 'Error');
           }
       })
   }

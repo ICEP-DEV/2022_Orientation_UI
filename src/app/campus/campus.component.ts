@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MapdirComponent } from '../student/mapdir/mapdir.component';
 import { MeeteamComponent } from '../student/meeteam/meeteam.component';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-campus',
@@ -26,6 +26,7 @@ export class CampusComponent implements OnInit {
   public astepper:any
 
   surveyAleadyDone = false
+  loadingSaves = true
   
 
   //Step Completed Controllers
@@ -82,6 +83,7 @@ export class CampusComponent implements OnInit {
     private _router: Router,
     private _socketConnection : SocketioService,
     private _snackBar: MatSnackBar,
+    private toast: ToastrService ,
     private _bottomSheet: MatBottomSheet
     
   ) {
@@ -104,6 +106,7 @@ export class CampusComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(async() => {
       await this.loadSavedProgress()
+      
     }, 500);
     
   }
@@ -165,12 +168,7 @@ export class CampusComponent implements OnInit {
                               for (let index = 0; index < this.orientation_sav.length; index++) {
                                 if(this.orientation_sav[index].field == "Survey")
                                 {
-                                  this.surveyAleadyDone = true
-                                    // await this._orientation.GetSurveyAnswer({"useremail":this.userEmail}).toPromise().then((result)=>{
-                                    //    for (let index = 0; index < result.data.length; index++) {
-                                    //        this.baseSurveyAnswers[index] = result.data[index].answer            
-                                    //    }    
-                                    // })
+                                    this.surveyAleadyDone = true
                                     this.StepFive(this.astepper,true)
                                     break;
                                 }    
@@ -189,16 +187,8 @@ export class CampusComponent implements OnInit {
           break;
         }
       }
-
-
+      this.loadingSaves = false;
       //Restore for step Three+++++++++++++++++++++++++++++++++++++++++++++++++++++
-      
-
-
-
-
-
-
 
     })
 
@@ -230,7 +220,7 @@ export class CampusComponent implements OnInit {
     
     if(this.campusSelected == -1)
     {
-      alert("Please select a campus before trying to procceed")
+      this.toast.info('Please select a campus before trying to procceed', 'Notification')
       return
     }
 
@@ -259,7 +249,7 @@ export class CampusComponent implements OnInit {
     //Checking whether is there a selected faculty
     if(this.facultySelected == -1)
     {
-      alert("Please select a faculty before trying to procceed")
+      this.toast.info('Please select a faculty before trying to procceed', 'Notification')
       return
     }
 
@@ -290,7 +280,7 @@ export class CampusComponent implements OnInit {
     {
       if(!this.surveyAleadyDone)
       {
-        alert("Please watch atleast two videos before proceeding")
+        this.toast.info('Please watch at least two videos before proceeding', 'Notification')
         return
       }
         
@@ -325,14 +315,14 @@ export class CampusComponent implements OnInit {
       if(!saved)  
       if(this.baseSurveyAnswers.length !== this.baseSurveyQuestions.length)
       {
-          alert("Please answer every question from the survey")
+          this.toast.info('Please answer every question from the survey', 'Information')
           return
       }
 
       for (let index = 0; index < this.baseSurveyAnswers.length; index++) {
         if(!this.baseSurveyAnswers[index])
         {
-          alert("Please answer every question from the survey")
+          this.toast.info('Please answer every question from the survey', 'Information')
           return
         } 
       }
@@ -428,7 +418,6 @@ export class CampusComponent implements OnInit {
       if(!this.surveyAleadyDone)
       {
         await this._orientation.getSurvQuestion(this.facultySelected.toString()).toPromise().then((result)=>{
-        
           this.baseSurveyQuestions = result.data
         })
       }
@@ -492,8 +481,7 @@ export class CampusComponent implements OnInit {
       this.progressbarVal = 60
       this.surveyAleadyDone
     } 
-      
-    
+         
 
     if($event.selectedIndex == 5)
       this.progressbarVal =100
