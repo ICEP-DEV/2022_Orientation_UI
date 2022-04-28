@@ -34,7 +34,7 @@
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-4 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">Manage Faculty Videos</h6>
-
+                                <!-----------------------------------------Upload Of File Progress----------------------------------------------------------------->
                                 <div class="col-xl- col-md-6 mb-4" style="position: absolute; margin-left: 50%;" *ngIf="uploadProg != '0'">
                                     <div class="card border-bottom-secondary shadow h-20 py-0">
                                         <div class="card-body">
@@ -145,6 +145,40 @@
                         </div>
                     </div>
 
+
+
+
+                    <!-------------------------------------------------------Upload of Blog Progress-------------------------------------------------->
+                    <div class="col-xl-2 col-md-6 mb-4" style="position: absolute; margin-left: 63%;z-index: 5;" *ngIf="uploadProgBlog != '0'">
+                        <div class="card border-bottom-secondary shadow h-20 py-0">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Uploading Progress
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{uploadProgBlog+"%"}}</div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div class="progress-bar bg-info" role="progressbar" [style]="uploadStyleBlog" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <mat-icon style="margin-top: 23px;">cloud_upload</mat-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
                     <div class="col-xl-6 col-lg-10">
                         <div class="card shadow mb-7">
                             <!-- Card Header - Dropdown -->
@@ -154,7 +188,52 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="chart-area">
+                                    <div class="row" style="position: absolute; margin-left: 85%;">
+                                        <div class="example-button-container">
+                                            <button [disabled]="uploadWait" mat-fab color="primary" (click)="onUpload()" style="margin-bottom: 20%; border-radius: 50px;" matTooltip="add a new blog post">
+                                                <mat-icon>add_circle</mat-icon>
+                                                </button>
+                                        </div>
+                                        <div class="example-button-container">
+                                            <button disabled mat-mini-fab (click)="deleteOrEdit()" color="warn" style="border-radius: 50px; margin-left: 7%;" matTooltip="edit or remove a existing blog post">
+                                                <mat-icon>remove_circle</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <mat-form-field appearance="fill" style="width: 40%;">
+                                        <mat-label>Title</mat-label>
+                                        <input matInput [(ngModel)]="title">
+                                    </mat-form-field>
 
+                                    <br>
+                                    <mat-form-field appearance="fill" style="width: 40%;">
+                                        <mat-label>SubTittle</mat-label>
+                                        <input matInput [(ngModel)]="subtittle">
+                                    </mat-form-field>
+                                    <br>
+
+                                    <mat-form-field appearance="fill" style="width: 40%;">
+                                        <mat-label>Author</mat-label>
+                                        <input matInput [(ngModel)]="author">
+                                    </mat-form-field>
+                                    <br>
+                                    <div class="card shadow mb-2" style="padding: 4%; border-width: 0ch;">
+
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Description</mat-label>
+                                            <textarea matInput [(ngModel)]="description" style="height:190px"></textarea>
+                                        </mat-form-field>
+                                        <br>
+
+                                        <button type="button" style="height: 50px; border-radius: 39px;" mat-stroked-button color="primary" (click)="fileInputBlog.click()">{{selectedFile.name}}</button>
+                                        <input hidden (change)="onFileSelectedBlog($event)" #fileInputBlog type="file" id="file" accept=".jpg, .png, .mp4, .mkv, .ts|video/*">
+                                        <br>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Link</mat-label>
+                                            <input matInput [(ngModel)]="link">
+                                            <mat-hint>https://www.tut.ac.za/</mat-hint>
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -123,4 +123,42 @@ export class OrientationService {
     return this.http.delete<any>('http://localhost:6900/Admin/UpdateDeleteVideo',{params:paramsVal})
   }
 
+  //--------------------------Adding A Blog Post Request with Progress Report
+
+  public addBlog(bodyElement : any): Observable<any> {
+
+    return this.http
+      .post('http://localhost:3007/uploadImage', bodyElement, {
+        reportProgress: true,
+        observe: 'events',
+      })
+      .pipe(catchError(this.errorMgmtBlog));
+  }
+
+
+  errorMgmtBlog(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      if(error.status != 200)
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    if(error.status != 200)
+    {
+      console.log(errorMessage);
+    
+      return throwError(() => {
+        return errorMessage;
+      });
+
+    }
+    else
+    {
+      return "Done"
+    }
+  }
+
 }

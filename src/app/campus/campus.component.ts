@@ -26,7 +26,7 @@ export class CampusComponent implements OnInit {
   public astepper:any
 
   surveyAleadyDone = false
-  loadingSaves = true
+
   
 
   //Step Completed Controllers
@@ -187,11 +187,7 @@ export class CampusComponent implements OnInit {
           break;
         }
       }
-      this.loadingSaves = false;
-      //Restore for step Three+++++++++++++++++++++++++++++++++++++++++++++++++++++
-
     })
-
   }
 
   focus(stepper : MatStepper){
