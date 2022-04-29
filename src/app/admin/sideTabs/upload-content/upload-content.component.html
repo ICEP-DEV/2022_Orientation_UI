@@ -94,12 +94,12 @@
                                     </mat-form-field>
                                     <div class="row" style="position: absolute; margin-top: -20%;margin-left: 85%;">
                                         <div class="example-button-container">
-                                            <button [disabled]="uploadWait" mat-fab color="primary" (click)="addNewVideo()" style="margin-bottom: 20%; border-radius: 50px;" matTooltip="add a new video">
+                                            <button [disabled]="uploadWait" mat-fab color="primary" (click)="addNewVideo()" style="margin-bottom: 20%; border-radius: 50px;" matTooltip="Add a new video">
                                                 <mat-icon>add_circle</mat-icon>
                                                 </button>
                                         </div>
                                         <div class="example-button-container">
-                                            <button mat-mini-fab (click)="openVideoManage()" color="warn" style="border-radius: 50px; margin-left: 7%;" matTooltip="edit or remove a existing video">
+                                            <button mat-mini-fab (click)="openVideoManage()" color="warn" style="border-radius: 50px; margin-left: 7%;" matTooltip="Edit or remove a existing video">
                                                 <mat-icon>remove_circle</mat-icon>
                                             </button>
                                         </div>
@@ -113,9 +113,9 @@
                                         <br>
                                         <!-- The tittle of the video -->
                                         <mat-form-field class="example-full-width" appearance="fill">
-                                            <mat-label>Tittle</mat-label>
+                                            <mat-label>Title</mat-label>
                                             <input type="text" matInput [formControl]="tittleFormControl" [errorStateMatcher]="matcher" placeholder="Ex. Introduction">
-                                            <mat-hint>Tittle length should be 3 to 25</mat-hint>
+                                            <mat-hint>Title length should be 3 to 25</mat-hint>
                                             <mat-error *ngIf="tittleFormControl.hasError('required')">
                                                 Tittle is <strong>required</strong>
                                             </mat-error>
@@ -190,13 +190,18 @@
                                 <div class="chart-area">
                                     <div class="row" style="position: absolute; margin-left: 85%;">
                                         <div class="example-button-container">
-                                            <button [disabled]="uploadWait" mat-fab color="primary" (click)="onUpload()" style="margin-bottom: 20%; border-radius: 50px;" matTooltip="add a new blog post">
+                                            <button [disabled]="uploadWait" mat-fab color="primary" (click)="onUpload()" style="margin-bottom: 20%; border-radius: 50px;" matTooltip="Add a new blog post">
                                                 <mat-icon>add_circle</mat-icon>
                                                 </button>
                                         </div>
                                         <div class="example-button-container">
-                                            <button disabled mat-mini-fab (click)="deleteOrEdit()" color="warn" style="border-radius: 50px; margin-left: 7%;" matTooltip="edit or remove a existing blog post">
+                                            <button disabled mat-mini-fab (click)="deleteOrEdit()" color="warn" style="border-radius: 50px; margin-left: 7%;margin-bottom: 20%;" matTooltip="edit or remove a existing blog post">
                                                 <mat-icon>remove_circle</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="example-button-container">
+                                            <button  mat-mini-fab (click)="navigateBlog()" color="warn" style="border-radius: 50px; margin-left: 7%;" matTooltip="Go to Blog">
+                                                <mat-icon>view_day</mat-icon>
                                             </button>
                                         </div>
                                     </div>
@@ -226,7 +231,7 @@
                                         <br>
 
                                         <button type="button" style="height: 50px; border-radius: 39px;" mat-stroked-button color="primary" (click)="fileInputBlog.click()">{{selectedFile.name}}</button>
-                                        <input hidden (change)="onFileSelectedBlog($event)" #fileInputBlog type="file" id="file" accept=".jpg, .png, .mp4, .mkv, .ts|video/*">
+                                        <input hidden (change)="onFileSelectedBlog($event)" #fileInputBlog type="file" id="file" accept=".jpg, .png, .jpeg, .gif|image/*">
                                         <br>
                                         <mat-form-field appearance="fill">
                                             <mat-label>Link</mat-label>

@@ -9,6 +9,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ModifyvideosComponent } from './../../bottomtop/modifyvideos/modifyvideos.component'
 import { SocketioService } from './../../../socketio.service'
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 interface Campus{
   campus_name: string;
@@ -50,7 +51,7 @@ export class UploadContentComponent implements OnInit {
   path: string= "";
   link: string = "";
   subtittle: string= "";
-  selectedFile: any = {name:"Select a Video or a Image"};
+  selectedFile: any = {name:"Select an Image"};
 
 
 
@@ -224,6 +225,7 @@ export class UploadContentComponent implements OnInit {
     private _bottomSheet :MatBottomSheet,
     private _SocketService : SocketioService,
     private toast : ToastrService,
+    private _router : Router
   ) {
     this.formData = new FormData();
    }
@@ -293,7 +295,7 @@ export class UploadContentComponent implements OnInit {
     else
     {
       fd.append('image', this.selectedFile);
-      if(this.selectedFile.size > 1000000)
+      if(this.selectedFile.size > 10000000)
       {
         this.toast.warning("The image is too large")
         return
@@ -384,6 +386,11 @@ export class UploadContentComponent implements OnInit {
     }
     
 
+  }
+
+  navigateBlog()
+  {
+    this._router.navigate(['/blog'])
   }
 
   deleteOrEdit(){
