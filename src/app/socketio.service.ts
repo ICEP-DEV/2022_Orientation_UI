@@ -7,10 +7,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SocketioService {
   socketState : boolean = false;
-  public socket : io.Socket = io.connect('http://localhost:6900', {transports: ['websocket', 'polling', 'flashsocket']})
+  public socket : io.Socket = io.connect('http://3.80.224.126:6900', {transports: ['websocket', 'polling', 'flashsocket']})
  
   private secureProtocol : string = "http://"
-  private serverAddress : string = "localhost:"
+  private serverAddress : string = "3.80.224.126:"
   private serverPort : string = "6900"
  
   constructor(private http : HttpClient) { }
@@ -27,6 +27,6 @@ export class SocketioService {
 
   getCampusesMost()
   {
-    return this.http.get<any>('http://localhost:6900/stat/stats',{})
+    return this.http.get<any>('http://3.80.224.126:6900/stat/stats',{})
   }
 }

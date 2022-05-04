@@ -80,6 +80,7 @@ import { MeeteamComponent } from './student/meeteam/meeteam.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SearchComponent } from './admin/search/search.component';
 
 
 
@@ -107,7 +108,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MapdirComponent,
     MeeteamComponent,
     ModifyvideosComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

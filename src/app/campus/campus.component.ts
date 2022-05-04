@@ -95,7 +95,7 @@ export class CampusComponent implements OnInit {
       this._router.navigate(['home'])
     }
       this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
-      this.url = "http://localhost/pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
+      this.url = "http://3.80.224.126//pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
       this._orientation.getCampuses().subscribe((result)=>{
       this.allCampuses = result.data
     })

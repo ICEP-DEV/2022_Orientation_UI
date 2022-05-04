@@ -53,12 +53,19 @@ export class SurveyResponsesComponent implements OnInit  {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.toString();
+    console.log(filterValue)
+    this.dataSource.filter = filterValue.toLowerCase();
+    console.log(this.dataSource)
   
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
+  }
+
+  generateRep()
+  {
+    console.log(this.dataSource)
   }
   
 }

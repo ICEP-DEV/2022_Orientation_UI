@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
 
   private secureProtocol : string = "http://"
-  private serverAddress : string = "localhost:"
+  private serverAddress : string = "3.80.224.126:"
   private serverPort : string = "6900"
                 
   constructor(private http: HttpClient) { }
@@ -33,7 +33,7 @@ export class UserService {
 
   public sendOTP(requestBody: any)
   {
-    return this.http.post<any>("http://localhost/mailman/sendEmail.php",requestBody, {});
+    return this.http.post<any>("http://3.80.224.126/mailman/sendEmail.php",requestBody, {});
   }
 
   public logActivity(body : any)
