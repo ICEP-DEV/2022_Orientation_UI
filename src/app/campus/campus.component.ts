@@ -9,6 +9,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MapdirComponent } from '../student/mapdir/mapdir.component';
 import { MeeteamComponent } from '../student/meeteam/meeteam.component';
 import { ToastrService } from 'ngx-toastr';
+import { HOSTNAME } from './../../globals'
 
 @Component({
   selector: 'app-campus',
@@ -85,25 +86,28 @@ export class CampusComponent implements OnInit {
     private _bottomSheet: MatBottomSheet
     
   ) {
+
     this.userEmail = this._cookiesService.get("userEmail")
 
     if(!this.userEmail)
-    {
-      this._router.navigate(['home'])
-    }
+      {
+        this._router.navigate(['home'])
+        return
+      }
+      
       this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
-      this.url = "http://3.80.224.126//pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
+      this.url = `http://${HOSTNAME}/pdfrender/temmp.php?firstname=`+this._cookiesService.get("fname")+`&lastname=`+this._cookiesService.get("lname")
       this._orientation.getCampuses().subscribe((result)=>{
-      this.allCampuses = result.data
-    })
-    
+        this.allCampuses = result.data
+      })
   }
 
   //Ng Initializer Method
   ngOnInit(): void {
     setTimeout(async() => {
-      await this.loadSavedProgress()
       
+
+      await this.loadSavedProgress()
     }, 500);
     
   }

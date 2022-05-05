@@ -128,9 +128,9 @@ export class RegisterComponent implements OnInit {
     this._userService.regStudent({"password":this.password,"studNum":this.studNum,"fname": this.firstName, "lname" : this.lastName,"email":this.email}).subscribe((result)=>{
       if(result.error == false)
       {
-        this.cookieService.set("fname", this.firstName,{secure:true,sameSite:"Strict"})
-        this.cookieService.set("lname", this.lastName,{secure:true,sameSite:"Strict"})
-        this.cookieService.set("userEmail",this.email,{secure:true,sameSite:"Strict"})
+        this.cookieService.set("fname", this.firstName)
+        this.cookieService.set("lname", this.lastName)
+        this.cookieService.set("userEmail",this.email)
         this._userService.logActivity({"useremail":this.email, "activity":"Registered"}).subscribe(()=>{})
         this._socketConnection.socket.emit('RegisteredUsers_soc')
         this._socketConnection.socket.emit('LoggedInUsers_soc')

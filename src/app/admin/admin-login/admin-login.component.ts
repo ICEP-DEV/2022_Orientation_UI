@@ -42,7 +42,7 @@ export class AdminLoginComponent implements OnInit {
     this._userService.loginAdmin({"email":this.email, "password":this.password}).subscribe(async(result)=>{
           if(result.error == false)
           {
-            this.cookieService.set("userEmail_A",result.data[0].email,{secure:true,sameSite:"Strict"})
+            this.cookieService.set("userEmail_A",result.data[0].email)
             this.router.navigate(['dashboard'])
           }
           else
