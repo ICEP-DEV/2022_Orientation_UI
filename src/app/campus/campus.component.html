@@ -17,10 +17,9 @@
     </button>
     <mat-menu #menu="matMenu" yPosition="above">
         <button mat-menu-item style="font-size: large;background-color: #0d4794;color: white">{{usernames}} 
-            <!-- <mat-icon>assignment</mat-icon> -->
         </button>
-        <button mat-menu-item>Get Your cetificate  
-            <mat-icon>assignment_turned_in</mat-icon>
+        <button mat-menu-item [disabled]="complete===0"><a href={{url}}   >Get Your Cetificate</a>  
+            <mat-icon >assignment_turned_in</mat-icon>
         </button>
         <button (click)="campDirection()" mat-menu-item>Campus Directions 
             <mat-icon>room</mat-icon>
@@ -144,9 +143,17 @@
             </mat-step>
 
             <mat-step label="Survey">
+                <div style="position: absolute; height: 100%;width:100%;z-index: 1;display: flex; justify-content: center;align-items: center;background: rgb(255,255,255);
+                    background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(255,255,255,1) 38%, rgba(255,255,255,1) 100%);" *ngIf="surveyAleadyDone">
+                    <div style="font-size: 40px">
+                        <mat-icon color="primary" [inline]="true">assignment_turned_in</mat-icon>
+                    </div>
+                    <label style="font-size: larger;">You have completed your survey</label>
+                </div>
                 <ng-template matStepLabel>Survey</ng-template>
-                <p> Please complete the survey</p>
 
+
+                <p> Please complete the survey</p>
                 <ng-templete *ngFor="let question of baseSurveyQuestions,let indexOfelement=index;">
                     <br>
                     <div *ngIf="question.possible_answer.length > 1, else oneAnswer">
@@ -182,7 +189,6 @@
             <!-- STEP 5 FINISH -->
             <mat-step label="Finish">
                 <ng-template matStepLabel>Finish Online Orientation</ng-template>
-                <p style="font-weight: bold;"> What's Next?</p>
                 <!--making confetti-->
 
                 <div class="main" style=" height: 300px; width: 100%;">
@@ -347,7 +353,6 @@
                     <p style="font-weight: bold; text-align: center;">You have successfully completed the 2022 online orientation. Thank you.</p>
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-button style="background-color: #0d4794; text-align:center;padding-right: 3%;"> <a [href]="url" style="background-color: #0d4794; color: white; margin-left: 10%;text-align:center;">Collect Your Cetificate</a></button>
-                    <button mat-button (click)=" StepSix(stepper)" style="background-color: #0d4794; color: white; margin-left: 2%;">Restart course</button>
                 </div>
             </mat-step>
         </mat-vertical-stepper>

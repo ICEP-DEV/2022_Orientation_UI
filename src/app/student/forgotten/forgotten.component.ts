@@ -16,7 +16,9 @@ export class ForgottenComponent implements OnInit {
   private otp : string = '';
   public password : string='';
   
-  constructor(private _userService : UserService,private _router : Router, private toast : ToastrService) { }
+  constructor(private _userService : UserService,
+              private _router : Router,
+              private toast : ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -28,23 +30,19 @@ export class ForgottenComponent implements OnInit {
     {
         if(!this.email) 
         {
-          
           this.toast.error('Please enter your email', 'Error')
           return
         }
 
         if(this.email.length < 3)
         {
-          
           this.toast.error('Incorrect email', 'Error')
           return
         }
 
         this._userService.forgottenReq({email:this.email}).subscribe((result)=>{
-          console.log(result)
           if(result.error)
           {
-            
             this.toast.error(result.message)
             return;
           }
@@ -55,7 +53,6 @@ export class ForgottenComponent implements OnInit {
               if(result == null)
               {
                 this._userService.logActivity({"useremail":this.email, "activity":"Forgot otp"}).subscribe(()=>{})
-                  console.log("OTP was sent succesfully")
                   this.toast.success('OTP was sent succesfully')
               }
           })
@@ -71,21 +68,17 @@ export class ForgottenComponent implements OnInit {
 
         if(!this.otpField)
         {
-          
           this.toast.error('OTP is required')
           return;
         }
         if(this.otp != this.otpField)
-        {
-          
+        {      
           if(this.otpField.length != 6)
           {
-            
             this.toast.info('The OTP expacted is 6 digit')
             return;
           }
-            
-            this.toast.info('Your OTP is incorrect make sure you are using the most recent OTP')
+          this.toast.info('Your OTP is incorrect make sure you are using the most recent OTP')
           return;
         }
       

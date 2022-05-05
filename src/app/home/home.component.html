@@ -1,33 +1,33 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky" id="mainNav">
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="./">
-        <img src="https://dh2dlbjd2qx17.cloudfront.net/img/tut-logo.png" alt="" width="260" height="80" style="padding: auto;">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" routerLink="./">
+            <img src="https://dh2dlbjd2qx17.cloudfront.net/img/tut-logo.png" alt="" width="260" height="80" style="padding: auto;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        
-        <ul class="navbar-nav me-auto" style="margin-left: 20px;">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="./" >Home |</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/blog">Blog </a>
-          </li>
-        </ul>
-        
-        <div class>
-            <ul class="navbar-nav ms-auot">
-           <!-- <li><img class="user-img" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="user icon" style="position:relative; top: 5px;"></li> -->
-            <li><a class="nav-link" id="sign-in" routerLink="/student-login">Sign in</a></li>  
-            <li><a class="nav-link" id="sign-up" routerLink="/student-reg">Sign up</a></li>
-          </ul>
-          </div>
-  
-      </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav me-auto" style="margin-left: 20px;">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="./">Home |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/blog">Blog </a>
+                </li>
+            </ul>
+
+            <div class>
+                <ul class="navbar-nav ms-auot">
+                    <!-- <li><img class="user-img" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="user icon" style="position:relative; top: 5px;"></li> -->
+                    <li><a class="nav-link" id="sign-in" routerLink="/student-login">Sign in</a></li>
+                    <li><a class="nav-link" id="sign-up" routerLink="/student-reg">Sign up</a></li>
+                </ul>
+            </div>
+
+        </div>
     </div>
-  </nav>
+</nav>
 <!-- Header -->
 <header name="home">
     <div class="intro-text" style="
@@ -63,32 +63,24 @@
             </mdb-carousel-item>
             <!-- Slide 6 -->
             <mdb-carousel-item style="height:1300px;width:100%">
-              <img style="object-fit: cover;height:100%" class="d-block w-100" src="../../assets/img/ori31 (25 of 32).jpg" alt="Second slide">
+                <img style="object-fit: cover;height:100%" class="d-block w-100" src="../../assets/img/ori31 (25 of 32).jpg" alt="Second slide">
             </mdb-carousel-item>
 
         </mdb-carousel>
 
         <!---->
         <div>
-            
-          <div class="heading" style="text-align: center;line-height: 0.8; display: flex; justify-content: center;font-size: 6vw;  text-shadow: 2px 2px #0d4794; color: rgb(255, 255, 255);">TUT Online Orientation</div>
-          <p style="text-align: center; display: flex; justify-content: center;font-weight:normal; text-shadow: 2px 2px #0d4794; color: rgb(255, 255, 255);text-shadow: 5; font-size: 3vw;text-align: center;font-weight: 700;"> for first time entering students.</p>
-            
 
+            <div class="heading" style="text-align: center;line-height: 0.8; display: flex; justify-content: center;font-size: 6vw;  text-shadow: 2px 2px #0d4794; color: rgb(255, 255, 255);">TUT Online Orientation</div>
+            <p style="text-align: center; display: flex; justify-content: center;font-weight:normal; text-shadow: 2px 2px #0d4794; color: rgb(255, 255, 255);text-shadow: 5; font-size: 3vw;text-align: center;font-weight: 700;"> for first time entering students.</p>
         </div>
-       <!-- <div style="display: flex; justify-content: center;">
-              <a routerLink="student-login" style=" justify-content: center;border-radius: 25px; border-width: 0px;" class="btn btn-default btn-lg page-scroll">Start Orientation
-            
-                <em class="ml-2" data-feather="arrow-right"></em>
-            </a> 
-        </div>-->
         <div style="display: flex; justify-content: center;">
-          <a routerLink="/student-login" (click)="startOr()" style=" justify-content: center;border-radius: 25px; border-width: 20px;" class="myButton">Start Orientation
+            <a routerLink="/student-login" (click)="startOr()" style=" justify-content: center;border-radius: 25px; border-width: 20px;" class="myButton">Start Orientation
             
             <em class="ml-2" data-feather="arrow-right"></em>
         </a>
         </div>
-         
+
     </div>
 </header>
 

@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { OrientationService } from './../../../orientation.service'
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
-
-
+import { SocketioService } from './../../../socketio.service'
+ 
 interface Video {  
   category : string;
   content :[{
@@ -28,7 +28,8 @@ export class ModifyvideosComponent implements OnInit {
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private _orientationService : OrientationService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _socketIO : SocketioService,
   ) { 
     
     this._orientationService.getVideos(data.faculty.id.toString()).subscribe((result)=>{
@@ -47,6 +48,7 @@ export class ModifyvideosComponent implements OnInit {
       {
         this._orientationService.getVideos(this.data.faculty.id.toString()).subscribe((result)=>{
           this.videos = result.data
+          this._socketIO.socket.emit("VideoUploaded")
         })
       }
       else
