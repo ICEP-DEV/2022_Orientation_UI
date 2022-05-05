@@ -1,4 +1,5 @@
-<app-header></app-header>
+<app-header>
+</app-header>
 
 <!-----------------------------------------------------------------------------Header-->
 <div class="hero-image">
@@ -7,6 +8,8 @@
         <p> Get to know your campus, library, student support and department staff.</p>
     </div>
 </div>
+<!-- <h6></h6> -->
+<mat-progress-bar style="height: 1%; " mode="determinate" [value]="progressbarVal"></mat-progress-bar>
 
 <div class="example-button-container" style="position: fixed; margin-top: 25%; margin-left: 90%;z-index: 5;">
     <button mat-button [matMenuTriggerFor]="menu" mat-fab style="background-color: #0d4794;" aria-label="Example icon button with a home icon">
@@ -14,18 +17,17 @@
     </button>
     <mat-menu #menu="matMenu" yPosition="above">
         <button mat-menu-item style="font-size: large;background-color: #0d4794;color: white">{{usernames}} 
-            <!-- <mat-icon>assignment</mat-icon> -->
         </button>
-        <button mat-menu-item>Get Your cetificate  
-            <mat-icon>assignment_turned_in</mat-icon>
+        <button mat-menu-item [disabled]="complete===0"><a href={{url}}   >Get Your Cetificate</a>  
+            <mat-icon >assignment_turned_in</mat-icon>
         </button>
-        <button mat-menu-item>Campus Directions 
-            <mat-icon>info</mat-icon>
+        <button (click)="campDirection()" mat-menu-item>Campus Directions 
+            <mat-icon>room</mat-icon>
         </button>
         <button (click)="blog()" mat-menu-item>Blog  
             <mat-icon>view_agenda</mat-icon>
         </button>
-        <button mat-menu-item>About Us  
+        <button (click)="meeteam()" mat-menu-item>Meet the team  
             <mat-icon>info</mat-icon>
         </button>
         <button (click)="logout()" mat-menu-item>Logout  
@@ -38,12 +40,12 @@
     <!-- Progress Stepper Bar -->
     <mat-card style="align-content: center;box-shadow: none;">
         <mat-card-title style="align-content: center; font-size:medium;">Online Orientation Progress.</mat-card-title>
-        <mat-vertical-stepper fxLayout="column" [linear]="isLinear" #stepper>
+        <mat-vertical-stepper id="stepper" fxLayout="column" [linear]="isLinear" #stepper (selectionChange)="changeSection($event)" (animationDone)="focus(stepper)">
 
             <!-- STEP 1 START ORIENTATION -->
             <mat-step label="Start" [completed]="stepOneComplete">
                 <ng-template matStepLabel style="background-color: #0d4794;">Start Orientation</ng-template>
-                <p>Click next to start the orientation.</p>
+                <p> Click next to start the orientation.</p>
 
 
                 <div>
@@ -58,7 +60,7 @@
                 <p>Please choose your campus below to continue.</p>
 
                 <mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle *ngFor="let camp of allCampuses;" (click)="campClick(camp.id,camp.campus_name)" value="bold" id="camp.id">{{camp.campus_name}}</mat-button-toggle>
+                    <mat-button-toggle *ngFor="let camp of allCampuses; let indexOfCampus = index" (click)="campClick(camp.id,camp.campus_name)" id="camp.id" [checked]="campusUISELECT[indexOfCampus]">{{camp.campus_name}}</mat-button-toggle>
                 </mat-button-toggle-group>
 
                 <div>
@@ -75,7 +77,7 @@
                 <p>Please choose your faculty below to continue.</p>
 
                 <mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle *ngFor="let faculty of baseFaculties;" (click)="facClick(faculty.id,faculty.faculty_name)" value="bold" id="faculty.id">{{faculty.faculty_name}}</mat-button-toggle>
+                    <mat-button-toggle *ngFor="let faculty of baseFaculties, let indexOfFac = index" (click)="facClick(faculty.id,faculty.faculty_name)" value="bold" id="faculty.id" [checked]="facultyUISELECT[indexOfFac]">{{faculty.faculty_name}}</mat-button-toggle>
                 </mat-button-toggle-group>
 
                 <div>
@@ -104,8 +106,8 @@
                             <div class="card" style="width: 110%;" *ngIf="content.type == 'video', else noDocument">
 
                                 <div id="instructions">
-                                    <video id={{content.id}} class="video-js vjs-default-skin" (durationchange)="onPlayVideo(content.id)" controls preload="none" poster='https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg' #videoplayer controls width="100%">
-                                       <source src={{content.path}} type='video/mp4'/>
+                                    <video [id]="content.id" class="video-js vjs-default-skin" (durationchange)="onPlayVideo(content.id)" controls preload="none" poster="https://dh2dlbjd2qx17.cloudfront.net/img/video-cover.jpg" #videoplayer width="100%">
+                                       <source [src]="content.path" type="video/mp4"/>
                                     </video>
                                     <p style="font-weight: bold; color: #de0428;">{{content.tittle}}</p>
 
@@ -115,7 +117,7 @@
                             <!-- CASE OF DOCUMENT PDF -->
                             <ng-template class="column" #noDocument>
 
-                                <a href={{content.path}} target="_blank" style="text-decoration: underline; color: rgb(196, 0, 0);">
+                                <a [href]="content.path" target="_blank" style="text-decoration: underline; color: rgb(196, 0, 0);">
                                     <div class="card">
                                         <mat-card class="example-card">
                                             <mat-card-content>
@@ -141,25 +143,43 @@
             </mat-step>
 
             <mat-step label="Survey">
+                <div style="position: absolute; height: 100%;width:100%;z-index: 1;display: flex; justify-content: center;align-items: center;background: rgb(255,255,255);
+                    background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(255,255,255,1) 38%, rgba(255,255,255,1) 100%);" *ngIf="surveyAleadyDone">
+                    <div style="font-size: 40px">
+                        <mat-icon color="primary" [inline]="true">assignment_turned_in</mat-icon>
+                    </div>
+                    <label style="font-size: larger;">You have completed your survey</label>
+                </div>
                 <ng-template matStepLabel>Survey</ng-template>
-                <p> Please complete the survey</p>
 
-                <ng-templete *ngFor="let question of baseSurveyQuestions">
+
+                <p> Please complete the survey</p>
+                <ng-templete *ngFor="let question of baseSurveyQuestions,let indexOfelement=index;">
                     <br>
-                    <mat-form-field style="width: 90%;margin-left: 2%;">
-                        <mat-label>{{question.question}}</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let eachanswer of question.possible_answer" [value]="1">
-                                {{eachanswer.answer}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                    <div *ngIf="question.possible_answer.length > 1, else oneAnswer">
+                        <mat-form-field style="width: 90%;margin-left: 2%;">
+                            <mat-label>{{ question.question}}</mat-label>
+                            <mat-select [id]="question.question_id" [(ngModel)]="baseSurveyAnswers[indexOfelement]">
+                                <mat-option *ngFor="let eachanswer of question.possible_answer" [id]="eachanswer.id" [value]="eachanswer.answer">
+                                    {{eachanswer.answer}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <ng-template #oneAnswer>
+                        <mat-form-field style="width: 90%;margin-left: 2%;">
+                            <mat-label>{{question.question}}</mat-label>
+                            <input matInput placeholder="Answer" [id]="question.question_id" [(ngModel)]="baseSurveyAnswers[indexOfelement]">
+                        </mat-form-field>
+                    </ng-template>
+
                 </ng-templete>
 
 
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="StepFive(stepper)" style="background-color: #de0428; color: white;">Next</button>
+                    <button mat-button (click)="StepFive(stepper,false)" style="background-color: #de0428; color: white;">Next</button>
                 </div>
 
             </mat-step>
@@ -169,11 +189,170 @@
             <!-- STEP 5 FINISH -->
             <mat-step label="Finish">
                 <ng-template matStepLabel>Finish Online Orientation</ng-template>
-                <p> You have successfully completed the 2022 online orientation. Thank you.</p>
-                <p style="font-weight: bold;"> What's Next?</p>
-                <div>
+                <!--making confetti-->
+
+                <div class="main" style=" height: 300px; width: 100%;">
+
+                    <div class="wrapper">
+                        <h1 class="congrats">Congratulations</h1>
+                        <h6> You have successfully completed the 2022 online orientation. Thank you.</h6>
+                        <div class="confetti-149"></div>
+                        <div class="confetti-148"></div>
+                        <div class="confetti-147"></div>
+                        <div class="confetti-146"></div>
+                        <div class="confetti-145"></div>
+                        <div class="confetti-144"></div>
+                        <div class="confetti-143"></div>
+                        <div class="confetti-142"></div>
+                        <div class="confetti-141"></div>
+                        <div class="confetti-140"></div>
+                        <div class="confetti-139"></div>
+                        <div class="confetti-138"></div>
+                        <div class="confetti-137"></div>
+                        <div class="confetti-136"></div>
+                        <div class="confetti-135"></div>
+                        <div class="confetti-134"></div>
+                        <div class="confetti-133"></div>
+                        <div class="confetti-132"></div>
+                        <div class="confetti-131"></div>
+                        <div class="confetti-130"></div>
+                        <div class="confetti-129"></div>
+                        <div class="confetti-128"></div>
+                        <div class="confetti-127"></div>
+                        <div class="confetti-126"></div>
+                        <div class="confetti-125"></div>
+                        <div class="confetti-124"></div>
+                        <div class="confetti-123"></div>
+                        <div class="confetti-122"></div>
+                        <div class="confetti-121"></div>
+                        <div class="confetti-120"></div>
+                        <div class="confetti-119"></div>
+                        <div class="confetti-118"></div>
+                        <div class="confetti-117"></div>
+                        <div class="confetti-116"></div>
+                        <div class="confetti-115"></div>
+                        <div class="confetti-114"></div>
+                        <div class="confetti-113"></div>
+                        <div class="confetti-112"></div>
+                        <div class="confetti-111"></div>
+                        <div class="confetti-110"></div>
+                        <div class="confetti-109"></div>
+                        <div class="confetti-108"></div>
+                        <div class="confetti-107"></div>
+                        <div class="confetti-106"></div>
+                        <div class="confetti-105"></div>
+                        <div class="confetti-104"></div>
+                        <div class="confetti-103"></div>
+                        <div class="confetti-102"></div>
+                        <div class="confetti-101"></div>
+                        <div class="confetti-100"></div>
+                        <div class="confetti-99"></div>
+                        <div class="confetti-98"></div>
+                        <div class="confetti-97"></div>
+                        <div class="confetti-96"></div>
+                        <div class="confetti-95"></div>
+                        <div class="confetti-94"></div>
+                        <div class="confetti-93"></div>
+                        <div class="confetti-92"></div>
+                        <div class="confetti-91"></div>
+                        <div class="confetti-90"></div>
+                        <div class="confetti-89"></div>
+                        <div class="confetti-88"></div>
+                        <div class="confetti-87"></div>
+                        <div class="confetti-86"></div>
+                        <div class="confetti-85"></div>
+                        <div class="confetti-84"></div>
+                        <div class="confetti-83"></div>
+                        <div class="confetti-82"></div>
+                        <div class="confetti-81"></div>
+                        <div class="confetti-80"></div>
+                        <div class="confetti-79"></div>
+                        <div class="confetti-78"></div>
+                        <div class="confetti-77"></div>
+                        <div class="confetti-76"></div>
+                        <div class="confetti-75"></div>
+                        <div class="confetti-74"></div>
+                        <div class="confetti-73"></div>
+                        <div class="confetti-72"></div>
+                        <div class="confetti-71"></div>
+                        <div class="confetti-70"></div>
+                        <div class="confetti-69"></div>
+                        <div class="confetti-68"></div>
+                        <div class="confetti-67"></div>
+                        <div class="confetti-66"></div>
+                        <div class="confetti-65"></div>
+                        <div class="confetti-64"></div>
+                        <div class="confetti-63"></div>
+                        <div class="confetti-62"></div>
+                        <div class="confetti-61"></div>
+                        <div class="confetti-60"></div>
+                        <div class="confetti-59"></div>
+                        <div class="confetti-58"></div>
+                        <div class="confetti-57"></div>
+                        <div class="confetti-56"></div>
+                        <div class="confetti-55"></div>
+                        <div class="confetti-54"></div>
+                        <div class="confetti-53"></div>
+                        <div class="confetti-52"></div>
+                        <div class="confetti-51"></div>
+                        <div class="confetti-50"></div>
+                        <div class="confetti-49"></div>
+                        <div class="confetti-48"></div>
+                        <div class="confetti-47"></div>
+                        <div class="confetti-46"></div>
+                        <div class="confetti-45"></div>
+                        <div class="confetti-44"></div>
+                        <div class="confetti-43"></div>
+                        <div class="confetti-42"></div>
+                        <div class="confetti-41"></div>
+                        <div class="confetti-40"></div>
+                        <div class="confetti-39"></div>
+                        <div class="confetti-38"></div>
+                        <div class="confetti-37"></div>
+                        <div class="confetti-36"></div>
+                        <div class="confetti-35"></div>
+                        <div class="confetti-34"></div>
+                        <div class="confetti-33"></div>
+                        <div class="confetti-32"></div>
+                        <div class="confetti-31"></div>
+                        <div class="confetti-30"></div>
+                        <div class="confetti-29"></div>
+                        <div class="confetti-28"></div>
+                        <div class="confetti-27"></div>
+                        <div class="confetti-26"></div>
+                        <div class="confetti-25"></div>
+                        <div class="confetti-24"></div>
+                        <div class="confetti-23"></div>
+                        <div class="confetti-22"></div>
+                        <div class="confetti-21"></div>
+                        <div class="confetti-20"></div>
+                        <div class="confetti-19"></div>
+                        <div class="confetti-18"></div>
+                        <div class="confetti-17"></div>
+                        <div class="confetti-16"></div>
+                        <div class="confetti-15"></div>
+                        <div class="confetti-14"></div>
+                        <div class="confetti-13"></div>
+                        <div class="confetti-12"></div>
+                        <div class="confetti-11"></div>
+                        <div class="confetti-10"></div>
+                        <div class="confetti-9"></div>
+                        <div class="confetti-8"></div>
+                        <div class="confetti-7"></div>
+                        <div class="confetti-6"></div>
+                        <div class="confetti-5"></div>
+                        <div class="confetti-4"></div>
+                        <div class="confetti-3"></div>
+                        <div class="confetti-2"></div>
+                        <div class="confetti-1"></div>
+                        <div class="confetti-0"></div>
+                    </div>
+
+                </div>
+                <div style="align-items: center;">
+                    <p style="font-weight: bold; text-align: center;">You have successfully completed the 2022 online orientation. Thank you.</p>
                     <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)=" StepSix(stepper)" style="background-color: #0d4794; color: white; margin-left: 10%;">Restart course</button>
+                    <button mat-button style="background-color: #0d4794; text-align:center;padding-right: 3%;"> <a [href]="url" style="background-color: #0d4794; color: white; margin-left: 10%;text-align:center;">Collect Your Cetificate</a></button>
                 </div>
             </mat-step>
         </mat-vertical-stepper>

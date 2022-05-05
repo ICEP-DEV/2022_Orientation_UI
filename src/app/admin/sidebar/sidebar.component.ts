@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketioService } from './../../socketio.service'
+import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,6 +12,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(
      private _socketConnection : SocketioService,
+     private _cookies :  CookieService,
      private _router : Router
   ) { }
   classNameNav : string[] = ["nav-item","nav-item","nav-item","nav-item","nav-item"]
@@ -24,6 +26,12 @@ export class SidebarComponent implements OnInit {
       
       this.classNameNav[index] = "nav-item active"
       this._router.navigate([route])
+  }
+
+  logOut()
+  {
+    this._cookies.remove('userEmail_A')
+    this._router.navigate(['admin-login'])
   }
 
 }

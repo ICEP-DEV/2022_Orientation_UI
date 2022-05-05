@@ -2,8 +2,9 @@ import { Component, OnInit,Input, Output, EventEmitter, ViewChild } from '@angul
 import { UserService } from './../../user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
+// import { CookieService } from 'ngx-cookie';
 import { SocketioService } from './../../socketio.service'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -33,7 +34,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private _userService: UserService, 
               private router: Router,
-              private cookieService: CookieService,
+              // private cookieService: CookieService,
+              private toast : ToastrService,
               private _socketConnection: SocketioService) { }
   ngOnInit(): void {
     
@@ -42,61 +44,61 @@ export class RegisterComponent implements OnInit {
   sendOTP()
   {
     if(this.studNum == '') {
-      alert('Please enter your student number ');
+      this.toast.warning('Please enter your student number');
       return;
     }
    
     if(this.firstName == '') {
-      alert('Please enter your first name ');
+      this.toast.warning('Please enter your first name');
       return;
     }
     if(this.lastName == '') {
-      alert('Please enter your last name ');
+      this.toast.warning('Please enter your last name');
       return;
     }
     if(this.email == '') {
-      alert('Please enter email');
+      this.toast.info('Please enter email','Information');
       return;
     }
 
     this._userService.checkStudent({"email":this.email}).subscribe((result)=>{
       if(this.studNum.length < 9) {
-        alert('Student number is too short');
+        this.toast.error('Student number is too short','Error');
         return;
       }
       else if(this.studNum.length > 9)
       {
-        alert('Student number too long');
+        this.toast.error('Student number too long','Error');
       }
       if(!result.error)
       {
-        alert("Email already exist");
+        this.toast.error('Email already exist','Error');
         return;
       }
     
     if(this.password == '') {
-      alert('Please enter password');
+      this.toast.info('Please enter password','Information');
       return;
     }
     
     if(this.password != this.password2)
     {
-      alert('Confirm password does not match');
+      this.toast.info('Confirm password does not match','Information');
       return;
     }
 
     if(this.password.length > 26) {
-      alert('Password is too long');
+      this.toast.error('Password is too long','Error');
       return;
     }
     
     if(this.password.length < 6) {
-      alert('Password is too short');
+      this.toast.error('Password is too short','Error');
       return;
     }
 
     if(this.password == "123456") {
-      alert('Password is too easy');
+      this.toast.info('Password is too weak','Notice');
       return;
     }
     
@@ -106,9 +108,8 @@ export class RegisterComponent implements OnInit {
 
     this._userService.sendOTP({"otp":this.otp,"email":this.email}).subscribe((result)=>{
       if(result == null)
-      {
-        
-        console.log("OTP was sent succesfully")
+      {     
+        this.toast.success('OTP was sent succesfully','Success');
       }
     })
 
@@ -120,18 +121,19 @@ export class RegisterComponent implements OnInit {
     
     if(this.otp != this.otpField)
     {
-      alert('OTP is incorrect');
+      this.toast.error('OTP is incorrect','Error');
       return;
     }
 
     this._userService.regStudent({"password":this.password,"studNum":this.studNum,"fname": this.firstName, "lname" : this.lastName,"email":this.email}).subscribe((result)=>{
       if(result.error == false)
       {
-        this.cookieService.put("fname", this.firstName,{secure:true,sameSite:"strict"})
-        this.cookieService.put("lname", this.lastName,{secure:true,sameSite:"strict"})
-        this.cookieService.put("userEmail",this.email,{secure:true,sameSite:"strict"})
+        // this.cookieService.put("fname", this.firstName,{secure:true,sameSite:"strict"})
+        // this.cookieService.put("lname", this.lastName,{secure:true,sameSite:"strict"})
+        // this.cookieService.put("userEmail",this.email,{secure:true,sameSite:"strict"})
         this._userService.logActivity({"useremail":this.email, "activity":"Registered"}).subscribe(()=>{})
         this._socketConnection.socket.emit('RegisteredUsers_soc')
+        this._socketConnection.socket.emit('LoggedInUsers_soc')
         this.router.navigate([''])
       }
       else

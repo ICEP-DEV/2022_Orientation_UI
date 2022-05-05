@@ -7,10 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CookieModule } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
-
+import { ToastrModule } from 'ngx-toastr';
 
 //Components
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Student Components
@@ -30,6 +30,7 @@ import { TopbarComponent } from './admin/topbar/topbar.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { SurveyResponsesComponent } from './admin/survey-responses/survey-responses.component';
+import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/bottomtop/modifyvideos/modifyvideos.component';
 
 //Mdb 5 Matirials 
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
@@ -68,7 +69,18 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { UploadContentComponent } from './admin/sideTabs/upload-content/upload-content.component';
 import { TrackingStComponent } from './admin/sideTabs/tracking-st/tracking-st.component';
 import { GeneratedReportComponent } from './admin/sideTabs/generated-report/generated-report.component';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableFilterModule } from 'mat-table-filter';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MapdirComponent } from './student/mapdir/mapdir.component';
+import { AgmCoreModule } from '@agm/core';
+import { MeeteamComponent } from './student/meeteam/meeteam.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SearchComponent } from './admin/search/search.component';
 
 
 
@@ -93,7 +105,11 @@ import { GeneratedReportComponent } from './admin/sideTabs/generated-report/gene
     UploadContentComponent,
     TrackingStComponent,
     GeneratedReportComponent,
-
+    MapdirComponent,
+    MeeteamComponent,
+    ModifyvideosComponent,
+    DialogOverviewExampleDialog,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -135,8 +151,20 @@ import { GeneratedReportComponent } from './admin/sideTabs/generated-report/gene
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
-    CookieModule.forRoot(),
-    MatIconModule 
+
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableFilterModule,
+    MatProgressBarModule,
+    MatSnackBarModule,
+    MatChipsModule,
+    MatTooltipModule,
+    ToastrModule.forRoot(),
+    MatProgressSpinnerModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
+    })
   ],
 
   schemas: [

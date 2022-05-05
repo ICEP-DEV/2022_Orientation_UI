@@ -1,0 +1,13 @@
+
+<h2>{{ title }}</h2>
+
+<!-- this creates a google map on the page with the given lat/lng from -->
+<!-- the component as the initial center of the map: -->
+<mat-button-toggle-group style="margin: 2%;" name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle  *ngFor="let campus of allCampuses" (click)="clickCampus(campus.campus_name,campus.campus_coords)">{{campus.campus_name}}</mat-button-toggle>   
+</mat-button-toggle-group>
+
+
+<agm-map [zoom]="zoomVar" [latitude]="lat" [longitude]="lng">
+  <agm-marker animation="DROP" *ngFor="let campus of allCampuses, let i = index" [latitude]="all_lat_marker[i]" [longitude]="all_lng_marker[i]"></agm-marker>
+</agm-map>
