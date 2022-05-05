@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { HOSTNAME } from '../globals'
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrientationService {
-  hostname : String = "ec2-3-80-224-126.compute-1.amazonaws.com"
+  hostname : String = HOSTNAME
   constructor(   
     private http: HttpClient
   ) { 
@@ -115,12 +116,12 @@ export class OrientationService {
 
   public updateVideo(body : any)
   {
-     return this.http.put<any>(`http://localhost:6900/Admin/UpdateDeleteVideo`,body)
+     return this.http.put<any>(`http://${this.hostname}:6900/Admin/UpdateDeleteVideo`,body)
   }
 
   public deleteVideo(paramsVal : any)
   {
-    return this.http.delete<any>(`http://localhost:6900/Admin/UpdateDeleteVideo`,{params:paramsVal})
+    return this.http.delete<any>(`http://${this.hostname}:6900/Admin/UpdateDeleteVideo`,{params:paramsVal})
   }
 
   //--------------------------Adding A Blog Post Request with Progress Report
@@ -128,7 +129,7 @@ export class OrientationService {
   public addBlog(bodyElement : any): Observable<any> {
 
     return this.http
-      .post(`http://localhost:3007/uploadImage`, bodyElement, {
+      .post(`http://${this.hostname}:3007/uploadImage`, bodyElement, {
         reportProgress: true,
         observe: 'events',
       })

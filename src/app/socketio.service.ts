@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client'
 import { HttpClient } from '@angular/common/http';
+import { HOSTNAME } from '../globals'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketioService {
   private secureProtocol : string = "http://"
-  private serverAddress : string = "ec2-3-80-224-126.compute-1.amazonaws.com:"
-  private serverPort : string = "6900"
+  private serverAddress : string = HOSTNAME
+  private serverPort : string = ":6900"
   socketState : boolean = false;
 
 

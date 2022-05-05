@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
+// import { CookieService } from 'ngx-cookie';
 
 
 @Component({
@@ -12,7 +12,8 @@ import { CookieService } from 'ngx-cookie';
 export class HeaderComponent implements OnInit {
 
 
-  constructor(private _cookiesService : CookieService, private router: Router) { }
+  constructor(
+    private router: Router) { }
 
   @Output() isLogout = new EventEmitter<void>()
 
@@ -21,9 +22,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
-    this._cookiesService.remove('userEmail')
-    this.isLogout.emit();
-    this.router.navigate(['home']);
+
   }
 
 

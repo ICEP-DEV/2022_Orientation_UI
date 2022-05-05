@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from "../../user.service";
 import { SocketioService } from './../../socketio.service'
 import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service'
 
 @Component({
   selector: 'app-sign-in',
@@ -25,7 +26,7 @@ export class SignInComponent implements OnInit {
   
   constructor(private _userService: UserService, 
     private router: Router,
-    // private cookieService: CookieService,
+    private cookieService: CookieService,
     private toast: ToastrService ,
     private _socketConnection : SocketioService) { }
 
