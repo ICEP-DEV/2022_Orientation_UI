@@ -3,7 +3,7 @@ import { UserService } from './../../user.service';
 import { SocketioService } from './../../socketio.service'
 import { Chart, registerables } from 'chart.js';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
+// import { CookieService } from 'ngx-cookie';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
@@ -43,14 +43,14 @@ export class DashboardComponent implements OnInit {
     private usersService: UserService, 
     private _socketConnection: SocketioService,
     private _router : Router,
-    private _cookiesService : CookieService
+    // private _cookiesService : CookieService
     ) 
   {
-    this.userEmail = this._cookiesService.get("userEmail_A")
-    if(!this.userEmail)
-    {
-      this._router.navigate(['admin-login'])
-    }
+    // this.userEmail = this._cookiesService.get("userEmail_A")
+    // if(!this.userEmail)
+    // {
+    //   this._router.navigate(['admin-login'])
+    // }
     Chart.register(...registerables)
     _socketConnection.getStatsBatch({}).subscribe((result)=>
     {
