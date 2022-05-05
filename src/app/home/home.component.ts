@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //import * as Immutable from 'immutable';
 import { SocketioService } from './../socketio.service'
+import { CookieService } from 'ngx-cookie-service'
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
 
   
   constructor(
-    private _socketConnection : SocketioService
+    private _socketConnection : SocketioService,
+    private cookieService: CookieService,
   ) { }
 
   ngOnInit(): void { 
@@ -21,7 +23,8 @@ export class HomeComponent implements OnInit {
 
   startOr()
   {
-   
+    console.log("Start")
+    this.cookieService.set("sat","Cebo")
   }
  
 

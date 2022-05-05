@@ -11,10 +11,10 @@ mat-button-toggle {
   border: 1px rgba(0,0,0,0) solid !important;
   margin-top: 0px !important;
   padding: 0 5px !important;
-  z-index: 3 !important;
-  
+  z-index: 3 !important; 
   color: rgb(0, 0, 0);
 }
+
 .page-container {
     padding-top: 30px;
     margin-left: 5%;

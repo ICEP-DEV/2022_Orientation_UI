@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HOSTNAME } from './../globals'
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
 
   private secureProtocol : string = "http://"
-  private serverAddress : string = "localhost:"
-  private serverPort : string = "6900"
+  private serverAddress : string = HOSTNAME
+  private serverPort : string = ":6900"
                 
   constructor(private http: HttpClient) { }
 
@@ -16,11 +17,6 @@ export class UserService {
   {
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login",student,{});
   }
-  public loginAdmin(body :any)
-  {
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login_admin",body,{})
-  }
-
 
   public forgottenReq(studentCreds : any)
   {
@@ -38,7 +34,7 @@ export class UserService {
 
   public sendOTP(requestBody: any)
   {
-    return this.http.post<any>("http://localhost/mailman/sendEmail.php",requestBody, {});
+    return this.http.post<any>(`http://${this.serverAddress}/mailman/sendEmail.php`,requestBody, {});
   }
 
   public logActivity(body : any)
@@ -56,5 +52,9 @@ export class UserService {
     return this.http.get<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/blog/blog",{params:{"id":"*"}})
   }
 
+  public loginAdmin(body :any)
+  {
+    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login_admin",body,{})
+  }
 
 }

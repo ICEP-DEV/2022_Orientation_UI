@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { OrientationService } from "../orientation.service"
-import { CookieService } from 'ngx-cookie';
+// import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { UserService } from './../user.service';
 import { SocketioService } from '../socketio.service';
@@ -9,12 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MapdirComponent } from '../student/mapdir/mapdir.component';
 import { MeeteamComponent } from '../student/meeteam/meeteam.component';
-<<<<<<< Updated upstream
-import { ThrowStmt } from '@angular/compiler';
-
-=======
 import { ToastrService } from 'ngx-toastr';
->>>>>>> Stashed changes
 
 @Component({
   selector: 'app-campus',
@@ -27,16 +22,11 @@ export class CampusComponent implements OnInit {
   isLinear = true;
   usernames =""
   userEmail =""
-  
-  
 
   public astepper:any
-<<<<<<< Updated upstream
-=======
 
   surveyAleadyDone = false
-  loadingSaves = true
->>>>>>> Stashed changes
+
   
 
   //Step Completed Controllers
@@ -81,13 +71,14 @@ export class CampusComponent implements OnInit {
   progressbarVal:number = 0
 
   public url : string = '';
+
   public complete:number = 0;
 
 
   //Constructor
   constructor(
     public _orientation : OrientationService, 
-    private _cookiesService : CookieService,
+    // private _cookiesService : CookieService,
     private _userService : UserService,
     private _router: Router,
     private _socketConnection : SocketioService,
@@ -97,20 +88,21 @@ export class CampusComponent implements OnInit {
     
   ) {
 
-    this.userEmail = this._cookiesService.get("userEmail")
+    this.userEmail="cbshezi5@gmail.com"
+    // this.userEmail = this._cookiesService.get("userEmail")
 
     if(!this.userEmail)
     {
       this._router.navigate(['home'])
     }
-      this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname"); 
-      this.url = "http://localhost/pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
+      // this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
+      // this.url = "http://3.80.224.126//pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
       this._orientation.getCampuses().subscribe((result)=>{
-      this.allCampuses = result.data})
+      this.allCampuses = result.data
+    })
     
-      
   }
-  
+
   //Ng Initializer Method
   ngOnInit(): void {
     setTimeout(async() => {
@@ -177,15 +169,7 @@ export class CampusComponent implements OnInit {
                               for (let index = 0; index < this.orientation_sav.length; index++) {
                                 if(this.orientation_sav[index].field == "Survey")
                                 {
-<<<<<<< Updated upstream
-                                    await this._orientation.GetSurveyAnswer({"useremail":this.userEmail}).toPromise().then((result)=>{
-                                       for (let index = 0; index < result.data.length; index++) {
-                                           this.baseSurveyAnswers[index] = result.data[index].answer            
-                                       }    
-                                    })
-=======
                                     this.surveyAleadyDone = true
->>>>>>> Stashed changes
                                     this.StepFive(this.astepper,true)
                                     break;
                                 }    
@@ -204,11 +188,7 @@ export class CampusComponent implements OnInit {
           break;
         }
       }
-      this.loadingSaves = false;
-      //Restore for step Three+++++++++++++++++++++++++++++++++++++++++++++++++++++
-
     })
-
   }
 
   focus(stepper : MatStepper){
@@ -229,7 +209,6 @@ export class CampusComponent implements OnInit {
     })
  
     this.stepOneComplete = true
-    console.log("Step 1 is completed "+this.complete)
     next(stepper)
   } 
   //------------------------------------------------------------------Step Two Next Button Click
@@ -257,6 +236,7 @@ export class CampusComponent implements OnInit {
       if(result.error) throw result.message
     })    
    
+    this._socketConnection.socket.emit("CampusSaved")
     this.stepTwoComplete = true
     next(stepper)
   }
@@ -295,14 +275,12 @@ export class CampusComponent implements OnInit {
     //Checking Wherether atleast 2 videos have been watched
     if(this.watchedVideos.length < 2)
     {
-<<<<<<< Updated upstream
-        alert("Please watch atleast two videos before proceeding")
-=======
       if(!this.surveyAleadyDone)
       {
         this.toast.info('Please watch at least two videos before proceeding', 'Notification')
->>>>>>> Stashed changes
         return
+      }
+        
     }
 
 
@@ -341,11 +319,7 @@ export class CampusComponent implements OnInit {
       for (let index = 0; index < this.baseSurveyAnswers.length; index++) {
         if(!this.baseSurveyAnswers[index])
         {
-<<<<<<< Updated upstream
-          alert("Please answer every question from the survey 2")
-=======
           this.toast.info('Please answer every question from the survey', 'Information')
->>>>>>> Stashed changes
           return
         } 
       }
@@ -370,6 +344,7 @@ export class CampusComponent implements OnInit {
     this._userService.logActivity({"useremail":this.userEmail, "activity":"On Step Five"}).subscribe(()=>{})
 
      //Storing the users faculty choice
+     if(!this.surveyAleadyDone)
     this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Survey","value":"true"})
      .subscribe((result)=>{
        if(result.error) throw result.message
@@ -391,45 +366,13 @@ export class CampusComponent implements OnInit {
       if(result.error) throw result.message
     })
     
-
+    this.surveyAleadyDone = true
     this.stepFiveComplete = true
     this.complete = 1;
-    console.log("Step 5 is completed "+this.complete)
-
+    
     next(stepper)
   }
-  //------------------------------------------------------------------Step Sive Restart Button Click
-  StepSix(stepper : MatStepper)
-  {
-    if(confirm("Are you sure you want to restart the orientaion all your saves will be lost ?"))
-    {
-      //Updating the progress of the user
-      this._orientation.UpdateProgress({"email":this.userEmail,"progress":0})
-      .subscribe((result)=>{
-        if(result.error) throw result.message
-      })
 
-      this._orientation.DelCustomeSaved({"useremail":this.userEmail,"delete":"all"})
-      .subscribe(()=>{
-        this._socketConnection.socket.emit("Add_Survey_soc")
-      })
-      
-      this._userService.logActivity({"useremail":this.userEmail, "activity":"Restared the Orientation"}).subscribe(()=>{})
-
-        //Storing the users faculty choice
-      this._orientation.Store_Steps({"useremail":this.userEmail,"field":"Initialize","value":"true"})
-      .subscribe((result)=>{
-        if(result.error) throw result.message
-      })
-      
-      this.baseSurveyAnswers = []
-      this.progressbarVal =0
-      this.complete = 0
-      this.stepOneComplete = false;
-      stepper.reset()
-    }
-  }
-  
 
   //Click of Each Dynamical componet
    //========================Campus button click
@@ -437,7 +380,7 @@ export class CampusComponent implements OnInit {
   {
     
     this.baseSurveyAnswers =[]
-    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Campus clicked"}).subscribe(()=>{})
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"Campus clicked"}).subscribe(()=>{})
     this.campusSelected = id;
     this.campusNameSelected = campName
     this.facultySelected = -1;
@@ -455,7 +398,7 @@ export class CampusComponent implements OnInit {
   //========================Faculty button click
   async facClick(id : number,facName : string)
   {
-      this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Faculty clicked"}).subscribe(()=>{})
+      this._userService.logActivity({"useremail":this.userEmail, "activity":"Faculty clicked"}).subscribe(()=>{})
       this.facultySelected = id
       this.facultyNameSelected = facName
       this.stepThreeComplete = false;
@@ -469,11 +412,6 @@ export class CampusComponent implements OnInit {
         this.videosData = result.data
       })
 
-<<<<<<< Updated upstream
-      await this._orientation.getSurvQuestion(this.facultySelected.toString()).toPromise().then((result)=>{
-        this.baseSurveyQuestions = result.data
-      })
-=======
       if(!this.surveyAleadyDone)
       {
         await this._orientation.getSurvQuestion(this.facultySelected.toString()).toPromise().then((result)=>{
@@ -481,7 +419,6 @@ export class CampusComponent implements OnInit {
         })
       }
       
->>>>>>> Stashed changes
   }
 
   //=======================Other event Handles
@@ -495,7 +432,7 @@ export class CampusComponent implements OnInit {
       else
       {
         this.progressbarVal = 50
-        this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Video played"}).subscribe(()=>{})
+        this._userService.logActivity({"useremail":this.userEmail, "activity":"Video played"}).subscribe(()=>{})
         this.watchedVideos.push(videoid)
       }
       
@@ -503,35 +440,25 @@ export class CampusComponent implements OnInit {
 
   //Handle logging out
   logout(){
-    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Logged out"}).subscribe(()=>{})
-    this._cookiesService.remove('userEmail')
-    this._cookiesService.remove('lname')
-    this._cookiesService.remove('fname')
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"Logged out"}).subscribe(()=>{})
+    // this._cookiesService.remove('userEmail')
+    // this._cookiesService.remove('lname')
+    // this._cookiesService.remove('fname')
     this._socketConnection.socket.emit('LoggedOutUsers_soc')
     this._router.navigate(['home'])
   }
 
   //Navigation To Blog
   blog(){
-    this._userService.logActivity({"useremail":this._cookiesService.get("userEmail"), "activity":"Blog clicked"}).subscribe(()=>{})
+    this._userService.logActivity({"useremail":this.userEmail, "activity":"Blog clicked"}).subscribe(()=>{})
     this._router.navigate(['blog'])
   } 
 
   changeSection($event : any)
   {
-     // console.log($event)
-    if($event.selectedIndex == 1)
-    if(this.baseSurveyAnswers.length > 0)
-    //alert("Cation!! Looks like you have started with the survey if you change the campus you will loose your progress")
-    this._snackBar.open("If you change the campus you will loose your survey progress","Cation!",{duration:5000});
-    
-    if($event.selectedIndex == 2)
-    if(this.baseSurveyAnswers.length > 0)
-    //alert("Cation!! Looks like you have started with the survey if you change the faculty you will loose your progress")
-    this._snackBar.open("If you change the faculty you will loose your survey progress","Cation!",{duration:5000});
 
     if($event.selectedIndex == 0)
-      this.progressbarVal =0
+      this.progressbarVal = 0
     
 
     if($event.selectedIndex == 1)
@@ -539,32 +466,25 @@ export class CampusComponent implements OnInit {
     
 
     if($event.selectedIndex == 2) 
-      this.progressbarVal =30
+      this.progressbarVal = 30
      
 
     if($event.selectedIndex == 3)
-      this.progressbarVal =40
+      this.progressbarVal = 40
     
 
-<<<<<<< Updated upstream
-    if($event.selectedIndex == 4) 
-      this.progressbarVal =60
-    
-=======
     if($event.selectedIndex == 4)
     {
       this.progressbarVal = 60
       this.surveyAleadyDone
     } 
          
->>>>>>> Stashed changes
 
     if($event.selectedIndex == 5)
       this.progressbarVal =100
    
   }
 
- 
   campDirection()
   {
     this._bottomSheet.open(MapdirComponent);

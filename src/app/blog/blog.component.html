@@ -8,10 +8,10 @@
                     <mat-card-title>{{blog.title}}</mat-card-title>
                     <mat-card-subtitle> {{blog.subTittle}} </mat-card-subtitle>
                 </mat-card-header>
-                <img mat-card-image src={{blog.path}} alt="T-Res Image">
+                <img mat-card-image [src]="blog.path" alt="T-Res Image">
                 <mat-card-content>
                     <p>{{blog.description}}
-                        <a href={{blog.link}} target="_blank"><span class="redirect-link" > Learn more about {{blog.title}} here.</span></a>
+                        <a [href]="blog.link" target="_blank"><span class="redirect-link" > Learn more about {{blog.title}} here.</span></a>
                     </p>
                 </mat-card-content>
                 <div>
