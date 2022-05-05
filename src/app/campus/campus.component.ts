@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { OrientationService } from "../orientation.service"
-// import { CookieService } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service'
 import { Router } from '@angular/router';
 import { UserService } from './../user.service';
 import { SocketioService } from '../socketio.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MapdirComponent } from '../student/mapdir/mapdir.component';
 import { MeeteamComponent } from '../student/meeteam/meeteam.component';
@@ -78,25 +77,22 @@ export class CampusComponent implements OnInit {
   //Constructor
   constructor(
     public _orientation : OrientationService, 
-    // private _cookiesService : CookieService,
+    private _cookiesService : CookieService,
     private _userService : UserService,
     private _router: Router,
     private _socketConnection : SocketioService,
-    private _snackBar: MatSnackBar,
     private toast: ToastrService ,
     private _bottomSheet: MatBottomSheet
     
   ) {
-
-    this.userEmail="cbshezi5@gmail.com"
-    // this.userEmail = this._cookiesService.get("userEmail")
+    this.userEmail = this._cookiesService.get("userEmail")
 
     if(!this.userEmail)
     {
       this._router.navigate(['home'])
     }
-      // this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
-      // this.url = "http://3.80.224.126//pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
+      this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
+      this.url = "http://3.80.224.126//pdfrender/temmp.php?firstname="+this._cookiesService.get("fname")+"&lastname="+this._cookiesService.get("lname")+""
       this._orientation.getCampuses().subscribe((result)=>{
       this.allCampuses = result.data
     })
@@ -441,9 +437,9 @@ export class CampusComponent implements OnInit {
   //Handle logging out
   logout(){
     this._userService.logActivity({"useremail":this.userEmail, "activity":"Logged out"}).subscribe(()=>{})
-    // this._cookiesService.remove('userEmail')
-    // this._cookiesService.remove('lname')
-    // this._cookiesService.remove('fname')
+    this._cookiesService.delete('userEmail')
+    this._cookiesService.delete('lname')
+    this._cookiesService.delete('fname')
     this._socketConnection.socket.emit('LoggedOutUsers_soc')
     this._router.navigate(['home'])
   }
