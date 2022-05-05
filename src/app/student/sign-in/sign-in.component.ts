@@ -57,6 +57,7 @@ export class SignInComponent implements OnInit {
             this.cookieService.set("lname",result.data[0].lastname,{secure:true,sameSite:"Strict"})
             this.cookieService.set("userEmail",result.data[0].email,{secure:true,sameSite:"Strict"})
             
+            
             this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
             this._socketConnection.socket.emit('LoggedInUsers_soc')
             this._socketConnection.socket.emit('LineGraph_update')
