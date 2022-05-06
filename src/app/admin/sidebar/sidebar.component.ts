@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketioService } from './../../socketio.service'
-import { CookieService } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service'
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
 
   logOut()
   {
-    this._cookies.remove('userEmail_A')
+    this._cookies.delete('userEmail_A')
     this._router.navigate(['admin-login'])
   }
 

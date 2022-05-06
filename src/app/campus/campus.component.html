@@ -18,7 +18,7 @@
     <mat-menu #menu="matMenu" yPosition="above">
         <button mat-menu-item style="font-size: large;background-color: #0d4794;color: white">{{usernames}} 
         </button>
-        <button mat-menu-item [disabled]="complete===0"><a href={{url}}   >Get Your Cetificate</a>  
+        <button mat-menu-item [disabled]="complete===0"><a [href]="url"   >Get Your Cetificate</a>  
             <mat-icon >assignment_turned_in</mat-icon>
         </button>
         <button (click)="campDirection()" mat-menu-item>Campus Directions 

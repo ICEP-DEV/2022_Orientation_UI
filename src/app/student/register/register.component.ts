@@ -2,7 +2,7 @@ import { Component, OnInit,Input, Output, EventEmitter, ViewChild } from '@angul
 import { UserService } from './../../user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { CookieService } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service'
 import { SocketioService } from './../../socketio.service'
 import { ToastrService } from 'ngx-toastr';
 
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private _userService: UserService, 
               private router: Router,
-              // private cookieService: CookieService,
+              private cookieService: CookieService,
               private toast : ToastrService,
               private _socketConnection: SocketioService) { }
   ngOnInit(): void {
@@ -128,9 +128,9 @@ export class RegisterComponent implements OnInit {
     this._userService.regStudent({"password":this.password,"studNum":this.studNum,"fname": this.firstName, "lname" : this.lastName,"email":this.email}).subscribe((result)=>{
       if(result.error == false)
       {
-        // this.cookieService.put("fname", this.firstName,{secure:true,sameSite:"strict"})
-        // this.cookieService.put("lname", this.lastName,{secure:true,sameSite:"strict"})
-        // this.cookieService.put("userEmail",this.email,{secure:true,sameSite:"strict"})
+        this.cookieService.set("fname", this.firstName)
+        this.cookieService.set("lname", this.lastName)
+        this.cookieService.set("userEmail",this.email)
         this._userService.logActivity({"useremail":this.email, "activity":"Registered"}).subscribe(()=>{})
         this._socketConnection.socket.emit('RegisteredUsers_soc')
         this._socketConnection.socket.emit('LoggedInUsers_soc')

@@ -1,8 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild,Input  } from '@angular/core';
-// import { CookieService } from 'ngx-cookie';
+import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service'
 import { Router } from '@angular/router';
 import { UserService } from "../../user.service";
-import { SocketioService } from './../../socketio.service'
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -20,9 +19,8 @@ export class AdminLoginComponent implements OnInit {
 
   constructor(private _userService: UserService, 
     private router: Router,
-    // private cookieService: CookieService,
-    private toast : ToastrService,
-    private _socketConnection : SocketioService) { }
+    private cookieService: CookieService,
+    private toast : ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -44,7 +42,7 @@ export class AdminLoginComponent implements OnInit {
     this._userService.loginAdmin({"email":this.email, "password":this.password}).subscribe(async(result)=>{
           if(result.error == false)
           {
-            // this.cookieService.put("userEmail_A",result.data[0].email,{secure:true,sameSite:"strict"})
+            this.cookieService.set("userEmail_A",result.data[0].email)
             this.router.navigate(['dashboard'])
           }
           else

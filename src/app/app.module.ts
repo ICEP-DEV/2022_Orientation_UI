@@ -171,7 +171,7 @@ import { SearchComponent } from './admin/search/search.component';
     CUSTOM_ELEMENTS_SCHEMA
   ],
 
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
