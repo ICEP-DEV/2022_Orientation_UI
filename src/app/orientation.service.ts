@@ -77,6 +77,20 @@ export class OrientationService {
   }
 
  
+  public searchOnStudent(searchVal : string)
+  {
+    return this.http.get<any>(`http://${this.hostname}:6900/search/students`,{params:{search:searchVal}})
+  }
+
+  public searchOnVideo(searchVal : string)
+  {
+    return this.http.get<any>(`http://${this.hostname}:6900/search/videos`,{params:{search:searchVal}})
+  }
+
+  public searchOnBlog(searchVal : string)
+  {
+    return this.http.get<any>(`http://${this.hostname}:6900/search/blogs`,{params:{search:searchVal}})
+  }
 
   public addVideo(bodyElement : any): Observable<any> {
 
