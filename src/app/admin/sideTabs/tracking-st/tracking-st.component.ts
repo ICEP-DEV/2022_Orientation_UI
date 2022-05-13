@@ -29,6 +29,7 @@ export class TrackingStComponent implements OnInit {
   displayedColumns: string[] = ['id', 'firstname', 'lastname', 'studNum','activity','datetime'];
   dataSource = new MatTableDataSource<Track>(TRACK_DATA);
 
+
   filterType: MatTableFilter = MatTableFilter.ANYWHERE;
   filterEntity: Track = {activity:"",datetime:"",firstname:"",lastname:"",id:"",studNum:""};
 
@@ -65,6 +66,8 @@ export class TrackingStComponent implements OnInit {
       this.filterType = MatTableFilter.ANYWHERE;
     })
 
+ 
+
   }
 
   groupEvent()
@@ -75,14 +78,19 @@ export class TrackingStComponent implements OnInit {
     
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.toString()
+  ApplyFilter(event: Event) {
+    let filterValue = (event.target as HTMLInputElement).value;
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  
+
   
  
 

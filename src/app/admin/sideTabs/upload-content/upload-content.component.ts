@@ -7,6 +7,9 @@ import { OrientationService } from './../../../orientation.service'
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ModifyvideosComponent } from './../../bottomtop/modifyvideos/modifyvideos.component'
+import { SocketioService } from './../../../socketio.service'
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 interface Campus{
   campus_name: string;
@@ -39,6 +42,21 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./upload-content.component.css']
 })
 export class UploadContentComponent implements OnInit {
+  
+  //Upload the Post of the blog
+  title: string = "";
+  description: string ="";
+  author: string = "";
+  created_on: string = "";
+  path: string= "";
+  link: string = "";
+  subtittle: string= "";
+  selectedFile: any = {name:"Select an Image"};
+
+
+
+
+  //-------------------------Uploading For video of Orientation
   campusControl = new FormControl('', Validators.required);
   facultyControl = new FormControl('',Validators.required)
   tittleFormControl = new FormControl('', [Validators.required, Validators.maxLength(25),Validators.minLength(3)]);
@@ -63,6 +81,9 @@ export class UploadContentComponent implements OnInit {
 
   uploadStyle:string ="width:0%";
   uploadProg:string ="0";
+
+  uploadStyleBlog : string = "width:0%";
+  uploadProgBlog : string ="0";
   //-------------------------------Chips config
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -94,6 +115,10 @@ export class UploadContentComponent implements OnInit {
         }
   }
 
+  onFileSelectedBlog(event:any){
+    this.selectedFile = event.target.files[0];
+  }
+
   //Adding of the video
   addNewVideo()
   {
@@ -103,7 +128,7 @@ export class UploadContentComponent implements OnInit {
       this.formData.append("fileType","video")
     if(this.campusControl.errors)
     {
-      alert("Campus is not selected")
+      this.toast.warning("Campus is not selected")
       return
     }
     
@@ -116,13 +141,13 @@ export class UploadContentComponent implements OnInit {
     }
     else
     {
-      alert("Faculty is not selected")
+      this.toast.warning("Faculty is not selected")
       return
     }
 
     if(this.tittleFormControl.errors)
     {
-        alert("Tittle prolem")
+        this.toast.warning("Title is having an error")
         return
     }
     else
@@ -133,7 +158,7 @@ export class UploadContentComponent implements OnInit {
 
     if(this.categorySelected == "")
     {
-      alert("No category was selected")
+      this.toast.warning("No category was selected")
       return
     }
     else
@@ -144,13 +169,13 @@ export class UploadContentComponent implements OnInit {
 
     if(this.fileName == "Select a video")
     {
-      alert("Select a video")
+      this.toast.warning("Select a video")
       return
     }
 
     if(this.fileObject.size > 150000000)
     {
-      alert("The video is too large")
+      this.toast.warning("The video is too large")
       return
     }
 
@@ -184,8 +209,9 @@ export class UploadContentComponent implements OnInit {
           this.uploadProg = "0";
           this.uploadStyle= "width:0%"
           this.uploadWait = false
-          //window.location.reload()
-        }, 2500);
+
+          this._SocketService.socket.emit("VideoUploaded")
+        }, 2000);
       }
     })
     
@@ -196,7 +222,10 @@ export class UploadContentComponent implements OnInit {
   constructor(
     private _orientation : OrientationService,
     private cdref: ChangeDetectorRef,
-    private _bottomSheet :MatBottomSheet
+    private _bottomSheet :MatBottomSheet,
+    private _SocketService : SocketioService,
+    private toast : ToastrService,
+    private _router : Router
   ) {
     this.formData = new FormData();
    }
@@ -242,11 +271,130 @@ export class UploadContentComponent implements OnInit {
         if(this.facultySelected.id != -1)
           this._bottomSheet.open(ModifyvideosComponent,{data:{faculty:this.facultySelected}})
         else
-        alert("Select a faculty") 
-      else
-        alert("Select a faculty")
+          this.toast.warning("Select a faculty")
+        else
+          this.toast.warning("Select a faculty")
+        else
+          this.toast.warning("Select a campus")
+  }
+
+  onUpload(){
+    
+    const fd = new FormData();
+
+    if(this.selectedFile.type.search("video") > -1)
+    {
+      fd.append('video', this.selectedFile);
+      fd.append("type","blog")
+      if(this.selectedFile.size > 150000000)
+      {
+        this.toast.warning("The video is too large")
+        return
+      }
+    }
     else
-      alert("Select a campus")
+    {
+      fd.append('image', this.selectedFile);
+      if(this.selectedFile.size > 10000000)
+      {
+        this.toast.warning("The image is too large")
+        return
+      }
+    }
+    
+    fd.append('title', this.title);
+    fd.append('sub', this.subtittle);
+    fd.append('description', this.description);
+    fd.append('author', this.author);
+    fd.append('path', this.path);
+    fd.append('link', this.link);
+
+    
+    console.log(this.selectedFile.size);
+    
+    if(this.selectedFile.type.search("video") > -1)
+    {
+      //Post Blog of a Image
+      this._orientation.addVideo(fd).subscribe((event: HttpEvent<any>)=>{
+        switch (event.type) {
+          case HttpEventType.Sent:
+            console.log('Request has been made!');
+            break;
+          case HttpEventType.ResponseHeader:
+            console.log('Response header has been received!');
+            break;
+          case HttpEventType.UploadProgress:
+            this.uploadProgBlog = Math.round(event.loaded / this.selectedFile.size * 100).toString();
+            this.uploadStyleBlog = "width:"+Math.round(event.loaded / this.selectedFile.size * 100).toString()+"%"
+           
+            break;
+          case HttpEventType.Response:
+            console.log('User successfully created!', event.body);
+            setTimeout(() => {
+              this.uploadProgBlog = "0";
+              this.uploadStyleBlog= "width:0%"
+            }, 2500);
+        }
+  
+        if(this.uploadProgBlog == "100")
+        { 
+          setTimeout(() => {
+            this.uploadProgBlog = "0";
+            this.uploadStyleBlog= "width:0%"
+            this.uploadWait = false
+  
+          }, 2000);
+        }
+      })
+    }
+    else
+    {
+      //Post Blog Of a Picture
+      this._orientation.addBlog(fd).subscribe((event: HttpEvent<any>)=>{
+        switch (event.type) {
+          case HttpEventType.Sent:
+            console.log('Request has been made!');
+            break;
+          case HttpEventType.ResponseHeader:
+            console.log('Response header has been received!');
+            break;
+          case HttpEventType.UploadProgress:
+            let totalBytes = event.total!
+            this.uploadProgBlog = Math.round(event.loaded / totalBytes * 100).toString();
+            this.uploadStyleBlog = "width:"+Math.round(event.loaded / totalBytes * 100).toString()+"%"
+            console.log(`Uploaded! ${this.uploadProgBlog}%`);
+            console.log(event.loaded)
+            break;
+          case HttpEventType.Response:
+            console.log('User successfully created!', event.body);
+            setTimeout(() => {
+              this.uploadProgBlog = "0";
+              this.uploadStyleBlog= "width:0%"
+            }, 2500);
+        }
+  
+        if(this.uploadProgBlog == "100")
+        { 
+          setTimeout(() => {
+            this.uploadProgBlog = "0";
+            this.uploadStyleBlog= "width:0%"
+            this.uploadWait = false
+  
+          }, 2000);
+        }
+      })
+    }
+    
+
+  }
+
+  navigateBlog()
+  {
+    this._router.navigate(['/blog'])
+  }
+
+  deleteOrEdit(){
+    
   }
 
 }

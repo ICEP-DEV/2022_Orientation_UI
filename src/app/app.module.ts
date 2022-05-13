@@ -7,9 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CookieModule } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
+import { ToastrModule } from 'ngx-toastr';
 
 //Components
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Student Components
@@ -29,6 +30,7 @@ import { TopbarComponent } from './admin/topbar/topbar.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { SurveyResponsesComponent } from './admin/survey-responses/survey-responses.component';
+import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/bottomtop/modifyvideos/modifyvideos.component';
 
 //Mdb 5 Matirials 
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
@@ -77,7 +79,8 @@ import { AgmCoreModule } from '@agm/core';
 import { MeeteamComponent } from './student/meeteam/meeteam.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/bottomtop/modifyvideos/modifyvideos.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SearchComponent } from './admin/search/search.component';
 
 
 
@@ -105,7 +108,8 @@ import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/botto
     MapdirComponent,
     MeeteamComponent,
     ModifyvideosComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -147,7 +151,7 @@ import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/botto
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
-    CookieModule.forRoot(),
+
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
@@ -156,6 +160,8 @@ import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/botto
     MatSnackBarModule,
     MatChipsModule,
     MatTooltipModule,
+    ToastrModule.forRoot(),
+    MatProgressSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDcGre3D-n-tmHa4UuaYaihYxS9ATuvgmQ'
     })
@@ -165,7 +171,7 @@ import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/botto
     CUSTOM_ELEMENTS_SCHEMA
   ],
 
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
