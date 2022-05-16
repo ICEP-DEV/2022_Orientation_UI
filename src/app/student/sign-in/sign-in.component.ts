@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild,Input } from '@angular/core';
-// import { CookieService } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service'
 import { Router } from '@angular/router';
 import { UserService } from "../../user.service";
 import { SocketioService } from './../../socketio.service'
 import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service'
+
 
 @Component({
   selector: 'app-sign-in',
@@ -37,6 +37,7 @@ export class SignInComponent implements OnInit {
   fogotClicked()
   {
     this.router.navigate(['forgotten'])
+    this.cookieService.set("userEmail","Val")
   }
 
   login() {
@@ -53,14 +54,18 @@ export class SignInComponent implements OnInit {
     this._userService.getStudents({"email":this.email, "password":this.password}).subscribe( async(result)=>{
           if(result.error == false)
           {
-            // this.cookieService.put("fname",result.data[0].firstname,{secure:true,sameSite:"strict"})
-            // this.cookieService.put("lname",result.data[0].lastname,{secure:true,sameSite:"strict"})
-            // this.cookieService.put("userEmail",result.data[0].email,{secure:true,sameSite:"strict"})
+            this.cookieService.set("fname",result.data[0].firstname)
+            this.cookieService.set("lname",result.data[0].lastname)
+            this.cookieService.set("userEmail",result.data[0].email)
+            
             
             this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
             this._socketConnection.socket.emit('LoggedInUsers_soc')
             this._socketConnection.socket.emit('LineGraph_update')
+      
             this.router.navigate([''],{queryParams:{}})
+           
+            
           }
           else
           {
