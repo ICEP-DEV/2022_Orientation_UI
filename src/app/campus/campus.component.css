@@ -7,14 +7,25 @@
   font-weight: bold;
 
 }
+mat-button-toggle-group {
+  flex-wrap: wrap;  
+}
 mat-button-toggle {
-  border: 1px rgba(0,0,0,0) solid !important;
+  border: 1px rgba(0,0,0,0.5) solid !important;
+  border-radius: 5px !important;
   margin-top: 0px !important;
   padding: 0 5px !important;
   z-index: 3 !important; 
   color: rgb(0, 0, 0);
 }
 
+.certificateButton{
+  background-color: #0d4794; 
+  text-align:center;
+  padding: 15px 25px;
+   color: white; 
+   border-radius: 5px;
+}
 .page-container {
     padding-top: 30px;
     margin-left: 5%;
