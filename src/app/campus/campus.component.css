@@ -111,7 +111,6 @@ mat-card{
   }
   
   #instructions video{
-    background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
     background-size: cover;
     transition: 1s opacity;
     z-index:-1;
