@@ -5,20 +5,20 @@
   background-color: #0d4794 !important;
   color: rgb(255, 255, 255);
   font-weight: bold;
-
 }
 mat-button-toggle-group {
   flex-wrap: wrap;  
 }
 mat-button-toggle {
-  border: 1px rgba(0,0,0,0.5) solid !important;
+  border: 1px rgba(0, 0, 0, 0.5) solid !important;
   border-radius: 5px !important;
   margin-top: 0px !important;
-  padding: 0 5px !important;
+  padding: 0 1px !important;
   z-index: 3 !important; 
   color: rgb(0, 0, 0);
-}
+  /**/
 
+}
 .certificateButton{
   background-color: #0d4794; 
   text-align:center;
@@ -117,7 +117,6 @@ mat-card{
   }
   
   #instructions video{
-    background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
     background-size: cover;
     transition: 1s opacity;
     z-index:-1;
