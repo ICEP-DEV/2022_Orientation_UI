@@ -7,9 +7,9 @@ import { HOSTNAME } from '../globals'
   providedIn: 'root'
 })
 export class SocketioService {
-  private secureProtocol : string = "http://"
+  private secureProtocol : string = "https://"
   private serverAddress : string = HOSTNAME
-  private serverPort : string = ":6900"
+  private serverPort : string = ""
   socketState : boolean = false;
 
 

@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HOSTNAME } from './../globals'
+import { HOSTNAME,APACHEHOST } from './../globals'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private secureProtocol : string = "http://"
+  private secureProtocol : string = "https://"
   private serverAddress : string = HOSTNAME
-  private serverPort : string = ":6900"
+  private apacheAddress : string = APACHEHOST
+  private serverPort : string = ""
                 
   constructor(private http: HttpClient) { }
 
   public getStudents(student : any)
   {
+    console.log(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login")
     return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login",student,{});
   }
 
@@ -34,7 +36,7 @@ export class UserService {
 
   public sendOTP(requestBody: any)
   {
-    return this.http.post<any>(`http://${this.serverAddress}/mailman/sendEmail.php`,requestBody, {});
+    return this.http.post<any>(`http://${this.apacheAddress}/mailman/sendEmail.php`,requestBody, {});
   }
 
   public logActivity(body : any)
