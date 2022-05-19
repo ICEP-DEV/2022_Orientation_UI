@@ -14,7 +14,7 @@ export class SocketioService {
 
 
 
-  public socket : io.Socket = io.connect(this.secureProtocol+this.serverAddress+this.serverPort, {transports: ['websocket', 'polling', 'flashsocket']})
+  public socket : io.Socket = io.connect("https://cors-everywhere.herokuapp.com/http://ec2-54-234-88-147.compute-1.amazonaws.com:80", {transports: ['websocket', 'polling']})
 
   constructor(private http : HttpClient) { }
 
