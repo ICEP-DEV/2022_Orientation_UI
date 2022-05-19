@@ -9,7 +9,7 @@
         <!-- <span *ngIf="error" (click)="removeError()">{{ error }}</span> -->
         <form>
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
+                <label style="font-weight: bold" for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" [(ngModel)]="email" required>
             </div>
             <button type="submit" style="margin-left: 35%; margin-top: 7%;margin-bottom: 10%;" class="btn btn-primary" (click)="nextHandle()">Next</button>
@@ -30,7 +30,7 @@
             <a class="underlineHover" id="cursor" (click)="prevHandle()"><span class="text-danger">here</span></a></p>
             
             <div class="form-group">
-                <label for="exampleInputEmail1">One Time Pin</label>
+                <label style="font-weight: bold" for="exampleInputEmail1">One Time Pin</label>
                 <input type="text" class="form-control" id="otp" aria-describedby="emailHelp" placeholder="Enter OTP" name="otp" [(ngModel)]="otpField" required>
                 <small id="emailHelp" class="form-text text-muted">Do not share the OTP with anyone else.</small>
             </div>
@@ -52,8 +52,10 @@
             
 
             <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
+                <label style="font-weight: bold" for="exampleInputPassword1">Password</label>
                 <input type="text" class="form-control"  id="exampleInputPassword1" placeholder="New Password" name="password" [(ngModel)]="password" required>
+                <small style="color: red;"> Password must have atleast 6 characters = 1 special character, 1 UPPERCASE, 1 lowercase & 1 number</small>
+
             </div>
 
 
