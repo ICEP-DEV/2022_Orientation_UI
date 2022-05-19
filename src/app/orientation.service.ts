@@ -136,7 +136,7 @@ export class OrientationService {
 
   public deleteVideo(paramsVal : any)
   {
-    return this.http.delete<any>(`https://${this.hostname}/Admin/UpdateDeleteVideo`,{params:paramsVal})
+    return this.http.delete<any>(`http://${this.hostname}/Admin/UpdateDeleteVideo`,{params:paramsVal})
   }
 
   //--------------------------Adding A Blog Post Request with Progress Report
