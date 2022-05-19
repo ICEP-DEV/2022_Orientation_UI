@@ -27,7 +27,8 @@ export class RegisterComponent implements OnInit {
   otpField : string = '';
   otp : string = '';
   stepTwo : boolean = false;
-
+  tutEmail : string = '@tut4life.ac.za';
+  bindendEmail : string ='';
 
 
   isSignedIn = false
@@ -56,11 +57,12 @@ export class RegisterComponent implements OnInit {
       this.toast.warning('Please enter your last name');
       return;
     }
+    /*
     if(this.email == '') {
       this.toast.info('Please enter email','Information');
       return;
-    }
-
+    }*/
+    this.email = this.studNum.concat(this.tutEmail)
     this._userService.checkStudent({"email":this.email}).subscribe((result)=>{
       if(this.studNum.length < 9) {
         this.toast.error('Student number is too short','Error');
@@ -102,6 +104,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     
+    
 
 
     this.otp = generateRandomNumber().toString()
@@ -124,7 +127,7 @@ export class RegisterComponent implements OnInit {
       this.toast.error('OTP is incorrect','Error');
       return;
     }
-
+  
     this._userService.regStudent({"password":this.password,"studNum":this.studNum,"fname": this.firstName, "lname" : this.lastName,"email":this.email}).subscribe((result)=>{
       if(result.error == false)
       {
@@ -135,6 +138,7 @@ export class RegisterComponent implements OnInit {
         this._socketConnection.socket.emit('RegisteredUsers_soc')
         this._socketConnection.socket.emit('LoggedInUsers_soc')
         this.router.navigate([''])
+        console.log (this.email = this.studNum.concat(this.tutEmail))
       }
       else
       {
