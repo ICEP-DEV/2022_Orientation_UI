@@ -12,7 +12,8 @@
     "test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox",
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
     "deploy": "firebase deploy --token $FIREBASE_TOKEN --non-interactive",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc",
+    "aws-deploy" : "aws s3 sync dist/kg-app-cicd/ s3://frontbucketbin"
   },
   "private": true,
   "dependencies": {
