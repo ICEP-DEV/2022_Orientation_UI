@@ -63,6 +63,8 @@ export class RegisterComponent implements OnInit {
       return;
     }
 */
+
+
   this.email = this.studNum.concat(this.tutEmail)
     this._userService.checkStudent({"email":this.email}).subscribe((result)=>{
       if(this.studNum.length < 9) {
@@ -104,7 +106,26 @@ export class RegisterComponent implements OnInit {
       this.toast.info('Password is too weak','Notice');
       return;
     }
-    
+    if(!(/[!@#$%*]/).test(this.password))
+    {
+      this.toast.error('Password must have atleast One special characters','Error');
+      return;
+    }
+     if(!(/[0-9]/).test(this.password))
+    {
+          this.toast.error('Password must have atleast One number','Error')
+          return;
+    }
+    if(! (/[a-z]/).test(this.password) )
+    {
+          this.toast.error('Password must have atleast One Lowercase','Error')
+          return;
+    }
+    if(! (/[A-Z]/).test(this.password) )
+    {
+          this.toast.error('Password must have atleast One Uppercase','Error')
+          return;
+    }
 
 
     this.otp = generateRandomNumber().toString()
