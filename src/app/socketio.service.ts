@@ -7,14 +7,14 @@ import { HOSTNAME } from '../globals'
   providedIn: 'root'
 })
 export class SocketioService {
-  private secureProtocol : string = "https://"
+  private secureProtocol : string = "http://"
   private serverAddress : string = HOSTNAME
   private serverPort : string = ""
   socketState : boolean = false;
 
 
 
-  public socket : io.Socket = io.connect("http://ec2-54-234-88-147.compute-1.amazonaws.com:80", {transports: ['websocket', 'polling']})
+  public socket : io.Socket = io.connect("http://ec2-54-234-88-147.compute-1.amazonaws.com", {transports: ['websocket', 'polling']})
 
   constructor(private http : HttpClient) { }
 

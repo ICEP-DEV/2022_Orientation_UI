@@ -7,7 +7,7 @@ import { HOSTNAME,APACHEHOST } from './../globals'
 })
 export class UserService {
 
-  private secureProtocol : string = "https://"
+  private secureProtocol : string = "http://"
   private serverAddress : string = HOSTNAME
   private apacheAddress : string = APACHEHOST
   private serverPort : string = ""

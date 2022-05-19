@@ -18,85 +18,85 @@ export class OrientationService {
   //Getting System data
   public getCampuses()
   {
-    return this.http.get<any>(`https://${this.hostname}/Orientation/Campus`);
+    return this.http.get<any>(`http://${this.hostname}/Orientation/Campus`);
   }
 
   public getFaculty(campid : string)
   {
-    return this.http.get<any>(`https://${this.hostname}/Orientation/Faculty`,{params:{id:campid}});
+    return this.http.get<any>(`http://${this.hostname}/Orientation/Faculty`,{params:{id:campid}});
   }
 
   public getVideos(facid:string)
   { 
-    return this.http.get<any>(`https://${this.hostname}/Orientation/Videos`,{params:{fac_id:facid}})
+    return this.http.get<any>(`http://${this.hostname}/Orientation/Videos`,{params:{fac_id:facid}})
   }
 
   public getSurvQuestion(facid:string)
   {
-    return this.http.get<any>(`https://${this.hostname}/Orientation/Question`,{params:{fac_id:facid}})
+    return this.http.get<any>(`http://${this.hostname}/Orientation/Question`,{params:{fac_id:facid}})
   }
   //Storing Values and Progress
 
   public Store_Steps(body : any)
   { 
-      return this.http.post<any>(`https://${this.hostname}/track/orientation`,body,{})
+      return this.http.post<any>(`http://${this.hostname}/track/orientation`,body,{})
   }
 
   public UpdateProgress(body : any)
   { 
-    return this.http.put<any>(`https://${this.hostname}/Track/Progress`,body,{})
+    return this.http.put<any>(`http://${this.hostname}/Track/Progress`,body,{})
   }
 
   //Store Survey Answers by person
 
   public StoreSurveyAnswers(body : any)
   { 
-    return this.http.post<any>(`https://${this.hostname}/track/Survey`,body,{})
+    return this.http.post<any>(`http://${this.hostname}/track/Survey`,body,{})
   }
 
   //Get Saved Answers from BE
   //Orientation
   public GetOrientaionAnswer(usercreds:any)
   {
-    return this.http.get<any>(`https://${this.hostname}/track/orientation`,{params:usercreds})
+    return this.http.get<any>(`http://${this.hostname}/track/orientation`,{params:usercreds})
   }
   //Survey
   public GetSurveyAnswer(usercreds:any)
   {
-    return this.http.get<any>(`https://${this.hostname}/track/survey`,{params:usercreds})
+    return this.http.get<any>(`http://${this.hostname}/track/survey`,{params:usercreds})
   }
   
   //Deleting of progress
   public DelCustomeSaved(parametrs :any)
   {
-    return this.http.delete<any>(`https://${this.hostname}/track/orientation`,{params:parametrs})
+    return this.http.delete<any>(`http//${this.hostname}/track/orientation`,{params:parametrs})
   }
 
   public getUserSurvey()
   {
-    return this.http.get<any>(`https://${this.hostname}/track/survey/admin`)
+    return this.http.get<any>(`http//${this.hostname}/track/survey/admin`)
   }
 
  
   public searchOnStudent(searchVal : string)
   {
-    return this.http.get<any>(`https://${this.hostname}/search/students`,{params:{search:searchVal}})
+    return this.http.get<any>(`http//${this.hostname}/search/students`,{params:{search:searchVal}})
   }
 
   public searchOnVideo(searchVal : string)
   {
-    return this.http.get<any>(`https://${this.hostname}/search/videos`,{params:{search:searchVal}})
+    return this.http.get<any>(`http//${this.hostname}/search/videos`,{params:{search:searchVal}})
   }
 
   public searchOnBlog(searchVal : string)
   {
-    return this.http.get<any>(`https://${this.hostname}/search/blogs`,{params:{search:searchVal}})
+    return this.http.get<any>(`http//${this.hostname}/search/blogs`,{params:{search:searchVal}})
   }
 
   public addVideo(bodyElement : any): Observable<any> {
 
     return this.http
-      .post(`https://${this.app_hostname}/uploadVideo`, bodyElement, {
+      .post(`http://${this.app_hostname}/uploadVideo`, bodyElement, {
         reportProgress: true,
         observe: 'events',
       })
@@ -131,7 +131,7 @@ export class OrientationService {
 
   public updateVideo(body : any)
   {
-     return this.http.put<any>(`https://${this.hostname}/Admin/UpdateDeleteVideo`,body)
+     return this.http.put<any>(`http://${this.hostname}/Admin/UpdateDeleteVideo`,body)
   }
 
   public deleteVideo(paramsVal : any)
@@ -144,7 +144,7 @@ export class OrientationService {
   public addBlog(bodyElement : any): Observable<any> {
 
     return this.http
-      .post(`https://${this.app_hostname}/uploadImage`, bodyElement, {
+      .post(`http://${this.app_hostname}/uploadImage`, bodyElement, {
         reportProgress: true,
         observe: 'events',
       })
