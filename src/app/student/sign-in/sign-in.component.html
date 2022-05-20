@@ -22,7 +22,7 @@
                     <span *ngIf="error" (click)="removeError()">{{error}}</span>
                     <form #myForm="ngForm">
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 14%;">
                             <label style="text-align: left;width:85%;font-size: medium; font-weight: bold;" for="username">Student number</label>
                             <input style="text-align: left;font-size: 1.2rem;" maxlength="9" minlength="9" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="ex.217070554" type="email" class="form-control" name="email" [(ngModel)]="email"
                                 required>
