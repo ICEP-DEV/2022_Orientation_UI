@@ -42,16 +42,16 @@ export class SignInComponent implements OnInit {
 
   login() {
     if (this.email === '') {
-      this.toast.info('Please enter email', 'Notification');
+      this.toast.info('Please enter student number', 'Notification');
       return;
     }
 
     if (this.password === '') {
-      this.toast.info('Please enter email', 'Notification');
+      this.toast.info('Please enter password', 'Notification');
       return;
     }
     
-    this._userService.getStudents({"email":this.email, "password":this.password}).subscribe( async(result)=>{
+    this._userService.getStudents({"email":this.email + "@tut4life.ac.za", "password":this.password}).subscribe( async(result)=>{
           if(result.error == false)
           {
             this.cookieService.set("fname",result.data[0].firstname)
