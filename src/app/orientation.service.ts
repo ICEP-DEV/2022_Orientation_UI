@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { HOSTNAME,APPHOSTNAME } from '../globals'
+import { GRAPH_HOSTNAME,APP_HOSTNAME } from '../globals'
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrientationService {
-  hostname : String = HOSTNAME
-  app_hostname :  String = APPHOSTNAME
+  hostname : String = GRAPH_HOSTNAME
+  app_hostname :  String = APP_HOSTNAME
   constructor(   
     private http: HttpClient
   ) { 

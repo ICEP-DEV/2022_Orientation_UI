@@ -9,7 +9,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MapdirComponent } from '../student/mapdir/mapdir.component';
 import { MeeteamComponent } from '../student/meeteam/meeteam.component';
 import { ToastrService } from 'ngx-toastr';
-import { APACHEHOST } from './../../globals'
+import { APACHE_HOST } from './../../globals'
 
 @Component({
   selector: 'app-campus',
@@ -96,7 +96,7 @@ export class CampusComponent implements OnInit {
       }
       
       this.usernames = this._cookiesService.get("fname")+" "+this._cookiesService.get("lname")
-      this.url = `http://${APACHEHOST}/pdfrender/temmp.php?firstname=`+this._cookiesService.get("fname")+`&lastname=`+this._cookiesService.get("lname")
+      this.url = `http://${APACHE_HOST}/pdfrender/temmp.php?firstname=`+this._cookiesService.get("fname")+`&lastname=`+this._cookiesService.get("lname")
       this._orientation.getCampuses().subscribe((result)=>{
         this.allCampuses = result.data
       })

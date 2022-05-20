@@ -1,10 +1,14 @@
 
-export const HOSTNAME = "ec2-34-235-114-194.compute-1.amazonaws.com"
-//Phaidi HOST = fcxkdpt3sy.us-east-1.awsapprunner.com
-//Shezi HOST = mbuqssmxk3.us-east-1.awsapprunner.com
-export const APPHOSTNAME = "ec2-18-234-218-224.compute-1.amazonaws.com"
-//Phaidi HOST = bwtujjwafh.us-east-1.awsapprunner.com
-//Shezi HOST = 3ipbimzrgi.us-east-1.awsapprunner.com
-export const APACHEHOST = "3.80.224.126";
-//Cheyeza VM apache = 3.80.224.126
+//REST API ENDPOINT
+export const GRAPH_HOSTNAME = "ec2-34-235-114-194.compute-1.amazonaws.com"
+
+//FILE TRANSFER ENDPOINT
+export const APP_HOSTNAME = "ec2-18-234-218-224.compute-1.amazonaws.com"
+
+//SOCKETIO ENDPOINT
+export const SOCK_HOSTNAME = "ec2-54-234-88-147.compute-1.amazonaws.com"
+
+//Apache FTP (SMTP,PDFRender,Frontend) 
+export const APACHE_HOST = "ec2-54-234-70-68.compute-1.amazonaws.com";
+
 

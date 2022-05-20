@@ -58,6 +58,7 @@ export class DashboardComponent implements OnInit {
       this.surveys = ((result.data[0].survey / result.data[0].countUsers) * 100).toFixed(0)
       this.noOfSurvey = result.data[0].survey
       this.widthStyle = "width:"+this.surveys+"%"
+      if(this.surveys == 'NaN') this.surveys = "0"
       this.videos = result.data[0].uploadVideo
       this.students = result.data[0].countUsers
       this.loggedIn = result.data[0].loggedin
@@ -79,6 +80,7 @@ export class DashboardComponent implements OnInit {
       this._socketConnection.socket.on("countSurvey",(instream)=>{
         this.surveys = ((instream / this.students) * 100).toFixed(0);
         this.noOfSurvey = instream
+        if(this.surveys == undefined) console.log("sd")
         this.widthStyle = "width:"+this.surveys+"%"
       })
       this._socketConnection.socket.on("countLoggedIn",(instream)=>{

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HOSTNAME,APACHEHOST } from './../globals'
+import { GRAPH_HOSTNAME, APACHE_HOST } from './../globals'
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +8,8 @@ import { HOSTNAME,APACHEHOST } from './../globals'
 export class UserService {
 
   private secureProtocol : string = "http://"
-  private serverAddress : string = HOSTNAME
-  private apacheAddress : string = APACHEHOST
+  private serverAddress : string = GRAPH_HOSTNAME
+  private apacheAddress : string = APACHE_HOST
   private serverPort : string = ""
                 
   constructor(private http: HttpClient) { }

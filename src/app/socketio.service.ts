@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client'
 import { HttpClient } from '@angular/common/http';
-import { HOSTNAME } from '../globals'
+import { GRAPH_HOSTNAME,SOCK_HOSTNAME } from '../globals'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketioService {
   private secureProtocol : string = "http://"
-  private serverAddress : string = HOSTNAME
+  private serverAddress : string = GRAPH_HOSTNAME
+  private socketioHost : string = SOCK_HOSTNAME
   private serverPort : string = ""
   socketState : boolean = false;
 
 
 
-  public socket : io.Socket = io.connect("http://ec2-54-234-88-147.compute-1.amazonaws.com", {transports: ['websocket', 'polling']})
+  public socket : io.Socket = io.connect("http://"+this.socketioHost, {transports: ['websocket', 'polling']})
 
   constructor(private http : HttpClient) { }
 
