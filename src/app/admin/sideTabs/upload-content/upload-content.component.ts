@@ -10,6 +10,7 @@ import { ModifyvideosComponent } from './../../bottomtop/modifyvideos/modifyvide
 import { SocketioService } from './../../../socketio.service'
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ModifyblogsComponent } from './../../bottomtop/modifyblogs/modifyblogs.component'
 
 interface Campus{
   campus_name: string;
@@ -439,7 +440,7 @@ export class UploadContentComponent implements OnInit {
   }
 
   deleteOrEdit(){
-    
+    this._bottomSheet.open(ModifyblogsComponent)
   }
 
 }
