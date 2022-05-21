@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   loggedIn:number=0;
   noOfSurvey:number = 0
   widthStyle:string ="width:0%";
+  noCampus:boolean = false
  
   //
   nowMonth : string = new Date().toDateString()
@@ -186,15 +187,20 @@ export class DashboardComponent implements OnInit {
       this.chart.update();
     })
 
-    this._socketConnection.getCampusesMost().subscribe((result)=>{
+
+
+    this._socketConnection.getCampusesMost().subscribe((result)=>{ 
+
+      this.myPieChart.data.datasets[0].data[0] = 1
+      this.myPieChart.data.labels[0] = "No Campus selected yet"
+
+        for (let index = 0; index < result.data.length; index++) {
+          this.myPieChart.data.datasets[0].data[index] = result.data[index].campusStudents
+          this.myPieChart.data.labels[index] = result.data[index].value
+        } 
+        this.myPieChart.update()
       
-      for (let index = 0; index < result.data.length; index++) {
-        this.myPieChart.data.datasets[0].data[index] = result.data[index].campusStudents
-        this.myPieChart.data.labels[index] = result.data[index].value
-      }
-
-      this.myPieChart.update()
-
+      
     })
 
     

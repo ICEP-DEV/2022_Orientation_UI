@@ -7,31 +7,30 @@ import { GRAPH_HOSTNAME, APACHE_HOST } from './../globals'
 })
 export class UserService {
 
-  private secureProtocol : string = "http://"
+
   private serverAddress : string = GRAPH_HOSTNAME
   private apacheAddress : string = APACHE_HOST
-  private serverPort : string = ""
                 
   constructor(private http: HttpClient) { }
 
   public getStudents(student : any)
   {
-    console.log(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login")
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login",student,{});
+    console.log(this.serverAddress+"/auth/login")
+    return this.http.post<any>(this.serverAddress+"/auth/login",student,{});
   }
 
   public forgottenReq(studentCreds : any)
   {
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/Forgotten",studentCreds,{})
+    return this.http.post<any>(this.serverAddress+"/auth/Forgotten",studentCreds,{})
   }
   public regStudent(student: any)
   {
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+'/auth/registration', student, {});
+    return this.http.post<any>(this.serverAddress+'/auth/registration', student, {});
   }
 
   public checkStudent(student: any)
   {
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+'/auth/Forgotten', student, {});
+    return this.http.post<any>(this.serverAddress+'/auth/Forgotten', student, {});
   }
 
   public sendOTP(requestBody: any)
@@ -41,22 +40,22 @@ export class UserService {
 
   public logActivity(body : any)
   {
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/new",body,{})
+    return this.http.post<any>(this.serverAddress+"/track/new",body,{})
   }
 
   public getTrackAll(body:any)
   {
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/track/query",body,{})
+    return this.http.post<any>(this.serverAddress+"/track/query",body,{})
   }
 
   public getAllBlogs()
   {
-    return this.http.get<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/blog/blog",{params:{"id":"*"}})
+    return this.http.get<any>(this.serverAddress+"/blog/blog",{params:{"id":"*"}})
   }
 
   public loginAdmin(body :any)
   {
-    return this.http.post<any>(this.secureProtocol+this.serverAddress+this.serverPort+"/auth/login_admin",body,{})
+    return this.http.post<any>(this.serverAddress+"/auth/login_admin",body,{})
   }
 
 }

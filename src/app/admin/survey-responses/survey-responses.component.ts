@@ -41,6 +41,7 @@ export class SurveyResponsesComponent implements OnInit  {
     this.dataSource.sort = this.sorter;
 
     this._orientationService.getUserSurvey().subscribe((result)=>{
+        if(!result.error)
         this.dataSource = result
     })
 
@@ -55,17 +56,15 @@ export class SurveyResponsesComponent implements OnInit  {
     const filterValue = (event.target as HTMLInputElement).value;
     console.log(filterValue)
     this.dataSource.filter = filterValue.toLowerCase();
-    console.log(this.dataSource)
-  
 
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   generateRep()
   {
-    console.log(this.dataSource)
+    
   }
   
 }

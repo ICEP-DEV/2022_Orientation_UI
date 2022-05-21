@@ -37,7 +37,6 @@ export class SignInComponent implements OnInit {
   fogotClicked()
   {
     this.router.navigate(['forgotten'])
-    this.cookieService.set("userEmail","Val")
   }
 
   login() {
@@ -59,7 +58,7 @@ export class SignInComponent implements OnInit {
             this.cookieService.set("userEmail",result.data[0].email)
             
             
-            this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
+            this._userService.logActivity({"useremail":this.email + "@tut4life.ac.za", "activity":"Logged in"}).subscribe()
             this._socketConnection.socket.emit('LoggedInUsers_soc')
             this._socketConnection.socket.emit('LineGraph_update')
       
