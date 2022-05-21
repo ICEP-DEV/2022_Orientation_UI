@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 
 export interface Blog{
+  id:string;
   title:string;
   description:string;
   author:string;
@@ -19,7 +20,7 @@ export interface Blog{
 
 
 export class BlogComponent implements OnInit {
-  blogData : Blog[] =  [{author:"",created_on:"",description:"",link:"",path:"",subTittle:"",title:""}]
+  blogData : Blog[] =  [{id:"",author:"",created_on:"",description:"",link:"",path:"",subTittle:"",title:""}]
 
   constructor(
     private _userService : UserService

@@ -23,7 +23,7 @@ interface Video {
 })
 export class ModifyvideosComponent implements OnInit {
 
-  videos : Video[] = [{category:"Campus and Support",content:[{id:1,tittle:"Induction & Orientation",path:"https://dh2dlbjd2qx17.cloudfront.net/videos/faculties/Economics+and+Finance/Faculty+of+Economics+and+Finance+TUT+Orientation+2021_2.mp4",createdAt:"2022-04-08 13:53:23"}]}]
+  videos : Video[] = [{category:"",content:[{id:1,tittle:"",path:"",createdAt:""}]}]
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,

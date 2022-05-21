@@ -31,6 +31,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { SurveyResponsesComponent } from './admin/survey-responses/survey-responses.component';
 import { ModifyvideosComponent,DialogOverviewExampleDialog } from './admin/bottomtop/modifyvideos/modifyvideos.component';
+import { ModifyblogsComponent,DialogOverviewEditBlog } from './admin/bottomtop/modifyblogs/modifyblogs.component';
 
 //Mdb 5 Matirials 
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
@@ -81,7 +82,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SearchComponent } from './admin/search/search.component';
-import { ModifyblogsComponent } from './admin/bottomtop/modifyblogs/modifyblogs.component';
+
 
 
 
@@ -111,7 +112,8 @@ import { ModifyblogsComponent } from './admin/bottomtop/modifyblogs/modifyblogs.
     ModifyvideosComponent,
     DialogOverviewExampleDialog,
     SearchComponent,
-    ModifyblogsComponent
+    ModifyblogsComponent,
+    DialogOverviewEditBlog
   ],
   imports: [
     BrowserModule,
@@ -153,7 +155,6 @@ import { ModifyblogsComponent } from './admin/bottomtop/modifyblogs/modifyblogs.
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
-
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
