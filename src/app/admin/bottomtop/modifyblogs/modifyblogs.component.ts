@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Blog } from './../../../blog/blog.component'
+import { UserService } from './../../../user.service';
 
 @Component({
   selector: 'app-modifyblogs',
@@ -8,11 +9,16 @@ import { Blog } from './../../../blog/blog.component'
 })
 export class ModifyblogsComponent implements OnInit {
 
-  dataSouce : Blog = {title:"",description:"",author:"",created_on:"",path:"",link:"",subTittle:""}
+  blogData : Blog[] =  [{author:"",created_on:"",description:"",link:"",path:"",subTittle:"",title:""}]
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor(
+    private _userService : UserService
+  ) {
+    this._userService.getAllBlogs().subscribe((result)=>{
+      if(result.error) throw result.message
+      else
+        this.blogData = result.data
+    })
+   }
 
 }
