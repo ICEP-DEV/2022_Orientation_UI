@@ -21,6 +21,9 @@ import { MatTableFilter } from 'mat-table-filter';
 })
 export class SurveyResponsesComponent implements OnInit  {
 
+  generateState : string = "d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"
+  disabledGenerate : boolean = true;
+
   dataSource = new MatTableDataSource<Survey>(ELEMENT_DATA);
 
   columnsToDisplay = ['Firstname', 'Lastname', 'StudentNo', 'Email'];
@@ -47,12 +50,34 @@ export class SurveyResponsesComponent implements OnInit  {
 
     this._orientationService.getUserSurvey().subscribe((result)=>{
         if(!result.error)
-        this.dataSource = new MatTableDataSource(result)
-        this.dataSource.sort = this.sorter;
-        this.filterType = MatTableFilter.ANYWHERE;
+        {
+          if(result.length == 1)
+          {
+            this.disabledGenerate = false;
+            this.generateState = "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  
+          }
+          else 
+          {
+            this.disabledGenerate = true;
+            this.generateState = "d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" 
+          }
+          this.dataSource = new MatTableDataSource(result)
+          this.dataSource.sort = this.sorter;
+          this.filterType = MatTableFilter.ANYWHERE;
+        }
     })
 
     this._socketConnection.socket.on("countSurvey",(instream)=>{
+      if(this.dataSource.filteredData.length == 1)
+      { 
+        this.disabledGenerate = false;
+        this.generateState = "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  
+      }
+      else 
+      {
+        this.disabledGenerate = true;
+        this.generateState = "d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" 
+      }
       this._orientationService.getUserSurvey().subscribe((result)=>{
         this.dataSource = result
       })
@@ -60,6 +85,16 @@ export class SurveyResponsesComponent implements OnInit  {
   }
 
   applyFilter(event: Event) {
+    if(this.dataSource.filteredData.length == 1)
+    {
+      this.disabledGenerate = false;
+      this.generateState = "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  
+    }
+    else 
+    {
+      this.disabledGenerate = true;
+      this.generateState = "d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" 
+    }
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.toLowerCase();
     if (this.dataSource.paginator) {
@@ -69,7 +104,9 @@ export class SurveyResponsesComponent implements OnInit  {
 
   generateRep()
   {
-    console.log(this.dataSource.filteredData)
+    console.log(this.dataSource.filteredData[0])
+
+    this._orientationService.getSurveyReport({"data":this.dataSource.filteredData[0]}).subscribe((e)=>console.log(e))
     
   }
   

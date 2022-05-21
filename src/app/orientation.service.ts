@@ -15,6 +15,13 @@ export class OrientationService {
   ) { 
 
   }
+
+
+  public getSurveyReport(body : any)
+  {
+    return this.http.post<any>(`http://localhost/pdfrender/surveyprint.php`,body,{})
+  }
+
   //Getting System data
   public getCampuses()
   {

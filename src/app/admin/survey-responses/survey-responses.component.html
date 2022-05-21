@@ -24,10 +24,12 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800"> Survey Data</h1>
-                    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" (click)="generateRep()">
+                    <button [class]="generateState" (click)="generateRep()" [disabled]="disabledGenerate">
                         <mat-icon style="position: absolute;">picture_as_pdf</mat-icon>
                         <span style="margin-left: 30px;">Quick Generate Report</span>
-                    </a>
+                    </button>
+
+
 
                 </div>
                 <mat-form-field appearance="outline" style="width: 30%;">
