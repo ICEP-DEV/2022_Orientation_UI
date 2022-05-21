@@ -81,6 +81,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SearchComponent } from './admin/search/search.component';
+import { ModifyblogsComponent } from './admin/bottomtop/modifyblogs/modifyblogs.component';
 
 
 
@@ -109,7 +110,8 @@ import { SearchComponent } from './admin/search/search.component';
     MeeteamComponent,
     ModifyvideosComponent,
     DialogOverviewExampleDialog,
-    SearchComponent
+    SearchComponent,
+    ModifyblogsComponent
   ],
   imports: [
     BrowserModule,

@@ -89,6 +89,8 @@ export class UploadContentComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   
 
+
+
   //Adding a new chip of category
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -280,6 +282,42 @@ export class UploadContentComponent implements OnInit {
 
   onUpload(){
     
+    if(this.title == "")
+    {
+      this.toast.warning("Please enter tittle of the blog")
+      return
+    }
+
+    if(this.subtittle == "")
+    {
+      this.toast.warning("Please type SubTittle of the blog")
+      return
+    }
+
+    if(this.author == "")
+    {
+      this.toast.warning("Please enter the author of the blog")
+      return
+    }
+
+    if(this.description == "")
+    {
+      this.toast.warning("Please add description of the blog")
+      return
+    }  
+
+    if(!this.selectedFile.type)
+    {
+      this.toast.warning("Please upload image of the blog")
+      return
+    }
+
+    if(this.link == "")
+    {
+      this.toast.warning("Please link the blog if no link enter *")
+      return
+    }
+
     const fd = new FormData();
 
     if(this.selectedFile.type.search("video") > -1)
@@ -301,6 +339,13 @@ export class UploadContentComponent implements OnInit {
         return
       }
     }
+
+    if(this.title == "")
+    {
+      this.toast.warning("Please the tittle of the blog")
+      return
+    }
+    
     
     fd.append('title', this.title);
     fd.append('sub', this.subtittle);
@@ -310,7 +355,7 @@ export class UploadContentComponent implements OnInit {
     fd.append('link', this.link);
 
     
-    console.log(this.selectedFile.size);
+
     
     if(this.selectedFile.type.search("video") > -1)
     {

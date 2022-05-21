@@ -195,18 +195,18 @@
                                                 </button>
                                         </div>
                                         <div class="example-button-container">
-                                            <button disabled mat-mini-fab (click)="deleteOrEdit()" color="warn" style="border-radius: 50px; margin-left: 7%;margin-bottom: 20%;" matTooltip="edit or remove a existing blog post">
+                                            <button mat-mini-fab (click)="deleteOrEdit()" color="warn" style="border-radius: 50px; margin-left: 7%;margin-bottom: 20%;" matTooltip="edit or remove a existing blog post">
                                                 <mat-icon>remove_circle</mat-icon>
                                             </button>
                                         </div>
                                         <div class="example-button-container">
-                                            <button  mat-mini-fab (click)="navigateBlog()" color="warn" style="border-radius: 50px; margin-left: 7%;" matTooltip="Go to Blog">
+                                            <button mat-mini-fab (click)="navigateBlog()" color="warn" style="border-radius: 50px; margin-left: 7%;" matTooltip="Go to Blog">
                                                 <mat-icon>view_day</mat-icon>
                                             </button>
                                         </div>
                                     </div>
                                     <mat-form-field appearance="fill" style="width: 40%;">
-                                        <mat-label>Title</mat-label>
+                                        <mat-label>Tittle</mat-label>
                                         <input matInput [(ngModel)]="title">
                                     </mat-form-field>
 
@@ -235,7 +235,9 @@
                                         <br>
                                         <mat-form-field appearance="fill">
                                             <mat-label>Link</mat-label>
-                                            <input matInput [(ngModel)]="link">
+                                            <!-- <input matInput [(ngModel)]="link" onkeypress="return /[a-z]/i.test(event.key)"> -->
+                                            <input matInput type="url" name="websiteurl" id="websiteurl" placeholder="https://example.com" [(ngModel)]="link" [ngModelOptions]="{ updateOn: 'blur' }" #urlerror="ngModel" pattern="[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}(.[a-z]{2,4})?\b(/[-a-zA-Z0-9@:%_+.~#?&//=]*)?"
+                                                required disallow-spaces/>
                                             <mat-hint>https://www.tut.ac.za/</mat-hint>
                                         </mat-form-field>
                                     </div>
