@@ -141,7 +141,7 @@ export class DialogOverviewExampleDialog {
       }
       else
       {
-        this.toast.error("Couldn't updat your video's details please try again later","Oops")
+        this.toast.error("Couldn't update your video's details please try again later","Oops")
         return
       }
     })
