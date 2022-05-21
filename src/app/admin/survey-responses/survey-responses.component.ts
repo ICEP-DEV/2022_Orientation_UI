@@ -1,10 +1,11 @@
 import { Component,ViewChild,OnInit } from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { OrientationService } from 'src/app/orientation.service';
 import { SocketioService } from './../../socketio.service'
+import { MatTableFilter } from 'mat-table-filter';
 
 @Component({
   selector: 'app-survey-responses',
@@ -25,6 +26,9 @@ export class SurveyResponsesComponent implements OnInit  {
   columnsToDisplay = ['Firstname', 'Lastname', 'StudentNo', 'Email'];
   expandedElement: Survey | null = {Id:0,Firstname:"",Lastname:"",StudentNo:"",Email:"",Survey:[]}; 
 
+  filterType: MatTableFilter = MatTableFilter.ANYWHERE;
+  filterEntity: Survey = { Id:0,Firstname: "",Lastname: "",StudentNo: "",Email: "",Survey:[]};
+
   @ViewChild(MatPaginator, {static: true}) paginator : any
   @ViewChild(MatSort, {static: true}) sorter : any
 
@@ -39,10 +43,13 @@ export class SurveyResponsesComponent implements OnInit  {
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator 
     this.dataSource.sort = this.sorter;
+    this.filterType = MatTableFilter.ANYWHERE;
 
     this._orientationService.getUserSurvey().subscribe((result)=>{
         if(!result.error)
-        this.dataSource = result
+        this.dataSource = new MatTableDataSource(result)
+        this.dataSource.sort = this.sorter;
+        this.filterType = MatTableFilter.ANYWHERE;
     })
 
     this._socketConnection.socket.on("countSurvey",(instream)=>{
@@ -54,9 +61,7 @@ export class SurveyResponsesComponent implements OnInit  {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue)
     this.dataSource.filter = filterValue.toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -64,6 +69,7 @@ export class SurveyResponsesComponent implements OnInit  {
 
   generateRep()
   {
+    console.log(this.dataSource.filteredData)
     
   }
   
