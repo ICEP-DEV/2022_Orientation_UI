@@ -1,1 +1,25 @@
-<p>modifyblogs works!</p>
+<h1>Delete or Edit Blogs</h1>
+
+
+<div *ngFor="let blog of blogData" class="card mb-4" style="width:1000px">
+    <!-- Card Header - Dropdown -->
+    <div class="card-header py-3 d-flex flex-row align-items-center">
+        <mat-icon style="cursor:pointer" matTooltip="Delete the blog">delete</mat-icon>
+        <mat-icon color="primary" style="margin-left:3%;cursor:pointer" matTooltip="Edit the blog">create</mat-icon>
+    </div>
+    <!-- Card Body -->
+    <div class="card-body">
+        <div class="chart-area">
+            <div class=" py-3 d-flex flex-row">
+                <img mat-card-image [src]="blog.path" alt="T-Res Image" style="height:200px">
+                <div style="margin-left:2%">
+                    <h3 class="m-0 font-weight-bold">{{blog.title}} ({{blog.author}})</h3>
+                    <h4 class="m-0 font-weight-bold">{{blog.subTittle}}</h4>
+                    <h4>{{blog.description}}</h4>
+                    <h5 style="color: gray;margin-top: 40%;">{{blog.created_on | date : 'dd MMMM yyyy HH:mm'}}</h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
