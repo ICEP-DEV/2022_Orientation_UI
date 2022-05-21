@@ -41,6 +41,7 @@ export class ModifyblogsComponent {
       dialogRef.afterClosed().subscribe(result => {
         if(result)
         {
+          this.toast.success("Video was updated successfully","Update")
           this._userService.getAllBlogs().subscribe((result)=>{
               if(result.error) throw result.message
               else
@@ -62,6 +63,7 @@ export class ModifyblogsComponent {
           if(result.error) throw result.message
           else
               this.blogData = result.data
+              this.toast.success("Video was deleted successfully","Delete")
           })
       })
      

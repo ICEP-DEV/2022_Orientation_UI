@@ -4,7 +4,9 @@ import { OrientationService } from './../../../orientation.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
 import { SocketioService } from './../../../socketio.service'
- 
+import { ToastrService } from 'ngx-toastr';
+
+
 interface Video {  
   category : string;
   content :[{
@@ -30,6 +32,7 @@ export class ModifyvideosComponent implements OnInit {
     private _orientationService : OrientationService,
     public dialog: MatDialog,
     private _socketIO : SocketioService,
+    private toast : ToastrService,
   ) { 
     
     this._orientationService.getVideos(data.faculty.id.toString()).subscribe((result)=>{
@@ -46,6 +49,7 @@ export class ModifyvideosComponent implements OnInit {
     this._orientationService.deleteVideo({id:videoIndex}).subscribe((result)=>{
       if(!result.error)
       {
+        this.toast.success("The video was successfully deleted","Delete")
         this._orientationService.getVideos(this.data.faculty.id.toString()).subscribe((result)=>{
           this.videos = result.data
           this._socketIO.socket.emit("VideoUploaded")
@@ -65,6 +69,7 @@ export class ModifyvideosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
         if(result)
         {
+          this.toast.success("The video was successfully modified","Delete")
           this._orientationService.getVideos(this.data.faculty.id.toString()).subscribe((result)=>{
             this.videos = result.data
           })
@@ -101,7 +106,8 @@ export class DialogOverviewExampleDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _orientationService : OrientationService
+    private _orientationService : OrientationService,
+    private toast : ToastrService
   ) {
     this.tittleFormControl.setValue(data.tittle)
     this.categoryFormControl.setValue(data.category)
@@ -115,13 +121,14 @@ export class DialogOverviewExampleDialog {
   {
     if(this.tittleFormControl.errors)
     {
-      alert("Tittle is required")
+
+      this.toast.error("Tittle is required","Missing Field")
       return
     }
 
     if(this.categoryFormControl.errors)
     {
-      alert('Category is required')
+      this.toast.error("Category is required","Missing Field")
       return
     }
 
@@ -134,7 +141,7 @@ export class DialogOverviewExampleDialog {
       }
       else
       {
-        alert("Couldn't updat your video's details please try again later")
+        this.toast.error("Couldn't updat your video's details please try again later","Oops")
         return
       }
     })
