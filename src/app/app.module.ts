@@ -1,6 +1,6 @@
 //Module
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA,Inject, Injectable, Optional, PLATFORM_ID  } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,6 +11,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
 import { ToastrModule } from 'ngx-toastr';
+import { isPlatformServer } from '@angular/common';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { Request } from 'express';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 //Components
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Student Components
@@ -174,7 +178,7 @@ import { SearchComponent } from './admin/search/search.component';
     CUSTOM_ELEMENTS_SCHEMA
   ],
 
-  providers: [CookieService],
+  providers: [CookieService,{provide: DeviceDetectorService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
