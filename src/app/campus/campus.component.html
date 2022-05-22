@@ -1,13 +1,25 @@
-<app-header>
+<app-header [loggedin]="usernames">
 </app-header>
 
 <!-----------------------------------------------------------------------------Header-->
-<div class="hero-image">
+<div class=" hero-image">
     <div class="hero-text">
-        <h1 id="hero-heading" style="font-size:40px; font-weight: 600;"> First Year Orientation </h1>
-        <p> Get to know your campus, library, student support and department staff.</p>
+        <div class="animated-title">
+            <div class="text-top">
+                <div>
+                    <span>First Year Orientation</span>
+                </div>
+            </div>
+            <div class="text-bottom">
+                <div>Get to know your campus, library, student support and department staff.</div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+
 <!-- <h6></h6> -->
 <mat-progress-bar style="height: 1%; " mode="determinate" [value]="progressbarVal"></mat-progress-bar>
 
@@ -33,6 +45,7 @@
         <button (click)="logout()" mat-menu-item>Logout  
             <mat-icon>exit_to_app</mat-icon>
         </button>
+        <small style="margin-left:60% ;color:rgba(128, 128, 128, 0.767) ">On {{deviceInfo.os}}</small>
     </mat-menu>
 </div>
 
@@ -351,7 +364,7 @@
                 <div style="align-items: center;">
                     <p style="font-weight: bold; text-align: center;">You have successfully completed the 2022 online orientation. Thank you.</p>
                     <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button > <a class="certificateButton" [href]="url" >Collect Your Cetificate</a></button>
+                    <button mat-button> <a class="certificateButton" [href]="url" >Collect Your Cetificate</a></button>
                 </div>
             </mat-step>
         </mat-vertical-stepper>
