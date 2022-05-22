@@ -153,7 +153,7 @@ export class OrientationService {
   //Deleting the Videos Request also binary is deleted
   public deleteVideo(paramsVal : any)
   {
-    return this.http.delete<any>(`${this.hostname}/Admin/UpdateDeleteVideo`,{params:paramsVal})
+    return this.http.delete<any>(`${this.app_hostname}/deleteVideo`,{params:paramsVal})
   }
 
   //--------------------------Adding A Blog Post Request with Progress Report
@@ -206,7 +206,7 @@ export class OrientationService {
   //Deleting the Blog Request also binary is deleted
   public deleteblog(val : any)
   {
-    return this.http.delete<any>(`${this.hostname}/Blog/blog`,{params:{id:val}})
+    return this.http.delete<any>(`${this.app_hostname}/deleteblog`,{params:{id:val}})
   }
 
 }
