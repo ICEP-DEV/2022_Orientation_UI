@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { GRAPH_HOSTNAME,APP_HOSTNAME } from '../globals'
+import { GRAPH_HOSTNAME,APP_HOSTNAME,APACHE_HOST } from '../globals'
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ import { GRAPH_HOSTNAME,APP_HOSTNAME } from '../globals'
 export class OrientationService {
   hostname : String = GRAPH_HOSTNAME
   app_hostname :  String = APP_HOSTNAME
+  apache_host : String = APACHE_HOST
   constructor(   
     private http: HttpClient
   ) { 
@@ -19,7 +20,7 @@ export class OrientationService {
 
   public getSurveyReport(body : any)
   {
-    return this.http.post<any>(`http://localhost/pdfrender/surveyprint.php`,body,{})
+    return this.http.post<any>(`${this.apache_host}/pdfrender/surveyprint.php`,body,{})
   }
 
   //Getting System data
