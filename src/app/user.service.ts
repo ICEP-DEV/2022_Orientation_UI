@@ -35,7 +35,7 @@ export class UserService {
 
   public sendOTP(requestBody: any)
   {
-    return this.http.post<any>(`http://${this.apacheAddress}/mailman/sendEmail.php`,requestBody, {});
+    return this.http.post<any>(`${this.apacheAddress}/mailman/sendEmail.php`,requestBody, {});
   }
 
   public logActivity(body : any)
