@@ -9,6 +9,6 @@ export const APP_HOSTNAME = "https://qkdefufg7m.us-east-1.awsapprunner.com"
 export const SOCK_HOSTNAME = "https://ec2-54-234-88-147.compute-1.amazonaws.com"
 
 //Apache FTP (SMTP,PDFRender,Frontend) 
-export const APACHE_HOST = "http://ec2-54-234-70-68.compute-1.amazonaws.com";
+export const APACHE_HOST = "https://ec2-54-234-70-68.compute-1.amazonaws.com";
 
 
