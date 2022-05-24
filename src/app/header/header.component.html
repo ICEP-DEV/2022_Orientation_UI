@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky" id="mainNav" style="z-index: 10;">
     <div class="container-fluid">
         <a class="navbar-brand" routerLink="./">
@@ -5,11 +7,27 @@
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
 
         </div>
     </div>
+
+
+
+
+    <div class="content" *ngIf="loggedin">
+        <div class="content__container">
+            <ul class="content__container__list">
+                <li class="content__container__list__item">Hi {{loggedin}}</li>
+                <li class="content__container__list__item">Welcome to Tshwane University of Technology</li>
+                <li class="content__container__list__item">We hope you enjoy your online orientation</li>
+                <li class="content__container__list__item">Don't forget to collect your certificate</li>
+            </ul>
+        </div>
+    </div>
+
+
 </nav>
 
 <router-outlet></router-outlet>

@@ -10,6 +10,8 @@ import { MapdirComponent } from '../student/mapdir/mapdir.component';
 import { MeeteamComponent } from '../student/meeteam/meeteam.component';
 import { ToastrService } from 'ngx-toastr';
 import { APACHE_HOST } from './../../globals'
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 
 @Component({
   selector: 'app-campus',
@@ -27,7 +29,7 @@ export class CampusComponent implements OnInit {
 
   surveyAleadyDone = false
 
-  
+  deviceInfo : any = null;
 
   //Step Completed Controllers
   stepOneComplete: boolean = false;
@@ -83,9 +85,18 @@ export class CampusComponent implements OnInit {
     private _router: Router,
     private _socketConnection : SocketioService,
     private toast: ToastrService ,
-    private _bottomSheet: MatBottomSheet
-    
+    private _bottomSheet: MatBottomSheet,
+    private deviceService: DeviceDetectorService 
   ) {
+
+      this.deviceInfo = this.deviceService.getDeviceInfo();
+      // const isMobile = this.deviceService.isMobile();
+      // const isTablet = this.deviceService.isTablet();
+      // const isDesktopDevice = this.deviceService.isDesktop();
+      // console.log(this.deviceInfo);
+      // console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
+      // console.log(isTablet);  // returns if the device us a tablet (iPad etc)
+      // console.log(isDesktopDevice); // returns if the app is running on a Desktop browser.
 
     this.userEmail = this._cookiesService.get("userEmail")
 

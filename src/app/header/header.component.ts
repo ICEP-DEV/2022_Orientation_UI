@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter,Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 // import { CookieService } from 'ngx-cookie';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  @Input() public loggedin :string ="";
 
   constructor(
     private router: Router) { }
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log(this.loggedin)
   }
 
   logout(){

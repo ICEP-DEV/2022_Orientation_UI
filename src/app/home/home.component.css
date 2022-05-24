@@ -2,12 +2,380 @@
 
 /* Home Style */
 
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400|Poppins:300,400,800&display=swap");
+body,
+html {
+    overflow: hidden;
+    width: 100%;
+}
+
+.container {
+    position: absolute;
+    z-index: 20;
+    width: 100%;
+    height: 20%;
+    margin-top: -20%;
+    background: #00000091;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container .box {
+    width: 700px;
+    height: 950px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    left: -200px;
+}
+
+.container .box .title {
+    width: 200%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 200px;
+}
+
+.container .box .title .block {
+    width: 0%;
+    height: inherit;
+    background: #de0428;
+    position: absolute;
+    -webkit-animation: mainBlock 2s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
+    animation: mainBlock 2s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
+    display: flex;
+}
+
+.container .box .title h1 {
+    font-family: "Poppins";
+    color: #fff;
+    text-shadow: 2px 2px #0d4794;
+    font-size: 95px;
+    -webkit-animation: mainFadeIn 2s forwards;
+    animation: mainFadeIn 2s forwards;
+    -webkit-animation-delay: 1.6s;
+    animation-delay: 1.6s;
+    opacity: 0;
+    display: flex;
+    font-weight: 900;
+    align-items: center;
+    position: relative;
+}
+
+.container .box .title h1 span {
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    background: #ffffff;
+    -webkit-animation: load 0.6s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
+    animation: popIn 0.8s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+    position: absolute;
+    bottom: 40px;
+}
+
+.container .box .role {
+    width: 150%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 70px;
+}
+
+.container .box .role .block {
+    width: 0%;
+    height: inherit;
+    background: #0d4794;
+    position: absolute;
+    -webkit-animation: secBlock 2s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
+    animation: secBlock 2s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+    display: flex;
+}
+
+.container .box .role p {
+    display: flex;
+    -webkit-animation: secFadeIn 2s forwards;
+    animation: secFadeIn 2s forwards;
+    -webkit-animation-delay: 3.2s;
+    animation-delay: 3.2s;
+    opacity: 0;
+    font-weight: 600;
+    font-family: "Lato";
+    color: #ffffff;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+@-webkit-keyframes mainBlock {
+    0% {
+        width: 0%;
+        left: 0;
+    }
+    50% {
+        width: 100%;
+        left: 0;
+    }
+    100% {
+        width: 0;
+        left: 100%;
+    }
+}
+
+@keyframes mainBlock {
+    0% {
+        width: 0%;
+        left: 0;
+    }
+    50% {
+        width: 100%;
+        left: 0;
+    }
+    100% {
+        width: 0;
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes secBlock {
+    0% {
+        width: 0%;
+        left: 0;
+    }
+    50% {
+        width: 100%;
+        left: 0;
+    }
+    100% {
+        width: 0;
+        left: 100%;
+    }
+}
+
+@keyframes secBlock {
+    0% {
+        width: 0%;
+        left: 0;
+    }
+    50% {
+        width: 100%;
+        left: 0;
+    }
+    100% {
+        width: 0;
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes mainFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes mainFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes popIn {
+    0% {
+        width: 0px;
+        height: 0px;
+        background: #ffffff;
+        border: 0px solid #ddd;
+        opacity: 0;
+    }
+    50% {
+        width: 10px;
+        height: 10px;
+        background: #ffffff;
+        opacity: 1;
+        bottom: 45px;
+    }
+    65% {
+        width: 7px;
+        height: 7px;
+        bottom: 0px;
+        width: 15px;
+    }
+    80% {
+        width: 10px;
+        height: 10px;
+        bottom: 20px;
+    }
+    100% {
+        width: 7px;
+        height: 7px;
+        background: #ffffff;
+        border: 0px solid #222;
+        bottom: 13px;
+    }
+}
+
+@keyframes popIn {
+    0% {
+        width: 0px;
+        height: 0px;
+        background: #ffffff;
+        border: 0px solid #ddd;
+        opacity: 0;
+    }
+    50% {
+        width: 10px;
+        height: 10px;
+        background: #ffffff;
+        opacity: 1;
+        bottom: 45px;
+    }
+    65% {
+        width: 7px;
+        height: 7px;
+        bottom: 0px;
+        width: 15px;
+    }
+    80% {
+        width: 10px;
+        height: 10px;
+        bottom: 20px;
+    }
+    100% {
+        width: 7px;
+        height: 7px;
+        background: #ffffff;
+        border: 0px solid #222;
+        bottom: 5px;
+    }
+}
+
+@-webkit-keyframes secFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes secFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+footer {
+    width: 350px;
+    height: 80px;
+    background: #ffb510;
+    position: absolute;
+    right: 0;
+    bottom: -80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-animation: top 0.8s forwards;
+    animation: top 0.8s forwards;
+    -webkit-animation-delay: 4s;
+    animation-delay: 4s;
+}
+
+footer span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #232323;
+    font-family: "Poppins";
+}
+
+footer span i {
+    margin-right: 25px;
+    font-size: 22px;
+    color: #232323;
+    -webkit-animation: icon 2s forwards;
+    animation: icon 2s forwards;
+    -webkit-animation-delay: 4s;
+    animation-delay: 4s;
+    opacity: 0;
+}
+
+@-webkit-keyframes top {
+    0% {
+        opacity: 0;
+        bottom: -80px;
+    }
+    100% {
+        opacity: 1;
+        bottom: 0px;
+    }
+}
+
+@keyframes top {
+    0% {
+        opacity: 0;
+        bottom: -80px;
+    }
+    100% {
+        opacity: 1;
+        bottom: 0px;
+    }
+}
+
+@-webkit-keyframes icon {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.3) rotate(-2deg);
+    }
+    100% {
+        opacity: 1;
+        bottom: 0px;
+    }
+}
+
+@keyframes icon {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.3) rotate(-2deg);
+    }
+    100% {
+        opacity: 1;
+        bottom: 0px;
+    }
+}
+
+
+/* STYLING TEXT */
+
 header {
     color: #cfcfcf;
     position: relative;
     height: 110%;
     overflow: hidden;
-  
 }
 
 header p {
@@ -43,30 +411,28 @@ header p {
     font-size: 16px;
     transition: all 0.5s;
     border-radius: 4px;
-    
 }
-.myButton{
-    display: flex;  
-    justify-content: center;  
+
+.myButton {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    border:none;
+    border: none;
     outline: none;
     text-align: center;
-    color:#ffc000;
-    font-weight:bold;
+    color: #ffc000;
+    font-weight: bold;
     height: 80px;
     width: 250px;
     background-color: #0d4794;
     font-size: 25px;
     border-radius: 20px;
 }
-.myButton:hover{
-    color:#ffc000;
+
+.myButton:hover {
+    color: #ffc000;
     background-color: #0d4794;
-    box-shadow: 0 0 100px 30px #0d4794,
-			0 0 100px 30px #0d4794,
-			0 0 100px 30px #0d4794,
-			0 0 100px 30px #0d4794;  
+    box-shadow: 0 0 100px 30px #0d4794, 0 0 100px 30px #0d4794, 0 0 100px 30px #0d4794, 0 0 100px 30px #0d4794;
 }
 
 .btn-default:hover,
@@ -132,7 +498,6 @@ button:focus::after {
     position: relative;
     font-size: large;
     border-radius: 800px;
-    
 }
 
 .btn:hover,
@@ -140,9 +505,7 @@ button:focus::after {
     opacity: 0.8;
     color: #ffffff;
     transform: translateY(-6px);
-    
 }
-
 
 .btn.block {
     display: block !important;
@@ -350,5 +713,3 @@ button:focus::after {
     height: 25px;
     margin-right: 3px;
 }
-
-
