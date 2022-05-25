@@ -60,9 +60,9 @@
 
             <div class="form-group">
                 <label for="exampleInputEmail1">One Time Pin</label>
-                <input type="text" class="form-control" id="otp" aria-describedby="emailHelp" placeholder="Enter OTP" name="otp" [(ngModel)]="otpField" required>
+                <input type="text" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="otp" aria-describedby="emailHelp" placeholder="Enter OTP" name="otp" [(ngModel)]="otpField" required>
                 <small style="color:red;" id="emailHelp">
-                    <br>To Access your student email 
+                    <br>To access your student email 
                     <a style="font-weight: bold;" href="https://outlook.office.com/mail" target="_blank">Click here</a>
                 </small>
             </div>
