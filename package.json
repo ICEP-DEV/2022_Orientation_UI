@@ -58,7 +58,7 @@
     "ng-slideshow": "^0.8.2",
     "ngx-cookie": "^5.0.2",
     "ngx-cookie-service": "^11.0.2",
-    "ngx-device-detector": "^2.0.5",
+    "ngx-device-detector": "^2.2.1",
     "ngx-toastr": "^11.3.3",
     "npm": "^8.9.0",
     "promise-polyfill": "8.2.1",

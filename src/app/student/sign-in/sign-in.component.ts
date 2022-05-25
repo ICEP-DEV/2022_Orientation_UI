@@ -41,7 +41,7 @@ export class SignInComponent implements OnInit {
 
   login() {
     if (this.email === '') {
-      this.toast.info('Please enter student number', 'Notification');
+      this.toast.info('Please enter email', 'Notification');
       return;
     }
 
@@ -50,7 +50,7 @@ export class SignInComponent implements OnInit {
       return;
     }
     
-    this._userService.getStudents({"email":this.email + "@tut4life.ac.za", "password":this.password}).subscribe( async(result)=>{
+    this._userService.getStudents({"email":this.email /*+ "@tut4life.ac.za"*/, "password":this.password}).subscribe( async(result)=>{
           if(result.error == false)
           {
             this.cookieService.set("fname",result.data[0].firstname)
@@ -58,7 +58,7 @@ export class SignInComponent implements OnInit {
             this.cookieService.set("userEmail",result.data[0].email)
             
             
-            this._userService.logActivity({"useremail":this.email + "@tut4life.ac.za", "activity":"Logged in"}).subscribe()
+            this._userService.logActivity({"useremail":this.email, "activity":"Logged in"}).subscribe()
             this._socketConnection.socket.emit('LoggedInUsers_soc')
             this._socketConnection.socket.emit('LineGraph_update')
       
