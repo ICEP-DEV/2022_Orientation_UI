@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
 import { ToastrModule } from 'ngx-toastr';
 
+
 //Components
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Student Components
 import { HeaderComponent } from './header/header.component';
@@ -81,6 +82,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SearchComponent } from './admin/search/search.component';
+
+
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 
@@ -172,6 +176,7 @@ import { SearchComponent } from './admin/search/search.component';
   ],
 
   providers: [CookieService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

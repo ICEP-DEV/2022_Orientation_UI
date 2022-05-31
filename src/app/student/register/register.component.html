@@ -1,7 +1,7 @@
 <img src="../../../assets/img/ori31 (26 of 32).jpg" style="z-index: -2;object-fit: cover;position: absolute;width: 100%;height: 100vh;">
 <div class="heading" style=" text-align: center;line-height: 0.8;text-shadow: 2px 2px #0d4794; color: rgb(255, 255, 255);display: flex; justify-content: center;font-size: 2vw;font-weight:600;margin-top: 2%; margin-bottom: 2%;">TUT Online Orientation</div>
 
-<div *ngIf="!stepTwo" class="container page-container" style="background-color: white;width: 30rem;border-radius: 25px;margin-top: 2%;box-shadow: 10px 24px 70px -18px rgba(0, 0, 0, 0.32);">
+<div *ngIf="!stepTwo && !stepThree" class="container page-container" style="background-color: white;width: 30rem;border-radius: 25px;margin-top: 2%;box-shadow: 10px 24px 70px -18px rgba(0, 0, 0, 0.32);">
 
     <div style="width:70%;margin-left: 15%;">
 
@@ -22,12 +22,12 @@
                 <label for="exampleInputEmail1">Last name</label>
                 <input type="email" onkeypress="return /[a-z,-]/i.test(event.key)" class="form-control" id="exampleInputLastname" placeholder="Enter your last name" name="lastName" [(ngModel)]="lastName" required>
             </div> 
-                <!--
+                
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email" name="email" [(ngModel)]="email" required>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>-->
+            </div>
 
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
@@ -39,13 +39,42 @@
                 <label for="exampleInputPassword1">Confirm Password</label>
                 <input type="password" class="form-control"  id="exampleInputPassword2" placeholder="Confirm your password" name="password" [(ngModel)]="password2" required>
             </div>
-
+            <div style="text-align:center;">
+                <label  for="Policy"> Privacy & Cookies Policy &nbsp; </label> 
+                <input type="checkbox" id="policy" name="policy" value="policy"[(ngModel)]="policy"> &nbsp;&nbsp;
+                <a  style="color: blue; font-weight: 800;cursor: pointer;"  (click)="readPolicy()"> read more </a>
+            </div>
             <button type="submit" style="margin-left: 35%; margin-top: 7%;margin-bottom: -9%;" class="btn btn-primary" (click)="sendOTP()">Next</button>
         </form>
 
     </div>
 </div>
 
+<div *ngIf="stepThree" class="container page-container" style="background-color: white;width: 30rem;border-radius: 25px;margin-top: 2%;box-shadow: 10px 24px 70px -18px rgba(0, 0, 0, 0.32);">
+    <div style="width:70%;margin-left: 15%;">
+
+        <p style="padding-top: 15px; font-weight: bold; font-size: 17px;  text-align: center;"> We value your privacy </p>
+        <p style="padding-top: 5px; font-size: 13px;  text-align: center;font-weight:800"> South Africa’s Protection of Personal Information Act (POPIA) & Cookie Consent </p>
+        <span *ngIf="error" (click)="removeError()">{{ error }}</span>
+        <form>
+            
+
+            <div class="form-group">
+                <p>
+                    We will not sell, share, or rent your Personal Information to any third party 
+                    or use your email address for unsolicited mail. Any emails sent by us will only 
+                    be in connection with the provision of authanticating your email. 
+                    We use cookies on our website to collect your names and later use it for your certificate. By clicking “ACCEPT ALL”, you consent to the use of ALL the cookies</p>
+                    <div style="text-align: center;">
+                        <a style="color: #0d4794; font-weight:800; " target=”_blank” href="https://popia.co.za/"> TO READ MORE ABOUT THE POPIA CLICK HERE</a>
+                    </div>
+            </div>
+
+            <a type="submit" style="margin-left: 35%; margin-top: 7%;margin-bottom: -9%; color: antiquewhite;" class="btn btn-primary" (click)="back()">Go back</a>
+        </form>
+
+    </div>
+</div>
 
 <div *ngIf="stepTwo" class="container page-container" style="background-color: white;width: 30rem;border-radius: 25px;margin-top: 2%;box-shadow: 10px 24px 70px -18px rgba(0, 0, 0, 0.32);">
     <div style="width:70%;margin-left: 15%;">

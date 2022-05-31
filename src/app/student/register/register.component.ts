@@ -27,8 +27,11 @@ export class RegisterComponent implements OnInit {
   otpField : string = '';
   otp : string = '';
   stepTwo : boolean = false;
+  stepThree : boolean =false;
+  policy : boolean = false;
   tutEmail : string = '@tut4life.ac.za';
   bindendEmail : string ='';
+  
 
 
 
@@ -43,8 +46,23 @@ export class RegisterComponent implements OnInit {
     
   }
 
+  readPolicy(){
+    this.stepThree = true;
+    
+  }
+  back(){
+    this.stepThree = false;
+  }
   sendOTP()
   {
+    let element = <HTMLInputElement> document.getElementById("policy");  
+    if (element.checked){
+      console.log("selected")
+    }
+    else{
+      this.toast.warning('Please check the checkbox bofore you proceed ');
+      return;
+    }
     if(this.studNum == '') {
       this.toast.warning('Please enter your student number');
       return;
@@ -178,6 +196,7 @@ export class RegisterComponent implements OnInit {
   }
 
 }
+
 
 
 function generateRandomNumber() {
