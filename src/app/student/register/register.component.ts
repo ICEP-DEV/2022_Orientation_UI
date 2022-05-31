@@ -27,6 +27,8 @@ export class RegisterComponent implements OnInit {
   otpField : string = '';
   otp : string = '';
   stepTwo : boolean = false;
+  stepThree : boolean =false;
+  policy : boolean = false;
   tutEmail : string = '@tut4life.ac.za';
   bindendEmail : string ='';
 
@@ -41,7 +43,13 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     
   }
+  readPolicy(){
+    this.stepThree = true;
 
+  }
+  back(){
+    this.stepThree = false;
+  }
   sendOTP()
   {
 
@@ -130,7 +138,14 @@ export class RegisterComponent implements OnInit {
           this.toast.error('Invalid email','Error')
           return;
     }
-
+    let element = <HTMLInputElement> document.getElementById("policy");  
+    if (element.checked){
+      console.log("selected")
+    }
+    else{
+      this.toast.warning('Please check the checkbox bofore you proceed ');
+      return;
+    }
     this.otp = generateRandomNumber().toString()
 
     this._userService.sendOTP({"otp":this.otp,"email":this.email}).subscribe((result)=>{
